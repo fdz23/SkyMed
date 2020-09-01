@@ -37,3 +37,16 @@ Exemplos:
 - **X** Criado método de busca por nome que busca com o método busca binária e recebe um arraylist que contém apenas strings e tem 15 indices compostos por nomes completos
 - **X** Correção
 - **✓** Corrigida função de mudança de página
+
+### Pull Requests:
+Todo pull request deve ser aprovado pelos outros dois membros antes de ser implementado, se for uma refatoração/correção, favor escrever na descrição do pull request as seguintes informações:
+- **Prolema:** Descrição do problema.
+- **Solução:** Descrição da solução.
+
+Para deixar a primeira palavra em negrito usa-se:
+
+```**Problema:**```
+
+Se tornando:
+
+**Problema:**
