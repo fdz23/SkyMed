@@ -1,4 +1,5 @@
 export interface Medicos {
+  id: number;
   nome: string;
   cpfcnpj: string;
   rg: string;
