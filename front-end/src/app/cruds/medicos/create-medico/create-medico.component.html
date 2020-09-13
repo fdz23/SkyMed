@@ -7,17 +7,37 @@
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cpfcnpj">CPF/CNPJ</label>
             <input id="cpfcnpj" [(ngModel)]="cpfcnpj" pKeyFilter="pint" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="registro">Registro</label>
             <input id="registro" [(ngModel)]="registro" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="tipoDeRegistro">Tipo de Registro</label>
+            <p-autoComplete [(ngModel)]="tipoDeRegistro" [suggestions]="filteredTipoDeRegistros" (completeMethod)="searchTipoDeRegistros($event)" [dropdown]="true" required>
+                <ng-template let-tipoDeRegistro pTemplate="item">
+                    <div class="tipoDeRegistro-item">
+                        <div>{{tipoDeRegistro}}</div>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-4">
+            <label for="especialidade">Especialidade</label>
+            <p-autoComplete [(ngModel)]="especialidade" [suggestions]="filteredEspecialidades" (completeMethod)="searchEspecialidades($event)" [dropdown]="true" required>
+                <ng-template let-especialidade pTemplate="item">
+                    <div class="especialidade-item">
+                        <div>{{especialidade}}</div>
+                    </div>
+                </ng-template>
+            </p-autoComplete>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
