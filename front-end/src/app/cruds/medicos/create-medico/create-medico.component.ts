@@ -16,13 +16,23 @@ export class CreateMedicoComponent implements OnInit {
   msgs: Message[] = [];
   estadosArray: string[];
   cidadesArray: string[] = [];
+  tipoDeRegistrosArray: string[] = [
+    'CRM', 'CRO', 'CRP'
+  ];
+  especialidadesArray: string[] = [
+    'Psicologia', 'Podologia', 'Pediatria'
+  ];
   filteredEstados: string[];
   filteredCidades: string[];
+  filteredTipoDeRegistros: string[];
+  filteredEspecialidades: string[];
 
   nome: string;
   cpfcnpj: string;
   rg: string;
+  tipoDeRegistro: string;
   registro: string;
+  especialidade: string;
   endereco: string;
   complemento: string;
   numero: number;
@@ -63,12 +73,28 @@ export class CreateMedicoComponent implements OnInit {
     );
   }
 
+  searchTipoDeRegistros(event): void {
+    this.filteredTipoDeRegistros = this.tipoDeRegistrosArray.filter(
+      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+    );
+  }
+
+  searchEspecialidades(event): void {
+    this.filteredEspecialidades = this.especialidadesArray.filter(
+      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+    );
+  }
+
   salvar(): void {
 
     if (this.nome == null || this.nome == ''
      || this.cpfcnpj == null || this.cpfcnpj == ''
      || this.rg == null || this.rg == ''
+     || this.tipoDeRegistro == null || this.tipoDeRegistro == ''
      || this.registro == null || this.rg == ''
+     || this.especialidade == null || this.especialidade == ''
      || this.endereco == null || this.endereco == ''
      || this.complemento == null || this.complemento == ''
      || this.numero == null
@@ -88,7 +114,9 @@ export class CreateMedicoComponent implements OnInit {
       nome: this.nome,
       cpfcnpj: this.cpfcnpj,
       rg: this.rg,
+      tipoDeRegistro: this.tipoDeRegistro,
       registro: this.registro,
+      especialidade: this.especialidade,
       endereco: this.endereco,
       complemento: this.complemento,
       numero: this.numero,
