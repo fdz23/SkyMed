@@ -1,46 +1,47 @@
+<p-messages [(value)]="msgs"></p-messages>
 <p-fieldset legend="Informações">
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-12">
             <label for="nome">Nome</label>
-            <input id="nome" type="text" pInputText>
+            <input id="nome" [(ngModel)]="nome" type="text" pInputText>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-4">
             <label for="cpfcnpj">CPF/CNPJ</label>
-            <input id="cpfcnpj" type="text" pInputText>
+            <input id="cpfcnpj" [(ngModel)]="cpfcnpj" type="text" pInputText>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-4">
             <label for="rg">RG</label>
-            <input id="rg" type="text" pInputText>
+            <input id="rg" [(ngModel)]="rg" type="text" pInputText>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-4">
-            <label for="crm">CRM</label>
-            <input id="crm" type="text" pInputText>
+            <label for="registro">Registro</label>
+            <input id="registro" [(ngModel)]="registro" type="text" pInputText>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-6">
             <label for="endereco">Endereco</label>
-            <input id="endereco" type="text" pInputText>
+            <input id="endereco" [(ngModel)]="endereco" type="text" pInputText>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="complemento">Complemento</label>
-            <input id="complemento" type="text" pInputText>
+            <input id="complemento" [(ngModel)]="complemento" type="text" pInputText>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="numero">Nº</label>
-            <input id="numero" type="text" pInputText>
+            <input id="numero" [(ngModel)]="numero" type="text" pInputText>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cep">CEP</label>
-            <input id="cep" type="text" pInputText>
+            <p-inputMask [(ngModel)]="cep" mask="99999-999"></p-inputMask>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <p-autoComplete [(ngModel)]="textEstado" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)" [dropdown]="false">
+            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)" [dropdown]="false">
                 <ng-template let-estado pTemplate="item">
                     <div class="estado-item">
                         <div>{{estado}}</div>
@@ -50,7 +51,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <p-autoComplete [(ngModel)]="textCidade" [suggestions]="filteredCidades" (completeMethod)="searchCidades($event)" [dropdown]="false">
+            <p-autoComplete [(ngModel)]="cidade" [suggestions]="filteredCidades" (completeMethod)="searchCidades($event)" [dropdown]="false">
                 <ng-template let-cidade pTemplate="item">
                     <div class="cidade-item">
                         <div>{{cidade}}</div>
@@ -58,5 +59,16 @@
                 </ng-template>
             </p-autoComplete>
         </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="celular">Celular</label>
+            <p-inputMask [(ngModel)]="celular" mask="(99) 99999-9999"></p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-5">
+            <label for="email">E-mail</label>
+            <input id="email" [(ngModel)]="email" type="text" pInputText>
+        </div>
+    </div>
+    <div class="p-formgrid p-grid">
+        <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
     </div>
 </p-fieldset>
