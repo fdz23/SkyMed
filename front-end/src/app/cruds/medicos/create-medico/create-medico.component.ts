@@ -64,6 +64,7 @@ export class CreateMedicoComponent implements OnInit {
 
   salvar(): void {
     const medico = {
+      id: 0,
       nome: this.nome,
       cpfcnpj: this.cpfcnpj,
       rg: this.rg,
