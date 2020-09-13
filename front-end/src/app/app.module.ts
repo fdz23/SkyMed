@@ -23,6 +23,7 @@ import { HomeComponent } from './navegacao/home/home.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { InputMaskModule } from 'primeng/inputmask';
+import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { InputMaskModule } from 'primeng/inputmask';
     CreateMedicoComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    CreatePacienteComponent
   ],
   imports: [
     BrowserModule,
