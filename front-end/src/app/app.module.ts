@@ -25,6 +25,7 @@ import { MessageModule } from 'primeng/message';
 import { InputMaskModule } from 'primeng/inputmask';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
+import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/creat
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    CreatePacienteComponent
+    CreatePacienteComponent,
+    CreateHospitalComponent
   ],
   imports: [
     BrowserModule,
