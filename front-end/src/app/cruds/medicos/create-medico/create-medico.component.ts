@@ -3,6 +3,7 @@ import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
 import { Medicos } from '../../../../assets/medicos';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-create-medico',
@@ -63,6 +64,25 @@ export class CreateMedicoComponent implements OnInit {
   }
 
   salvar(): void {
+
+    if (this.nome == null || this.nome == ''
+     || this.cpfcnpj == null || this.cpfcnpj == ''
+     || this.rg == null || this.rg == ''
+     || this.registro == null || this.rg == ''
+     || this.endereco == null || this.endereco == ''
+     || this.complemento == null || this.complemento == ''
+     || this.numero == null
+     || this.cep == null || this.cep == ''
+     || this.uf == null || this.uf == ''
+     || this.cidade == null || this.cidade == ''
+     || this.celular == null || this.celular == ''
+     || this.email == null || this.email == '')
+     {
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
+      return;
+     }
+
     const medico = {
       id: 0,
       nome: this.nome,

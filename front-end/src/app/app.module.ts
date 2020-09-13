@@ -23,6 +23,7 @@ import { HomeComponent } from './navegacao/home/home.component';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { InputMaskModule } from 'primeng/inputmask';
+import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 
 @NgModule({
@@ -51,7 +52,8 @@ import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/creat
     AutoCompleteModule,
     MessagesModule,
     MessageModule,
-    InputMaskModule
+    InputMaskModule,
+    KeyFilterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
