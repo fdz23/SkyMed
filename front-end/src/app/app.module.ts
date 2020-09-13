@@ -19,13 +19,18 @@ import { FooterComponent } from './navegacao/footer/footer.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { HomeComponent } from './navegacao/home/home.component';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { InputMaskModule } from 'primeng/inputmask';
 
 @NgModule({
   declarations: [
     AppComponent,
     CreateMedicoComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +46,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     HttpClientModule,
     TabMenuModule,
     FieldsetModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    MessagesModule,
+    MessageModule,
+    InputMaskModule
   ],
   providers: [],
   bootstrap: [AppComponent]
