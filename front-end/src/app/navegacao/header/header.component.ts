@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-header',
@@ -8,22 +8,23 @@ import { MenuItem, PrimeNGConfig } from 'primeng/api';
 export class HeaderComponent implements OnInit {
 
   items: MenuItem[];
+  logado = false;
 
-  activeItem: MenuItem;
-
-  constructor(private primengConfig: PrimeNGConfig) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.items = [
-      {label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home'},
-      {label: 'Agende uma consulta', icon: 'pi pi-fw pi-calendar'},
-      {label: 'Configurações', icon: 'pi pi-fw pi-cog'},
-      {label: 'Cadastrar Médico', icon: 'pi pi-fw pi-user-plus', routerLink: 'medico-criar'},
-      {label: 'Cadastrar Paciente', icon: 'pi pi-fw pi-user-plus', routerLink: 'paciente-criar'},
-      {label: 'Cadastrar Hospital', icon: 'pi pi-fw pi-user-plus', routerLink: 'hospital-criar'}
-  ];
-
-    this.activeItem = this.items[0];
+      { label: 'Home', icon: 'pi pi-fw pi-home', routerLink: 'home' },
+      { label: 'Agende uma consulta', icon: 'pi pi-fw pi-calendar' },
+      {
+        label: 'Cadastros', icon: 'pi pi-fw pi-user-plus',
+        items: [
+          { label: 'Cadastrar Médico', icon: 'pi pi-fw pi-plus', routerLink: 'medico-criar' },
+          { label: 'Cadastrar Paciente', icon: 'pi pi-fw pi-plus', routerLink: 'paciente-criar' },
+          { label: 'Cadastrar Hospital', icon: 'pi pi-fw pi-plus', routerLink: 'hospital-criar' }
+        ]
+      }
+    ];
   }
 
 }

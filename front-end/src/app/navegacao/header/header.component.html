@@ -1,2 +1,5 @@
-<p-tabMenu [model]="items" [activeItem]="items[0]"></p-tabMenu>
+<p-menubar [model]="items">
+    <button pButton label="Logout" icon="pi pi-power-off" *ngIf="logado" [routerLink]="['/logout']"></button>
+    <button pButton label="Login" icon="pi pi-sign-in" *ngIf="!logado" [routerLink]="['/login']"></button>
+</p-menubar>
 <br><br>
