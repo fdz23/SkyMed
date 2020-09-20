@@ -63,7 +63,27 @@ export class CreatePacienteComponent implements OnInit {
     );
   }
   salvar(): void {
-    const medico = {
+
+    if (this.nome == null || this.nome == ''
+    || this.cpfcnpj == null || this.cpfcnpj == ''
+    || this.rg == null || this.rg == ''
+    || this.rg == null || this.rg == ''
+    || this.endereco == null || this.endereco == ''
+    || this.complemento == null || this.complemento == ''
+    || this.numero == null
+    || this.cep == null || this.cep == ''
+    || this.uf == null || this.uf == ''
+    || this.cidade == null || this.cidade == ''
+    || this.celular == null || this.celular == ''
+    || this.email == null || this.email == '')
+    {
+     this.msgs = [];
+     this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
+     return;
+    }
+
+
+    const paciente  = {
       nome: this.nome,
       cpfcnpj: this.cpfcnpj,
       rg: this.rg,
@@ -77,7 +97,7 @@ export class CreatePacienteComponent implements OnInit {
       email: this.email
     } as Pacientes;
 
-    //TODO: integrar com back-end
+     
 
     this.msgs = [];
     this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
