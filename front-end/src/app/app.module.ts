@@ -16,7 +16,6 @@ import { RippleModule } from 'primeng/ripple';
 import { TabViewModule } from 'primeng/tabview';
 import { HeaderComponent } from './navegacao/header/header.component';
 import { FooterComponent } from './navegacao/footer/footer.component';
-import { TabMenuModule } from 'primeng/tabmenu';
 import { FieldsetModule } from 'primeng/fieldset';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { HomeComponent } from './navegacao/home/home.component';
@@ -26,6 +25,11 @@ import { InputMaskModule } from 'primeng/inputmask';
 import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
+import { LoginComponent } from './acessos/login/login.component';
+import { PasswordModule } from 'primeng/password';
+import { MegaMenuModule } from 'primeng/megamenu';
+import { MenubarModule } from 'primeng/menubar';
+
 
 @NgModule({
   declarations: [
@@ -35,7 +39,8 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
     FooterComponent,
     HomeComponent,
     CreatePacienteComponent,
-    CreateHospitalComponent
+    CreateHospitalComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -49,13 +54,14 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
     AppRoutingModule,
     TabViewModule,
     HttpClientModule,
-    TabMenuModule,
     FieldsetModule,
     AutoCompleteModule,
     MessagesModule,
     MessageModule,
     InputMaskModule,
-    KeyFilterModule
+    KeyFilterModule,
+    PasswordModule,
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

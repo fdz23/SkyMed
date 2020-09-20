@@ -1,0 +1,38 @@
+<p-messages [(value)]="msgs"></p-messages>
+<div class="p-grid">
+    <div class="p-lg-5 p-sm-1 p-md-4"></div>
+    <div class="p-lg-2 p-sm-11 p-md-4" style="padding-top: 10%">
+        <p-fieldset legend="Login">
+            <div class="p-field p-col-12 p-md-12 p-lg-12">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-envelope"></i>
+                    <input id="email" [(ngModel)]="email" type="text" placeholder="E-mail" pInputText>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-12 p-lg-12">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-key"></i>
+                    <input id="senha" [feedback]="feedback" [(ngModel)]="senha" type="password" placeholder="Senha" pPassword>
+                </span>
+            </div>
+            <div class="p-grid">
+                
+            <div class="p-col-6 p-md-6 p-lg-6">
+                <button pButton type="button" class="p-button-raised p-button-success" label="Entrar"
+                    (click)="login()"></button>
+            </div>
+            <div class="p-col-6 p-md-6 p-lg-6">
+                <button pButton type="button" class="p-button-raised p-button-info" label="Cadastrar"
+                [routerLink]="['/paciente-criar']"></button>
+            </div>
+            </div>
+        </p-fieldset>
+    </div>
+    <div class="p-lg-5 p-sm-1 p-md-4"></div>
+</div>
+
+<style>
+    .p-button-raised {
+        width: 100%;
+    }
+</style>

@@ -4,6 +4,7 @@ import { CreateMedicoComponent } from './cruds/medicos/create-medico/create-medi
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 import { HomeComponent } from './navegacao/home/home.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
+import { LoginComponent } from './acessos/login/login.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'medico-criar', component: CreateMedicoComponent },
   { path: 'paciente-criar', component: CreatePacienteComponent},
   { path: 'hospital-criar', component: CreateHospitalComponent},
-
+  { path: 'login', component: LoginComponent },
 
 
 
