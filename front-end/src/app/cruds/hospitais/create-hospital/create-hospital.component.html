@@ -58,7 +58,14 @@
             <input id="email" [(ngModel)]="email" pKeyFilter="email" type="text" pInputText required>
         </div>
     </div>
-    <div class="p-formgrid p-grid">
-        <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
+    <div class="p-grid">
+        <div class="p-col-6 p-md-6 p-lg-6">
+            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
+                (click)="salvar()"></button>
+        </div>
+        <div class="p-col-6 p-md-6 p-lg-6">
+            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
+                [routerLink]="['/home']"></button>
+        </div>
     </div>
 </p-fieldset>
