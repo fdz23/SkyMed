@@ -21,7 +21,8 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="tipoDeRegistro">Tipo de Registro</label>
-            <p-autoComplete [(ngModel)]="tipoDeRegistro" [suggestions]="filteredTipoDeRegistros" (completeMethod)="searchTipoDeRegistros($event)" [dropdown]="true" required>
+            <p-autoComplete [(ngModel)]="tipoDeRegistro" [suggestions]="filteredTipoDeRegistros"
+                (completeMethod)="searchTipoDeRegistros($event)" [dropdown]="true" required>
                 <ng-template let-tipoDeRegistro pTemplate="item">
                     <div class="tipoDeRegistro-item">
                         <div>{{tipoDeRegistro}}</div>
@@ -31,7 +32,8 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-4">
             <label for="especialidade">Especialidade</label>
-            <p-autoComplete [(ngModel)]="especialidade" [suggestions]="filteredEspecialidades" (completeMethod)="searchEspecialidades($event)" [dropdown]="true" required>
+            <p-autoComplete [(ngModel)]="especialidade" [suggestions]="filteredEspecialidades"
+                (completeMethod)="searchEspecialidades($event)" [dropdown]="true" required>
                 <ng-template let-especialidade pTemplate="item">
                     <div class="especialidade-item">
                         <div>{{especialidade}}</div>
@@ -61,7 +63,8 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)" [dropdown]="false" required>
+            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)"
+                [dropdown]="false" required>
                 <ng-template let-estado pTemplate="item">
                     <div class="estado-item">
                         <div>{{estado}}</div>
@@ -71,7 +74,8 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <p-autoComplete [(ngModel)]="cidade" [suggestions]="filteredCidades" (completeMethod)="searchCidades($event)" [dropdown]="false" required>
+            <p-autoComplete [(ngModel)]="cidade" [suggestions]="filteredCidades"
+                (completeMethod)="searchCidades($event)" [dropdown]="false" required>
                 <ng-template let-cidade pTemplate="item">
                     <div class="cidade-item">
                         <div>{{cidade}}</div>
@@ -88,7 +92,14 @@
             <input id="email" [(ngModel)]="email" pKeyFilter="email" type="text" pInputText required>
         </div>
     </div>
-    <div class="p-formgrid p-grid">
-        <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check" (click)="salvar()"></button>
+    <div class="p-grid">
+        <div class="p-col-6 p-md-6 p-lg-6">
+            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
+                (click)="salvar()"></button>
+        </div>
+        <div class="p-col-6 p-md-6 p-lg-6">
+            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
+                [routerLink]="['/home']"></button>
+        </div>
     </div>
 </p-fieldset>
