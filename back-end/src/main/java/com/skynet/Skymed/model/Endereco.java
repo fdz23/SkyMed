@@ -1,90 +1,104 @@
 package com.skynet.Skymed.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 
+@Entity
 public class Endereco {
 
 	@Id
+	@Column(name = "end_iden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long   end_id;
-	private String end_cod_ibge;
-	private String end_estado;
-	private String end_logradouro;
-	private String end_complemeto;
-	private String end_numero;
-	private String end_cep;
-	private String end_uf;
-	private String end_cidade;
-	
-	@OneToMany
-	private Pessoa pessoas;
-	
-	
-	public Pessoa getPessoas() {
-		return pessoas;
+	private Long id;
+	@Column(name = "end_codigo_ibge")
+	private String codigoIBGE;
+	@Column(name = "end_logradouro")
+	private String logradouro;
+	@Column(name = "end_complemento")
+	private String complemeto;
+	@Column(name = "end_numero")
+	private String numero;
+	@Column(name = "end_cep")
+	private String cep;
+	@Column(name = "end_uf")
+	private String uf;
+	@Column(name = "end_cidade")
+	private String cidade;
+
+	public Long getId() {
+		return id;
 	}
-	public void setPessoas(Pessoa pessoas) {
-		this.pessoas = pessoas;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public Long getEnd_id() {
-		return end_id;
+
+	public String getCodigoIBGE() {
+		return codigoIBGE;
 	}
-	public void setEnd_id(Long end_id) {
-		this.end_id = end_id;
+
+	public void setCodigoIBGE(String codigoIBGE) {
+		this.codigoIBGE = codigoIBGE;
 	}
-	public String getEnd_cod_ibge() {
-		return end_cod_ibge;
+
+	public String getLogradouro() {
+		return logradouro;
 	}
-	public void setEnd_cod_ibge(String end_cod_ibge) {
-		this.end_cod_ibge = end_cod_ibge;
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
-	public String getEnd_estado() {
-		return end_estado;
+
+	public String getCidade() {
+		return cidade;
 	}
-	public void setEnd_estado(String end_estado) {
-		this.end_estado = end_estado;
+
+	public void setCidade(String cidade) {
+		this.cidade = cidade;
 	}
-	public String getEnd_logradouro() {
-		return end_logradouro;
+
+	public String getlogradouro() {
+		return logradouro;
 	}
-	public void setEnd_logradouro(String end_logradouro) {
-		this.end_logradouro = end_logradouro;
+
+	public void setEnlogradouro(String enlogradouro) {
+		this.logradouro = enlogradouro;
 	}
-	public String getEnd_complemeto() {
-		return end_complemeto;
+
+	public String getComplemeto() {
+		return complemeto;
 	}
-	public void setEnd_complemeto(String end_complemeto) {
-		this.end_complemeto = end_complemeto;
+
+	public void setComplemeto(String complemeto) {
+		this.complemeto = complemeto;
 	}
-	public String getEnd_numero() {
-		return end_numero;
+
+	public String getNumero() {
+		return numero;
 	}
-	public void setEnd_numero(String end_numero) {
-		this.end_numero = end_numero;
+
+	public void setNumero(String numero) {
+		this.numero = numero;
 	}
-	public String getEnd_cep() {
-		return end_cep;
+
+	public String getCep() {
+		return cep;
 	}
-	public void setEnd_cep(String end_cep) {
-		this.end_cep = end_cep;
+
+	public void setCep(String cep) {
+		this.cep = cep;
 	}
-	public String getEnd_uf() {
-		return end_uf;
+
+	public String getUf() {
+		return uf;
 	}
-	public void setEnd_uf(String end_uf) {
-		this.end_uf = end_uf;
+
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
-	public String getEnd_cidade() {
-		return end_cidade;
-	}
-	public void setEnd_cidade(String end_cidade) {
-		this.end_cidade = end_cidade;
-	}
-	
-	
-	
+
 }
