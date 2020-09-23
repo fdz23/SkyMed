@@ -14,8 +14,8 @@ public class Endereco {
 	@Column(name = "end_iden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "end_codigoIbge")
-	private String codigoIbge;
+	@Column(name = "end_codigo_ibge")
+	private String codigoIBGE;
 	@Column(name = "end_logradouro")
 	private String logradouro;
 	@Column(name = "end_complemento")
@@ -37,12 +37,12 @@ public class Endereco {
 		this.id = id;
 	}
 
-	public String getCodigoIbge() {
-		return codigoIbge;
+	public String getCodigoIBGE() {
+		return codigoIBGE;
 	}
 
-	public void setCodigoIbge(String codigoIbge) {
-		this.codigoIbge = codigoIbge;
+	public void setCodigoIBGE(String codigoIBGE) {
+		this.codigoIBGE = codigoIBGE;
 	}
 
 	public String getLogradouro() {
