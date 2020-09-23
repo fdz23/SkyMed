@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import org.springframework.stereotype.Repository;
 
 import com.skynet.Skymed.interfaces.IRepository;
+import com.skynet.Skymed.model.Endereco;
 import com.skynet.Skymed.model.Pessoa;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -32,8 +33,8 @@ public class PessoaRepository implements IRepository<Pessoa> {
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 
-				 pessoas.add(objectMaping(rs));
-				 
+				pessoas.add(objectMaping(rs));
+
 			}
 
 		} catch (Exception e) {
@@ -50,18 +51,17 @@ public class PessoaRepository implements IRepository<Pessoa> {
 	@Override
 	public Pessoa objectMaping(ResultSet objectRs) throws SQLException {
 
-		 Pessoa pessoaObject = new Pessoa();
-		 
-		 pessoaObject.setEmail(objectRs.getString("pes_email"));
-		 pessoaObject.setId(objectRs.getLong("pes_id"));
-		 pessoaObject.setNome(objectRs.getString("pes_nome"));
-		 pessoaObject.setRg(objectRs.getString("pes_rg"));
-		 pessoaObject.setTelefone(objectRs.getString("pes_telefone"));
-		 pessoaObject.setTipo_cliente(objectRs.getBoolean("pes_tipo_cliente"));
-		 
-		 
-		 
+		Pessoa pessoaObject = new Pessoa();
 
-		return pessoaObject;
+		pessoaObject.setEmail(objectRs.getString("pes_email"));
+		pessoaObject.setId(objectRs.getLong("pes_iden"));
+		pessoaObject.setNome(objectRs.getString("pes_nome"));
+		pessoaObject.setRg(objectRs.getString("pes_rg"));
+		pessoaObject.setTelefone(objectRs.getString("pes_telefone"));
+		pessoaObject.setEhPaciente(objectRs.getBoolean("pes_eh_paciente"));
+		pessoaObject.setCpf_cnpj(objectRs.getString("pes_cpf_cnpj"));
+		pessoaObject.setSenha(objectRs.getString("pes_senha"));
+		 
+		 return pessoaObject;
 	}
 }

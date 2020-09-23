@@ -14,10 +14,8 @@ public class Endereco {
 	@Column(name = "end_iden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "end_cod_ibge")
-	private String cod_ibge;
-	@Column(name = "end_estado")
-	private String estado;
+	@Column(name = "end_codigoIbge")
+	private String codigoIbge;
 	@Column(name = "end_logradouro")
 	private String logradouro;
 	@Column(name = "end_complemento")
@@ -31,10 +29,6 @@ public class Endereco {
 	@Column(name = "end_cidade")
 	private String cidade;
 
-	public String getEstado() {
-		return estado;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -43,12 +37,20 @@ public class Endereco {
 		this.id = id;
 	}
 
-	public String getCod_ibge() {
-		return cod_ibge;
+	public String getCodigoIbge() {
+		return codigoIbge;
 	}
 
-	public void setCod_ibge(String cod_ibge) {
-		this.cod_ibge = cod_ibge;
+	public void setCodigoIbge(String codigoIbge) {
+		this.codigoIbge = codigoIbge;
+	}
+
+	public String getLogradouro() {
+		return logradouro;
+	}
+
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 
 	public String getCidade() {
@@ -57,10 +59,6 @@ public class Endereco {
 
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
 	}
 
 	public String getlogradouro() {
@@ -102,9 +100,5 @@ public class Endereco {
 	public void setUf(String uf) {
 		this.uf = uf;
 	}
-	/*
-	 * public String getEnd_cidade() { return end_cidade; } public void
-	 * setEnd_cidade(String end_cidade) { this.end_cidade = end_cidade; }
-	 */
 
 }

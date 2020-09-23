@@ -14,3 +14,4 @@ public interface IController<T> {
 	T getById(Integer id) throws SQLException;
 
 }
+ 

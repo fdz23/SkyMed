@@ -1,16 +1,12 @@
 package com.skynet.Skymed.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -32,9 +28,9 @@ public class Pessoa {
 	private String email;
 	@Column(name = "pes_senha")
 	private String senha;
-	@Column(name = "pes_tipo_cliente")
-	private boolean tipo_cliente;
-	@OneToOne
+	@Column(name = "pes_eh_paciente")
+	private boolean ehPaciente;
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pes_end_iden")
 	private Endereco endereco;
 
@@ -55,14 +51,6 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	public String getCpg_cnpj() {
-		return cpf_cnpj;
-	}
-
-	public void setCpg_cnpj(String cpg_cnpj) {
-		this.cpf_cnpj = cpg_cnpj;
 	}
 
 	public String getRg() {
@@ -97,22 +85,28 @@ public class Pessoa {
 		this.senha = senha;
 	}
 
-	public boolean isTipo_cliente() {
-		return tipo_cliente;
+	public String getCpf_cnpj() {
+		return cpf_cnpj;
 	}
 
-	public void setTipo_cliente(boolean tipo_cliente) {
-		this.tipo_cliente = tipo_cliente;
+	public void setCpf_cnpj(String cpf_cnpj) {
+		this.cpf_cnpj = cpf_cnpj;
 	}
 
-	/*
-	 * public ArrayList<Endereco> getEnderecos() { return enderecos; }
-	 * 
-	 * 
-	 * 
-	 * 
-	 * public void setEnderecos(ArrayList<Endereco> enderecos) { this.enderecos =
-	 * enderecos; }
-	 */
+	public boolean isEhPaciente() {
+		return ehPaciente;
+	}
+
+	public void setEhPaciente(boolean ehPaciente) {
+		this.ehPaciente = ehPaciente;
+	}
+
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
+	}
 
 }

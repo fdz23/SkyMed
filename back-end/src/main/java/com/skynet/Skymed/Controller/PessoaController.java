@@ -1,6 +1,5 @@
 package com.skynet.Skymed.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ import com.skynet.Skymed.repository.PessoaRepository;
 
 @RestController
 
-@RequestMapping("/paciente")
+@RequestMapping("/pessoa")
 public class PessoaController implements IController<Pessoa> {
 
 	@Autowired
