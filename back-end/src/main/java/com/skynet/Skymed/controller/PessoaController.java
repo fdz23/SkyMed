@@ -1,6 +1,5 @@
-package com.skynet.Skymed.Controller;
+package com.skynet.Skymed.controller;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +10,25 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skynet.Skymed.dao.PacienteDao;
-import com.skynet.Skymed.interfaces.IRest;
+import com.skynet.Skymed.interfaces.IController;
+import com.skynet.Skymed.model.Pessoa;
+import com.skynet.Skymed.repository.PessoaRepository;
 
 @RestController
 
-@RequestMapping("/paciente")
-public class PessoaRest implements IRest {
+@RequestMapping("/pessoa")
+public class PessoaController implements IController<Pessoa> {
 
 	@Autowired
-	private PacienteDao pacienteDB;
+	private PessoaRepository pessoaDB;
 
 	@GetMapping
 	@Override
-	public ArrayList<Object> getObject() {
+	public ArrayList<Pessoa> getObject() {
 
 		try {
 
-			return (ArrayList<Object>) pacienteDB.objectListing();
+			return (ArrayList<Pessoa>) pessoaDB.objectListing();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -39,7 +39,7 @@ public class PessoaRest implements IRest {
 
 	@PostMapping
 	@Override
-	public void postAndPutObject(Object object) {
+	public void postAndPutObject(Pessoa object) {
 		// TODO Auto-generated method stub
 
 	}
@@ -53,9 +53,10 @@ public class PessoaRest implements IRest {
 
 	@GetMapping("/{id}")
 	@Override
-	public Object getObjectId(@PathVariable("id") Integer id) {
+	public Pessoa getById(@PathVariable("id") Integer id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+ 
 }

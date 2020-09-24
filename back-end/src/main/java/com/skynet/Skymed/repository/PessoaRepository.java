@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class PessoaRepository implements IRepository<Pessoa> {
 
 	@Autowired
-	private DataSource pacienteSource;
+	private DataSource pessoaSource;
 
 	@Override
 	public void objectInsert(Pessoa object) {
@@ -28,7 +28,7 @@ public class PessoaRepository implements IRepository<Pessoa> {
 	public ArrayList<Pessoa> objectListing() throws SQLException {
 
 		ArrayList<Pessoa> pessoas = new ArrayList<Pessoa>();
-		try (Connection con = pacienteSource.getConnection()) {
+		try (Connection con = pessoaSource.getConnection()) {
 			PreparedStatement pstmt = con.prepareStatement("select * from pessoa");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -61,7 +61,7 @@ public class PessoaRepository implements IRepository<Pessoa> {
 		pessoaObject.setEhPaciente(objectRs.getBoolean("pes_eh_paciente"));
 		pessoaObject.setCpf_cnpj(objectRs.getString("pes_cpf_cnpj"));
 		pessoaObject.setSenha(objectRs.getString("pes_senha"));
-		 
-		 return pessoaObject;
+
+		return pessoaObject;
 	}
 }

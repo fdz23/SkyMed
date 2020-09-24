@@ -7,7 +7,7 @@ public interface IController<T> {
 
 	ArrayList<T> getObject() throws SQLException;
 
-	void postAndPutObject(Object object) throws SQLException;
+	void postAndPutObject(T object) throws SQLException;
 
 	void deleteObject(Integer id) throws SQLException;
 
