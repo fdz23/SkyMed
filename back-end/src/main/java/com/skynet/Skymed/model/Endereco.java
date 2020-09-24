@@ -19,7 +19,7 @@ public class Endereco {
 	@Column(name = "end_logradouro")
 	private String logradouro;
 	@Column(name = "end_complemento")
-	private String complemeto;
+	private String complemento;
 	@Column(name = "end_numero")
 	private String numero;
 	@Column(name = "end_cep")
@@ -61,20 +61,12 @@ public class Endereco {
 		this.cidade = cidade;
 	}
 
-	public String getlogradouro() {
-		return logradouro;
+	public String getComplemento() {
+		return complemento;
 	}
 
-	public void setEnlogradouro(String enlogradouro) {
-		this.logradouro = enlogradouro;
-	}
-
-	public String getComplemeto() {
-		return complemeto;
-	}
-
-	public void setComplemeto(String complemeto) {
-		this.complemeto = complemeto;
+	public void setComplemento(String complemento) {
+		this.complemento = complemento;
 	}
 
 	public String getNumero() {
