@@ -35,16 +35,16 @@ public class EnderecoController implements IController<Endereco> {
 		enderecoDB.save(object);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
-		enderecoDB.deleteById(id);
+		enderecoDB.deleteById((long)id);
 	}
 
 	@GetMapping("/{id}")
 	@Override
 	public Endereco getById(@PathVariable("id") Integer id) {
-		return enderecoDB.getOne(id);
+		return enderecoDB.getOne((long)id);
 	}
 
  

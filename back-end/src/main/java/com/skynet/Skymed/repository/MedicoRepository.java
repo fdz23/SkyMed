@@ -6,6 +6,6 @@ import com.skynet.Skymed.model.Medico;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
-public interface MedicoRepository extends JpaRepository<Medico, Integer> {
+public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
 }
