@@ -27,7 +27,6 @@ import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/creat
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 import { LoginComponent } from './acessos/login/login.component';
 import { PasswordModule } from 'primeng/password';
-import { MegaMenuModule } from 'primeng/megamenu';
 import { MenubarModule } from 'primeng/menubar';
 
 
