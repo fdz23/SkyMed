@@ -3,7 +3,9 @@ import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
 import { Medicos } from '../../../../assets/medicos';
-import { stringify } from '@angular/compiler/src/util';
+import { CepService } from 'src/app/servicos/cep.service';
+import { Enderecos } from 'src/assets/enderecos';
+import { MedicoService } from 'src/app/servicos/medico.service';
 
 @Component({
   selector: 'app-create-medico',
@@ -11,7 +13,10 @@ import { stringify } from '@angular/compiler/src/util';
 })
 export class CreateMedicoComponent implements OnInit {
 
-  constructor(private primengConfig: PrimeNGConfig, private http: HttpClient) { }
+  constructor(private primengConfig: PrimeNGConfig,
+              private http: HttpClient,
+              private cepService: CepService,
+              private medicoService: MedicoService) { }
 
   msgs: Message[] = [];
   estadosArray: string[];
@@ -35,7 +40,7 @@ export class CreateMedicoComponent implements OnInit {
   especialidade: string;
   endereco: string;
   complemento: string;
-  numero: number;
+  numero: string;
   cep: string;
   uf: string;
   cidade: string;
@@ -87,50 +92,69 @@ export class CreateMedicoComponent implements OnInit {
     );
   }
 
+  insereMedico(medico: Medicos): void {
+    this.cepService.getEnderecoPeloCep(this.cep)
+      .subscribe(
+        endereco => {
+          endereco.complemento = this.complemento;
+          endereco.numero = this.numero;
+
+          medico.endereco = endereco;
+
+          this.medicoService.insereMedico(medico)
+            .subscribe(
+              () => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+              },
+              error => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'error', detail: error });
+                return;
+              }
+            );
+        },
+        error => {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: error });
+        }
+      );
+  }
+
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-     || this.cpfcnpj == null || this.cpfcnpj == ''
-     || this.rg == null || this.rg == ''
-     || this.tipoDeRegistro == null || this.tipoDeRegistro == ''
-     || this.registro == null || this.rg == ''
-     || this.especialidade == null || this.especialidade == ''
-     || this.endereco == null || this.endereco == ''
-     || this.complemento == null || this.complemento == ''
-     || this.numero == null
-     || this.cep == null || this.cep == ''
-     || this.uf == null || this.uf == ''
-     || this.cidade == null || this.cidade == ''
-     || this.celular == null || this.celular == ''
-     || this.email == null || this.email == '')
-     {
+    if (this.nome == null || this.nome === ''
+      || this.cpfcnpj == null || this.cpfcnpj === ''
+      || this.rg == null || this.rg === ''
+      || this.tipoDeRegistro == null || this.tipoDeRegistro === ''
+      || this.registro == null || this.rg === ''
+      || this.especialidade == null || this.especialidade === ''
+      || this.endereco == null || this.endereco === ''
+      || this.complemento == null || this.complemento === ''
+      || this.numero == null
+      || this.cep == null || this.cep === ''
+      || this.uf == null || this.uf === ''
+      || this.cidade == null || this.cidade === ''
+      || this.celular == null || this.celular === ''
+      || this.email == null || this.email === '') {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
-     }
+    }
 
     const medico = {
       id: 0,
       nome: this.nome,
-      cpfcnpj: this.cpfcnpj,
+      cpf_cnpj: this.cpfcnpj,
       rg: this.rg,
       tipoDeRegistro: this.tipoDeRegistro,
       registro: this.registro,
       especialidade: this.especialidade,
-      endereco: this.endereco,
-      complemento: this.complemento,
-      numero: this.numero,
-      cep: this.cep,
-      uf: this.uf,
-      cidade: this.cidade,
-      celular: this.celular,
+      telefone: this.celular,
       email: this.email
     } as Medicos;
 
-    //TODO: integrar com back-end
-
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+    this.insereMedico(medico);
   }
 
 }
