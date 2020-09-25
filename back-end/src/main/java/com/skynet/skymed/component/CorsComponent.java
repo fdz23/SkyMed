@@ -1,4 +1,4 @@
-package com.skynet.Skymed.component;
+package com.skynet.skymed.component;
 
 import java.io.IOException;
 import javax.servlet.Filter;

@@ -1,4 +1,4 @@
-package com.skynet.Skymed.interfaces;
+package com.skynet.skymed.interfaces;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

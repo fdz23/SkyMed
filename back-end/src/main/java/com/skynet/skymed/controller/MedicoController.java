@@ -1,4 +1,4 @@
-package com.skynet.Skymed.controller;
+package com.skynet.skymed.controller;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skynet.Skymed.interfaces.IController;
-import com.skynet.Skymed.model.Medico;
-import com.skynet.Skymed.repository.MedicoRepository;
+import com.skynet.skymed.interfaces.IController;
+import com.skynet.skymed.model.Medico;
+import com.skynet.skymed.repository.MedicoRepository;
 
 @RestController
 
