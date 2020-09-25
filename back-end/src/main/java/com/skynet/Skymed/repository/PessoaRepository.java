@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import com.skynet.Skymed.model.Pessoa;
 
 @Repository
-public interface PessoaRepository extends JpaRepository<Pessoa, Integer> {
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
 	 
 }

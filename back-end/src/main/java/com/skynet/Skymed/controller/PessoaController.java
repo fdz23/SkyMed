@@ -39,13 +39,13 @@ public class PessoaController implements IController<Pessoa> {
 	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
-		pessoaDB.deleteById(id);
+		pessoaDB.deleteById((long)id);
 	}
 
 	@GetMapping("/{id}")
 	@Override
 	public Pessoa getById(@PathVariable("id") Integer id) {
-		return pessoaDB.getOne(id);
+		return pessoaDB.getOne((long)id);
 	}
 
  

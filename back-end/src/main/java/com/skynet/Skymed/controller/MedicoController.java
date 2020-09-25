@@ -35,16 +35,16 @@ public class MedicoController implements IController<Medico> {
 		medicoDB.save(object);
 	}
 
-	@DeleteMapping
+	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
-		medicoDB.deleteById(id);
+		medicoDB.deleteById((long)id);
 	}
 
 	@GetMapping("/{id}")
 	@Override
 	public Medico getById(@PathVariable("id") Integer id) {
-		return medicoDB.getOne(id);
+		return medicoDB.getOne((long)id);
 	}
 
  
