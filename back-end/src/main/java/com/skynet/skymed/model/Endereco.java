@@ -1,4 +1,4 @@
-package com.skynet.Skymed.model;
+package com.skynet.skymed.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

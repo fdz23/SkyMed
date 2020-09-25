@@ -1,4 +1,4 @@
-package com.skynet.Skymed.controller;
+package com.skynet.skymed.controller;
 
 import java.util.ArrayList;
 
@@ -11,40 +11,41 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.skynet.Skymed.interfaces.IController;
-import com.skynet.Skymed.model.Endereco;
-import com.skynet.Skymed.repository.EnderecoRepository;
+import com.skynet.skymed.interfaces.IController;
+import com.skynet.skymed.model.Pessoa;
+import com.skynet.skymed.repository.PessoaRepository;
+ 
 
 @RestController
 
-@RequestMapping("/endereco")
-public class EnderecoController implements IController<Endereco> {
+@RequestMapping("/pessoa")
+public class PessoaController implements IController<Pessoa> {
 
 	@Autowired
-	private EnderecoRepository enderecoDB;
+	private PessoaRepository pessoaDB;
 
 	@GetMapping
 	@Override
-	public ArrayList<Endereco> getObject() {
-		return (ArrayList<Endereco>) enderecoDB.findAll();
+	public ArrayList<Pessoa> getObject() {
+		return (ArrayList<Pessoa>) pessoaDB.findAll();
 	}
 
 	@PostMapping
 	@Override
-	public void postAndPutObject(@RequestBody Endereco object) {
-		enderecoDB.save(object);
+	public void postAndPutObject(@RequestBody Pessoa object) {
+		pessoaDB.save(object);
 	}
 
 	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
-		enderecoDB.deleteById((long)id);
+		pessoaDB.deleteById((long)id);
 	}
 
 	@GetMapping("/{id}")
 	@Override
-	public Endereco getById(@PathVariable("id") Integer id) {
-		return enderecoDB.getOne((long)id);
+	public Pessoa getById(@PathVariable("id") Integer id) {
+		return pessoaDB.getOne((long)id);
 	}
 
  

@@ -1,4 +1,5 @@
-package com.skynet.Skymed.model;
+package com.skynet.skymed.model;
+
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,31 +11,33 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Pessoa {
+public class Medico {
 
 	@Id
-	@Column(name = "pes_iden")
+	@Column(name = "med_iden")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(name = "pes_nome")
+	@Column(name = "med_nome")
 	private String nome;
-	@Column(name = "pes_cpf_cnpj")
+	@Column(name = "med_cpf_cnpj")
 	private String cpf_cnpj;
-	@Column(name = "pes_rg")
+	@Column(name = "med_registro")
+	private String registro;
+	@Column(name = "med_rg")
 	private String rg;
-	@Column(name = "pes_telefone")
+	@Column(name = "med_telefone")
 	private String telefone;
-	@Column(name = "pes_email")
+	@Column(name = "med_email")
 	private String email;
-	@Column(name = "pes_senha")
+	@Column(name = "med_senha")
 	private String senha;
-	@Column(name = "pes_eh_paciente")
+	@Column(name = "med_eh_paciente")
 	private boolean ehPaciente;
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "pes_end_iden")
+	@JoinColumn(name = "med_end_iden")
 	private Endereco endereco;
 
-	public Pessoa() {
+	public Medico() {
 	}
 
 	public Long getId() {
@@ -51,6 +54,14 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	public String getRegistro() {
+		return registro;
+	}
+
+	public void setRegistro(String registro) {
+		this.registro = registro;
 	}
 
 	public String getRg() {
