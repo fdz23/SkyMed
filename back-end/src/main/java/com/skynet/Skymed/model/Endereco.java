@@ -15,7 +15,7 @@ public class Endereco {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Column(name = "end_codigo_ibge")
-	private String codigoIBGE;
+	private String ibge;
 	@Column(name = "end_logradouro")
 	private String logradouro;
 	@Column(name = "end_complemento")
@@ -27,7 +27,7 @@ public class Endereco {
 	@Column(name = "end_uf")
 	private String uf;
 	@Column(name = "end_cidade")
-	private String cidade;
+	private String localidade;
 
 	public Long getId() {
 		return id;
@@ -38,11 +38,11 @@ public class Endereco {
 	}
 
 	public String getCodigoIBGE() {
-		return codigoIBGE;
+		return ibge;
 	}
 
-	public void setCodigoIBGE(String codigoIBGE) {
-		this.codigoIBGE = codigoIBGE;
+	public void setCodigoIBGE(String ibge) {
+		this.ibge = ibge;
 	}
 
 	public String getLogradouro() {
@@ -54,11 +54,11 @@ public class Endereco {
 	}
 
 	public String getCidade() {
-		return cidade;
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setCidade(String localidade) {
+		this.localidade = localidade;
 	}
 
 	public String getComplemento() {
