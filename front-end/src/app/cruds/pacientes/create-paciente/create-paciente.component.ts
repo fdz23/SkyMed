@@ -3,17 +3,22 @@ import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
 import { Pacientes } from '../../../../assets/Pacientes';
+import { CepService } from 'src/app/servicos/cep.service';
+import { PacienteService } from 'src/app/servicos/paciente.service';
+import { Enderecos } from 'src/assets/enderecos';
 
 @Component({
   selector: 'app-create-paciente',
   templateUrl: './create-paciente.component.html'
- 
+
 })
 export class CreatePacienteComponent implements OnInit {
 
-  constructor(private primengConfig: PrimeNGConfig, private http: HttpClient) { }
-  
-  
+  constructor(private primengConfig: PrimeNGConfig,
+    private http: HttpClient, private cepService: CepService,
+    private pacienteService: PacienteService) { }
+
+
   msgs: Message[] = [];
   estadosArray: string[];
   cidadesArray: string[] = [];
@@ -23,14 +28,17 @@ export class CreatePacienteComponent implements OnInit {
   nome: string;
   cpfcnpj: string;
   rg: string;
-  endereco: string;
+  endereco: Enderecos;
   complemento: string;
-  numero: number;
+  numero: string;
   cep: string;
   uf: string;
   cidade: string;
-  celular: string;
+  telefone: string;
   email: string;
+  logradouro: string;
+
+
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -62,45 +70,66 @@ export class CreatePacienteComponent implements OnInit {
         .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
+
+  inserePaciente(paciente: Pacientes): void {
+    this.cepService.getEnderecoPeloCep(this.cep)
+      .subscribe(
+        endereco => {
+          endereco.complemento = this.complemento;
+          endereco.numero = this.numero;
+
+          paciente.endereco = endereco;
+
+          this.pacienteService.inserePaciente(paciente)
+            .subscribe(
+              () => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
+              },
+              error => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'error', detail: error });
+                return;
+              }
+            );
+        },
+        error => {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: error });
+        }
+      );
+  }
   salvar(): void {
 
     if (this.nome == null || this.nome == ''
-    || this.cpfcnpj == null || this.cpfcnpj == ''
-    || this.rg == null || this.rg == ''
-    || this.rg == null || this.rg == ''
-    || this.endereco == null || this.endereco == ''
-    || this.complemento == null || this.complemento == ''
-    || this.numero == null
-    || this.cep == null || this.cep == ''
-    || this.uf == null || this.uf == ''
-    || this.cidade == null || this.cidade == ''
-    || this.celular == null || this.celular == ''
-    || this.email == null || this.email == '')
-    {
-     this.msgs = [];
-     this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
-     return;
+      || this.cpfcnpj == null || this.cpfcnpj == ''
+      || this.rg == null || this.rg == ''
+      || this.rg == null || this.rg == ''
+      || this.logradouro == null || this.logradouro == ''
+      || this.complemento == null || this.complemento == ''
+      || this.numero == null
+      || this.cep == null || this.cep == ''
+      || this.uf == null || this.uf == ''
+      || this.cidade == null || this.cidade == ''
+      || this.telefone == null || this.telefone == ''
+      || this.email == null || this.email == '') {
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
+      return;
     }
 
 
-    const paciente  = {
+    const paciente = {
       nome: this.nome,
-      cpfcnpj: this.cpfcnpj,
+      cpf_cnpj: this.cpfcnpj,
       rg: this.rg,
-      endereco: this.endereco,
-      complemento: this.complemento,
-      numero: this.numero,
-      cep: this.cep,
-      uf: this.uf,
-      cidade: this.cidade,
-      celular: this.celular,
+      telefone: this.telefone,
       email: this.email
     } as Pacientes;
 
-     
+    this.inserePaciente(paciente);
 
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
+
   }
 
 }
