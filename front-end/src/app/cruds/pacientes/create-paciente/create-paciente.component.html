@@ -39,8 +39,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)"
-                [dropdown]="false" required>
+            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)" [dropdown]="false" required>
                 <ng-template let-estado pTemplate="item">
                     <div class="estado-item">
                         <div>{{estado}}</div>
