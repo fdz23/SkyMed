@@ -84,7 +84,7 @@ export class CreatePacienteComponent implements OnInit {
             .subscribe(
               () => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+                this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
               },
               error => {
                 this.msgs = [];
@@ -129,9 +129,6 @@ export class CreatePacienteComponent implements OnInit {
 
     this.inserePaciente(paciente);
 
-
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
 
   }
 
