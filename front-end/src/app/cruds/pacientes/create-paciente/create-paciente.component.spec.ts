@@ -8,9 +8,9 @@ describe('CreatePacienteComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreatePacienteComponent ]
+      declarations: [CreatePacienteComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
