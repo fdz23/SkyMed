@@ -28,6 +28,7 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
 import { LoginComponent } from './acessos/login/login.component';
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
+import { NgxMaskModule, IConfig } from 'ngx-mask'
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { MenubarModule } from 'primeng/menubar';
     InputMaskModule,
     KeyFilterModule,
     PasswordModule,
-    MenubarModule
+    MenubarModule,
+    NgxMaskModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
