@@ -41,7 +41,13 @@ public class Endereco {
 		return ibge;
 	}
 
-	public void setIBGE(String ibge) {
+	public void setIBGE(String ibge) throws Exception {
+		if (ibge == null) {
+			throw new Exception("Código IBGE inválido.");
+		}
+		if (ibge.isEmpty()) {
+			throw new Exception("Código IBGE inválido.");
+		}
 		this.ibge = ibge;
 	}
 
@@ -49,7 +55,13 @@ public class Endereco {
 		return logradouro;
 	}
 
-	public void setLogradouro(String logradouro) {
+	public void setLogradouro(String logradouro) throws Exception {
+		if (logradouro == null) {
+			throw new Exception("Logradouro inválido.");
+		}
+		if (logradouro.isEmpty()) {
+			throw new Exception("Logradouro inválido.");
+		}
 		this.logradouro = logradouro;
 	}
 
@@ -57,7 +69,13 @@ public class Endereco {
 		return localidade;
 	}
 
-	public void setLocalidade(String localidade) {
+	public void setLocalidade(String localidade) throws Exception {
+		if (localidade == null) {
+			throw new Exception("Localidade inválido.");
+		}
+		if (localidade.isEmpty()) {
+			throw new Exception("Localidade inválido.");
+		}
 		this.localidade = localidade;
 	}
 
@@ -65,7 +83,13 @@ public class Endereco {
 		return complemento;
 	}
 
-	public void setComplemento(String complemento) {
+	public void setComplemento(String complemento) throws Exception {
+		if (complemento == null) {
+			throw new Exception("Complemento inválido.");
+		}
+		if (complemento.isEmpty()) {
+			throw new Exception("Complemento inválido.");
+		}
 		this.complemento = complemento;
 	}
 
@@ -73,7 +97,13 @@ public class Endereco {
 		return numero;
 	}
 
-	public void setNumero(String numero) {
+	public void setNumero(String numero) throws Exception {
+		if (numero == null) {
+			throw new Exception("Numero inválido.");
+		}
+		if (numero.isEmpty()) {
+			throw new Exception("Numero inválido.");
+		}
 		this.numero = numero;
 	}
 
@@ -81,7 +111,13 @@ public class Endereco {
 		return cep;
 	}
 
-	public void setCep(String cep) {
+	public void setCep(String cep) throws Exception {
+		if (cep == null) {
+			throw new Exception("CEP inválido.");
+		}
+		if (cep.isEmpty() || cep.length() != 8) {
+			throw new Exception("CEP inválido.");
+		}
 		this.cep = cep;
 	}
 
@@ -89,7 +125,13 @@ public class Endereco {
 		return uf;
 	}
 
-	public void setUf(String uf) {
+	public void setUf(String uf) throws Exception {
+		if (uf == null) {
+			throw new Exception("UF inválido.");
+		}
+		if (uf.isEmpty() || uf.length() != 2) {
+			throw new Exception("UF inválido.");
+		}
 		this.uf = uf;
 	}
 
