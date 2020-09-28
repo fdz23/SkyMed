@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.skynet.skymed.util.Validadores;
+
 @Entity
 public class Medico {
 
@@ -52,7 +54,13 @@ public class Medico {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		if (nome == null) {
+			throw new Exception("Nome inválido.");
+		}
+		if (nome.isEmpty() || nome.length() < 5) {
+			throw new Exception("Nome inválido.");
+		}
 		this.nome = nome;
 	}
 	
@@ -60,7 +68,13 @@ public class Medico {
 		return registro;
 	}
 
-	public void setRegistro(String registro) {
+	public void setRegistro(String registro) throws Exception {
+		if (registro == null) {
+			throw new Exception("Registro inválido.");
+		}
+		if (registro.isEmpty() || registro.length() < 5) {
+			throw new Exception("Registro inválido.");
+		}
 		this.registro = registro;
 	}
 
@@ -68,7 +82,13 @@ public class Medico {
 		return rg;
 	}
 
-	public void setRg(String rg) {
+	public void setRg(String rg) throws Exception {
+		if (rg == null) {
+			throw new Exception("RG inválido.");
+		}
+		if (rg.isEmpty() || rg.length() < 6) {
+			throw new Exception("RG inválido.");
+		}
 		this.rg = rg;
 	}
 
@@ -76,7 +96,10 @@ public class Medico {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(String telefone) throws Exception {
+		if (!Validadores.celularEhValido(telefone)) {
+			throw new Exception("Telefone inválido.");
+		}
 		this.telefone = telefone;
 	}
 
@@ -84,7 +107,11 @@ public class Medico {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
+		if (!Validadores.emailEhValido(email)) {
+			throw new Exception("E-mail não é valido.");
+		}
+
 		this.email = email;
 	}
 
@@ -100,7 +127,11 @@ public class Medico {
 		return cpf_cnpj;
 	}
 
-	public void setCpf_cnpj(String cpf_cnpj) {
+	public void setCpf_cnpj(String cpf_cnpj) throws Exception {
+		if (!Validadores.cpfCnpjEhValido(cpf_cnpj)) {
+			throw new Exception("Cpf/Cnpj não é valido.");
+		}
+		
 		this.cpf_cnpj = cpf_cnpj;
 	}
 
@@ -116,7 +147,10 @@ public class Medico {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(Endereco endereco) throws Exception {
+		if (endereco == null) {
+			throw new Exception("Endereço inválido.");
+		}
 		this.endereco = endereco;
 	}
 
