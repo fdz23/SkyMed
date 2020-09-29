@@ -28,7 +28,8 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
 import { LoginComponent } from './acessos/login/login.component';
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import {CreateEspecialidadeComponent} from './cruds/especialidades/create-especialidade/create-especialidade.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     HomeComponent,
     CreatePacienteComponent,
     CreateHospitalComponent,
-    LoginComponent
+    LoginComponent,
+    CreateEspecialidadeComponent
   ],
   imports: [
     BrowserModule,
