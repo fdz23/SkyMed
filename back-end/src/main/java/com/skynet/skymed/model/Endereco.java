@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.skynet.skymed.util.Validadores;
+
 @Entity
 public class Endereco {
 
@@ -104,6 +106,9 @@ public class Endereco {
 		if (numero.isEmpty()) {
 			throw new Exception("Numero inválido.");
 		}
+		
+		Integer.getInteger(numero);
+		
 		this.numero = numero;
 	}
 
@@ -112,12 +117,10 @@ public class Endereco {
 	}
 
 	public void setCep(String cep) throws Exception {
-		if (cep == null) {
+		if (!Validadores.cepEhValido(cep)) {
 			throw new Exception("CEP inválido.");
 		}
-		if (cep.isEmpty() || cep.length() != 8) {
-			throw new Exception("CEP inválido.");
-		}
+		
 		this.cep = cep;
 	}
 

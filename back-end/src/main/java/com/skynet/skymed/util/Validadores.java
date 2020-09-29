@@ -79,4 +79,20 @@ public class Validadores {
         return isCelularValid;
         
     }
+	
+	public static boolean cepEhValido(String cep) {
+        boolean isCepValid = false;
+        
+        if (cep != null && cep.length() > 0) {
+            String expression = "^\\d{5}[-]\\d{3}$";
+            Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+            Matcher matcher = pattern.matcher(cep);
+            if (matcher.matches()) {
+                isCepValid = true;
+            }
+        }
+        
+        return isCepValid;
+        
+    }
 }
