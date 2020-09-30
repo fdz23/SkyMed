@@ -8,5 +8,4 @@ import com.skynet.skymed.model.Pessoa;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-	 
 }
