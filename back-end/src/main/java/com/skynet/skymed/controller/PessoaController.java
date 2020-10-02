@@ -22,7 +22,7 @@ import com.skynet.skymed.service.EmailServicePaciente;
 @RequestMapping("/pessoa")
 public class PessoaController implements IController<Pessoa> {
 
-	private EmailServicePaciente sendEmailPaciente = new EmailServicePaciente();
+	private EmailServicePaciente servicoDeEmailPaciente = new EmailServicePaciente();
 
 	@Autowired
 	private PessoaRepository pessoaDB;
@@ -35,12 +35,13 @@ public class PessoaController implements IController<Pessoa> {
 
 	@PostMapping
 	@Override
-	public void postAndPutObject(@RequestBody Pessoa object) {
+	public void postAndPutObject(@RequestBody Pessoa objetoPessoa) {
 
 		try {
-			sendEmailPaciente.sendEmail(object);
 
-			pessoaDB.save(object);
+			pessoaDB.save(objetoPessoa);
+
+			servicoDeEmailPaciente.enviaEmail(objetoPessoa);
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

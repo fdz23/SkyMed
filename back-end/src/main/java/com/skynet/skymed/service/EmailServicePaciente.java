@@ -16,18 +16,18 @@ import com.sendgrid.helpers.mail.objects.Email;
 import com.sendgrid.helpers.mail.objects.Personalization;
 import com.skynet.skymed.interfaces.IEmailService;
 import com.skynet.skymed.model.Pessoa;
-import com.skynet.skymed.util.GeradorToken;
+import com.skynet.skymed.util.GeradorDeToken;
 
 public class EmailServicePaciente implements IEmailService<Pessoa> {
 
-	private GeradorToken getToken = new GeradorToken();
+	private GeradorDeToken getToken = new GeradorDeToken();
 
 	@Override
-	public void sendEmail(Pessoa objectSender) throws IOException {
+	public void enviaEmail(Pessoa objetoPessoa) throws IOException {
 
 		Mail mail = new Mail();
 
-		objectSender.setToken_autenticacao(getToken.gerarToken());
+		objetoPessoa.setTokenDeAutenticacao(getToken.geraToken());
 
 		Email from = new Email();
 		from.setName("Skymed");
@@ -40,14 +40,14 @@ public class EmailServicePaciente implements IEmailService<Pessoa> {
 		Personalization personalization = new Personalization();
 
 		Email to = new Email();
-		to.setEmail(objectSender.getEmail());
-		to.setName(objectSender.getNome());
+		to.setEmail(objetoPessoa.getEmail());
+		to.setName(objetoPessoa.getNome());
 		personalization.addTo(to);
 
 		personalization.setSubject(subject);
 
-		personalization.addDynamicTemplateData("Customer_Name", objectSender.getNome());
-		personalization.addDynamicTemplateData("Token", objectSender.getToken_autenticacao());
+		personalization.addDynamicTemplateData("Customer_Name", objetoPessoa.getNome());
+		personalization.addDynamicTemplateData("Token", objetoPessoa.getTokenDeAutenticacao());
 
 		mail.addPersonalization(personalization);
 

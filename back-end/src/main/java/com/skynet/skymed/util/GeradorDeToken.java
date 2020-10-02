@@ -2,9 +2,9 @@ package com.skynet.skymed.util;
 
 import java.util.Random;
 
-public class GeradorToken {
+public class GeradorDeToken {
 
-	public String gerarToken() {
+	public String geraToken() {
 
 		Random numberRandom = new Random();
 		String token = "";

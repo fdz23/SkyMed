@@ -34,9 +34,9 @@ public class Pessoa {
 	@JoinColumn(name = "pes_end_iden")
 	private Endereco endereco;
 	@JoinColumn(name = "pes_token_autenticacao")
-	private String token_autenticacao;
-    @JoinColumn(name = "pes_token_redefinicao")
-	private String token_redefinicao;
+	private String tokenDeAutenticacao;
+	@JoinColumn(name = "pes_token_redefinicao")
+	private String tokenDeRedefinicao;
 
 	public Pessoa() {
 	}
@@ -112,22 +112,21 @@ public class Pessoa {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
-	
-	public String getToken_autenticacao() {
-		return token_autenticacao;
+
+	public String getTokenDeAutenticacao() {
+		return tokenDeAutenticacao;
 	}
 
-	public void setToken_autenticacao(String token_autenticacao) {
-		this.token_autenticacao = token_autenticacao;
+	public void setTokenDeAutenticacao(String tokenDeAutenticacao) {
+		this.tokenDeAutenticacao = tokenDeAutenticacao;
 	}
 
-	public String getToken_redefinicao() {
-		return token_redefinicao;
+	public String getTokenDeRedefinicao() {
+		return tokenDeRedefinicao;
 	}
 
-	public void setToken_redefinicao(String token_redefinicao) {
-		this.token_redefinicao = token_redefinicao;
+	public void setTokenDeRedefinicao(String tokenDeRedefinicao) {
+		this.tokenDeRedefinicao = tokenDeRedefinicao;
 	}
-
 
 }
