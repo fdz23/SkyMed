@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skynet.skymed.interfaces.IController;
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
-import com.skynet.skymed.service.EmailServicePaciente;
+import com.skynet.skymed.service.EmailDePacienteService;
 
 @RestController
 
 @RequestMapping("/pessoa")
 public class PessoaController implements IController<Pessoa> {
 
-	private EmailServicePaciente servicoDeEmailPaciente = new EmailServicePaciente();
+	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
 
 	@Autowired
 	private PessoaRepository pessoaDB;

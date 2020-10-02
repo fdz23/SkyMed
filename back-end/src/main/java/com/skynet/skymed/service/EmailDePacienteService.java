@@ -2,9 +2,7 @@ package com.skynet.skymed.service;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
+
 
 import com.sendgrid.Method;
 import com.sendgrid.Request;
@@ -18,7 +16,7 @@ import com.skynet.skymed.interfaces.IEmailService;
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.util.GeradorDeToken;
 
-public class EmailServicePaciente implements IEmailService<Pessoa> {
+public class EmailDePacienteService implements IEmailService<Pessoa> {
 
 	private GeradorDeToken getToken = new GeradorDeToken();
 
