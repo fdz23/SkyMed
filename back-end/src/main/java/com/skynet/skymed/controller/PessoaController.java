@@ -1,5 +1,6 @@
 package com.skynet.skymed.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skynet.skymed.interfaces.IController;
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
- 
+import com.skynet.skymed.service.EmailDePacienteService;
 
 @RestController
 
 @RequestMapping("/pessoa")
 public class PessoaController implements IController<Pessoa> {
+
+	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
 
 	@Autowired
 	private PessoaRepository pessoaDB;
@@ -32,21 +35,31 @@ public class PessoaController implements IController<Pessoa> {
 
 	@PostMapping
 	@Override
-	public void postAndPutObject(@RequestBody Pessoa object) {
-		pessoaDB.save(object);
+	public void postAndPutObject(@RequestBody Pessoa objetoPessoa) {
+
+		try {
+
+			pessoaDB.save(objetoPessoa);
+
+			servicoDeEmailPaciente.enviaEmail(objetoPessoa);
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
-		pessoaDB.deleteById((long)id);
+		pessoaDB.deleteById((long) id);
 	}
 
 	@GetMapping("/{id}")
 	@Override
 	public Pessoa getById(@PathVariable("id") Integer id) {
-		return pessoaDB.getOne((long)id);
+		return pessoaDB.getOne((long) id);
 	}
 
- 
 }

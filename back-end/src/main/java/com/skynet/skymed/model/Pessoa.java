@@ -33,6 +33,10 @@ public class Pessoa {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pes_end_iden")
 	private Endereco endereco;
+	@JoinColumn(name = "pes_token_autenticacao")
+	private String tokenDeAutenticacao;
+	@JoinColumn(name = "pes_token_redefinicao")
+	private String tokenDeRedefinicao;
 
 	public Pessoa() {
 	}
@@ -107,6 +111,22 @@ public class Pessoa {
 
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
+	}
+
+	public String getTokenDeAutenticacao() {
+		return tokenDeAutenticacao;
+	}
+
+	public void setTokenDeAutenticacao(String tokenDeAutenticacao) {
+		this.tokenDeAutenticacao = tokenDeAutenticacao;
+	}
+
+	public String getTokenDeRedefinicao() {
+		return tokenDeRedefinicao;
+	}
+
+	public void setTokenDeRedefinicao(String tokenDeRedefinicao) {
+		this.tokenDeRedefinicao = tokenDeRedefinicao;
 	}
 
 }
