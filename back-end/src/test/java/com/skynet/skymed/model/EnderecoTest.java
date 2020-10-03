@@ -15,10 +15,10 @@ class EnderecoTest {
 	public void setUp() throws Exception {
 		endereco = inicializarEndereco();
 	}
-	
+
 	private Endereco inicializarEndereco() throws Exception {
 		var endereco = new Endereco();
-		
+
 		endereco.setCep("74520-110");
 		endereco.setComplemento("Qd. 5-i Lt. 5");
 		endereco.setIBGE("12345");
@@ -26,7 +26,7 @@ class EnderecoTest {
 		endereco.setLogradouro("Av. Perimetral");
 		endereco.setNumero("23");
 		endereco.setUf("GO");
-		
+
 		return endereco;
 	}
 
@@ -37,7 +37,7 @@ class EnderecoTest {
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
-		
+
 		try {
 			endereco.setCep("     -   ");
 		} catch (Exception e) {
@@ -67,7 +67,7 @@ class EnderecoTest {
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
-		
+
 		try {
 			endereco.setIBGE(null);
 		} catch (Exception e) {

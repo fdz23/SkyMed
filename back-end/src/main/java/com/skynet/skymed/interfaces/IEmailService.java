@@ -1,9 +1,7 @@
 package com.skynet.skymed.interfaces;
 
-import java.io.IOException;
-
 public interface IEmailService<T> {
 
-	void enviaEmail(T objeto) throws IOException;
+	void enviaEmail(T objeto) throws Exception;
 
 }
