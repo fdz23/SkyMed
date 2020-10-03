@@ -1,6 +1,8 @@
 package com.skynet.skymed.model;
 
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -34,132 +36,176 @@ class EnderecoTest {
 	void insereCamposInvalidos() {
 		try {
 			endereco.setCep(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 		
 		try {
 			endereco.setCep("     -   ");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setCep("aaaaa-aaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setCep("0000-000");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setCep("00000-00");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setCep("00000000");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 		
 		try {
 			endereco.setIBGE(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setIBGE("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setIBGE(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setLogradouro("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setLogradouro(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setLocalidade("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setLocalidade(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setComplemento("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setComplemento(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setNumero("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setNumero(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setNumero("a");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setUf("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setUf(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setUf("a");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			endereco.setUf("aaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
