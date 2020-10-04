@@ -8,11 +8,7 @@ public class Validadores {
 	private static final int[] pesoCPF = { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
 	private static final int[] pesoCNPJ = { 6, 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
 
-	public static boolean cpfCnpjEhValido(String cpfCnpj) {
-		return (isValidCPF(cpfCnpj) || isValidCNPJ(cpfCnpj));
-	}
-
-	private static boolean isValidCPF(String cpf) {
+	public static boolean isValidCPF(String cpf) {
 		cpf = cpf.trim().replace(".", "").replace("-", "");
 		if ((cpf == null) || (cpf.length() != 11))
 			return false;
@@ -30,7 +26,7 @@ public class Validadores {
 		return String.format("%11s", text).replace(' ', character);
 	}
 
-	private static boolean isValidCNPJ(String cnpj) {
+	public static boolean isValidCNPJ(String cnpj) {
 		cnpj = cnpj.trim().replace(".", "").replace("-", "").replace("/", "");
 		if ((cnpj == null) || (cnpj.length() != 14))
 			return false;
