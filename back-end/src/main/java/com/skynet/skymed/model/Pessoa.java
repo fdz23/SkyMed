@@ -59,7 +59,7 @@ public class Pessoa {
 		if (nome == null) {
 			throw new Exception("Nome inválido.");
 		}
-		if (nome.isEmpty()) {
+		if (nome.isEmpty() || nome.length() < 5) {
 			throw new Exception("Nome inválido.");
 		}
 		this.nome = nome;
