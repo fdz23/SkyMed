@@ -60,7 +60,6 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 			request.setEndpoint("/mail/send");
 			request.setBody(mail.build());
 			Response response = sg.api(request);
-			System.out.println(response.getStatusCode());
 
 		} catch (Exception ex) {
 			ex.printStackTrace();

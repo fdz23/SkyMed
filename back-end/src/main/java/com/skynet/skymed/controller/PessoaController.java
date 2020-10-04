@@ -57,7 +57,7 @@ public class PessoaController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Pessoa> putMedico(@RequestBody Pessoa object) {
+	public ResponseEntity<Pessoa> putPessoa(@RequestBody Pessoa object) {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}

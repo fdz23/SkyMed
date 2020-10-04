@@ -2,6 +2,7 @@ package com.skynet.skymed.model;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -50,162 +51,189 @@ public class PessoaTest {
 
 		try {
 			pessoa.setCpf_cnpj(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("           ");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("aaa.aaa.aaa-aa");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("00000000000");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("              ");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("00000000000000");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("000.000.000/000-00");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setCpf_cnpj("aaa.aaa.aaa/aaa-aa");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setNome("");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setNome(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setNome("aaaa");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setRg("");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setRg(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setRg("aaaaa");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("62 998540164");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("62 99854-0164");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("(62 998540164");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("62) 998540164");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setTelefone("(62)99854-0164");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEmail("");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEmail(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEmail("aaaaaaa@aaaaa");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEmail("@sfaer.com");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEmail("      ");
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			pessoa.setEndereco(null);
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
