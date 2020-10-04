@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
+import com.skynet.skymed.util.Validadores;
+
 @Entity
 public class Pessoa {
 
@@ -53,7 +55,13 @@ public class Pessoa {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		if (nome == null) {
+			throw new Exception("Nome inválido.");
+		}
+		if (nome.isEmpty()) {
+			throw new Exception("Nome inválido.");
+		}
 		this.nome = nome;
 	}
 
@@ -61,7 +69,13 @@ public class Pessoa {
 		return rg;
 	}
 
-	public void setRg(String rg) {
+	public void setRg(String rg) throws Exception {
+		if (rg == null) {
+			throw new Exception("RG inválido.");
+		}
+		if (rg.isEmpty() || rg.length() < 6) {
+			throw new Exception("RG inválido.");
+		}
 		this.rg = rg;
 	}
 
@@ -69,7 +83,10 @@ public class Pessoa {
 		return telefone;
 	}
 
-	public void setTelefone(String telefone) {
+	public void setTelefone(String telefone) throws Exception {
+		if (!Validadores.celularEhValido(telefone)) {
+			throw new Exception("Telefone inválido.");
+		}
 		this.telefone = telefone;
 	}
 
@@ -77,7 +94,11 @@ public class Pessoa {
 		return email;
 	}
 
-	public void setEmail(String email) {
+	public void setEmail(String email) throws Exception {
+		if (!Validadores.emailEhValido(email)) {
+			throw new Exception("E-mail não é valido.");
+		}
+
 		this.email = email;
 	}
 
@@ -93,7 +114,11 @@ public class Pessoa {
 		return cpf_cnpj;
 	}
 
-	public void setCpf_cnpj(String cpf_cnpj) {
+	public void setCpf_cnpj(String cpf_cnpj) throws Exception {
+		if (!Validadores.cpfCnpjEhValido(cpf_cnpj)) {
+			throw new Exception("Cpf/Cnpj não é valido.");
+		}
+
 		this.cpf_cnpj = cpf_cnpj;
 	}
 
@@ -109,7 +134,10 @@ public class Pessoa {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(Endereco endereco) throws Exception {
+		if (endereco == null) {
+			throw new Exception("Endereço inválido.");
+		}
 		this.endereco = endereco;
 	}
 
@@ -117,7 +145,10 @@ public class Pessoa {
 		return tokenDeAutenticacao;
 	}
 
-	public void setTokenDeAutenticacao(String tokenDeAutenticacao) {
+	public void setTokenDeAutenticacao(String tokenDeAutenticacao) throws Exception {
+		if (!(tokenDeAutenticacao.length() == 4)) {
+			throw new Exception("Token de Auntenticação Inválido");
+		}
 		this.tokenDeAutenticacao = tokenDeAutenticacao;
 	}
 
@@ -125,7 +156,10 @@ public class Pessoa {
 		return tokenDeRedefinicao;
 	}
 
-	public void setTokenDeRedefinicao(String tokenDeRedefinicao) {
+	public void setTokenDeRedefinicao(String tokenDeRedefinicao) throws Exception {
+		if (!(tokenDeRedefinicao.length() == 4)) {
+			throw new Exception("Token de Redefinição Inválido");
+		}
 		this.tokenDeRedefinicao = tokenDeRedefinicao;
 	}
 

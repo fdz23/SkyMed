@@ -106,9 +106,9 @@ public class Endereco {
 		if (numero.isEmpty()) {
 			throw new Exception("Numero inválido.");
 		}
-		
+
 		Integer.getInteger(numero);
-		
+
 		this.numero = numero;
 	}
 
@@ -120,7 +120,7 @@ public class Endereco {
 		if (!Validadores.cepEhValido(cep)) {
 			throw new Exception("CEP inválido.");
 		}
-		
+
 		this.cep = cep;
 	}
 

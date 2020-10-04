@@ -1,9 +1,5 @@
 package com.skynet.skymed.service;
 
-import java.io.IOException;
-
-
-
 import com.sendgrid.Method;
 import com.sendgrid.Request;
 import com.sendgrid.Response;
@@ -21,7 +17,7 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 	private GeradorDeToken getToken = new GeradorDeToken();
 
 	@Override
-	public void enviaEmail(Pessoa objetoPessoa) throws IOException {
+	public void enviaEmail(Pessoa objetoPessoa) throws Exception {
 
 		Mail mail = new Mail();
 
@@ -64,9 +60,8 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 			request.setEndpoint("/mail/send");
 			request.setBody(mail.build());
 			Response response = sg.api(request);
-			System.out.println(response.getStatusCode());
 
-		} catch (IOException ex) {
+		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
 	}

@@ -29,11 +29,11 @@ public class EnderecoController {
 	@GetMapping
 	public ResponseEntity<ArrayList<Endereco>> getObject() {
 		var enderecos = enderecoDB.findAll();
-		
+
 		if (enderecos.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
-		
+
 		return ResponseEntity.ok((ArrayList<Endereco>) enderecos);
 	}
 
@@ -41,44 +41,44 @@ public class EnderecoController {
 	public ResponseEntity<Endereco> postEndereco(@RequestBody Endereco object) {
 		if (object.getId() != null) {
 			var endereco = getById(object.getId().intValue());
-			
+
 			if (endereco.hasBody()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
 		}
-		
+
 		enderecoDB.save(object);
-			
+
 		return ResponseEntity.ok(object);
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<Endereco> putEndereco(@RequestBody Endereco object) {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 		}
-		
+
 		var endereco = getById(object.getId().intValue());
-		
+
 		if (!endereco.hasBody()) {
 			return endereco;
 		}
-		
+
 		enderecoDB.save(object);
-			
+
 		return ResponseEntity.ok(object);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Endereco> deleteMedico(@PathVariable("id") Integer id) {
 		var endereco = getById(id);
-		
+
 		if (!endereco.hasBody()) {
 			return endereco;
 		}
-		
+
 		enderecoDB.deleteById((long) id);
-		
+
 		return endereco;
 	}
 
@@ -86,7 +86,7 @@ public class EnderecoController {
 	public ResponseEntity<Endereco> getById(@PathVariable("id") Integer id) {
 		try {
 			var endereco = enderecoDB.findById((long) id);
-			
+
 			return ResponseEntity.ok(endereco.get());
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
