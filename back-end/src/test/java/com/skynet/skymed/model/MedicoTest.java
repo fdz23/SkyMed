@@ -1,6 +1,8 @@
 package com.skynet.skymed.model;
 
 import static org.junit.Assert.*;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -44,180 +46,240 @@ class MedicoTest {
 	void insereCamposInvalidos() {
 		try {
 			medico.setCpf_cnpj(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 		
 		try {
 			medico.setCpf_cnpj("           ");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setCpf_cnpj("aaa.aaa.aaa-aa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setCpf_cnpj("00000000000");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setCpf_cnpj("              ");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setCpf_cnpj("00000000000000");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 		
 		try {
 			medico.setCpf_cnpj("000.000.000/000-00");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setCpf_cnpj("aaa.aaa.aaa/aaa-aa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setNome("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setNome(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setNome("aaaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRegistro("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRegistro(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRegistro("aaaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRg("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRg(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setRg("aaaaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("62 998540164");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("62 99854-0164");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("(62 998540164");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("62) 998540164");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setTelefone("(62)99854-0164");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEmail("");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEmail(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEmail("aaaaaaa@aaaaa");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEmail("@sfaer.com");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEmail("      ");
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
 			medico.setEndereco(null);
+			
+			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
