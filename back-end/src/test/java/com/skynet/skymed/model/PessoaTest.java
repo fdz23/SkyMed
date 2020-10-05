@@ -39,7 +39,7 @@ public class PessoaTest {
 		pessoa.setTelefone("(62) 9272-5598");
 		pessoa.setRg("5946186");
 		pessoa.setEndereco(endereco);
-		pessoa.setCpf_cnpj("707.772.711-41");
+		pessoa.setCpf("707.772.711-41");
 		pessoa.setTokenDeAutenticacao("1234");
 		pessoa.setTokenDeRedefinicao("1244");
 
@@ -50,56 +50,56 @@ public class PessoaTest {
 	public void InsereCamposInvalidos() {
 
 		try {
-			pessoa.setCpf_cnpj(null);
+			pessoa.setCpf(null);
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("           ");
+			pessoa.setCpf("           ");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("aaa.aaa.aaa-aa");
+			pessoa.setCpf("aaa.aaa.aaa-aa");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("00000000000");
+			pessoa.setCpf("00000000000");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("              ");
+			pessoa.setCpf("              ");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("00000000000000");
+			pessoa.setCpf("00000000000000");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("000.000.000/000-00");
+			pessoa.setCpf("000.000.000/000-00");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
 		}
 
 		try {
-			pessoa.setCpf_cnpj("aaa.aaa.aaa/aaa-aa");
+			pessoa.setCpf("aaa.aaa.aaa/aaa-aa");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
