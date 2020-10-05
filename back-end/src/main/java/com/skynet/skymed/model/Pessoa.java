@@ -20,8 +20,8 @@ public class Pessoa {
 	private Long id;
 	@Column(name = "pes_nome")
 	private String nome;
-	@Column(name = "pes_cpf_cnpj")
-	private String cpf_cnpj;
+	@Column(name = "pes_cpf")
+	private String cpf;
 	@Column(name = "pes_rg")
 	private String rg;
 	@Column(name = "pes_telefone")
@@ -110,16 +110,16 @@ public class Pessoa {
 		this.senha = senha;
 	}
 
-	public String getCpf_cnpj() {
-		return cpf_cnpj;
+	public String getCpf() {
+		return cpf;
 	}
 
-	public void setCpf_cnpj(String cpf_cnpj) throws Exception {
-		if (!Validadores.cpfCnpjEhValido(cpf_cnpj)) {
+	public void setCpf(String cpf) throws Exception {
+		if (!Validadores.isValidCPF(cpf)) {
 			throw new Exception("Cpf/Cnpj não é valido.");
 		}
 
-		this.cpf_cnpj = cpf_cnpj;
+		this.cpf = cpf;
 	}
 
 	public boolean isEhPaciente() {
