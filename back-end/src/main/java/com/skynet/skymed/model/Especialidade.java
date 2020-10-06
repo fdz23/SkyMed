@@ -41,8 +41,6 @@ public class Especialidade {
 		}
 		this.nome = nome;
 	}
-
-	
 	
 
 }

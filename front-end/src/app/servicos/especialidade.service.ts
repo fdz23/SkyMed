@@ -10,7 +10,7 @@ export class EspecialidadeService {
 
   constructor(private http: HttpClient) { }
 
-  insereEspecialidade(especialidade: Especialidades): Observable<Especialidades> {
+  insereMedico(especialidade: Especialidades): Observable<Especialidades> {
     const url = `http://127.0.0.1:8080/medico/`;
     return this.http.post<Especialidades>(url, especialidade);
   }

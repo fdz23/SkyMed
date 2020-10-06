@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
-import { Especialidades } from 'src/assets/especialidades';
-import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
+import {Especialidades} from 'src/assets/especialidades';
 
 
 @Component({
@@ -13,52 +12,29 @@ import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 export class CreateEspecialidadeComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig, 
-              private http: HttpClient,
-              private especialidadeService: EspecialidadeService) { }
+              private http: HttpClient) { }
 
   msgs: Message[] = [];
 
-  nome: string;
+  nomeEsp: string;
 
   ngOnInit(): void {
   }
 
-  insereEspecialidade(epsecialidade: Especialidades): void{
-
-    this.especialidadeService.insereEspecialidade(epsecialidade)
-      .subscribe(
-        () => {
-          this.msgs = [];
-          this.msgs.push({ severity: 'success', detail: 'Especialidade cadastrado com sucesso!' });
-              },
-          error => {
-                this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar especialidade : ${error}` });
-                return;
-
-        }
-
-
-      );
-
-  }
-
   salvar(): void{
     
-    if(this.nome == null || this.nome == ''){
+    if(this.nomeEsp == null || this.nomeEsp == ''){
       this.msgs = [];
-      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos od campos!' });
+      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos o campo Nome de Especialidade!' });
       return;
     }
 
     const especialidade = {
 
       id: 0,
-      nome: this.nome,
+      nome: this.nomeEsp,
 
     } as Especialidades;
-
-    this.insereEspecialidade(especialidade);
 
   }
 
