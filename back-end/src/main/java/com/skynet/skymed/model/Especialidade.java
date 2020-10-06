@@ -17,7 +17,7 @@ public class Especialidade {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "esp_name")
+	@Column(name = "esp_nome")
 	private String nome;
 
 	public Long getId() {
@@ -32,7 +32,13 @@ public class Especialidade {
 		return nome;
 	}
 
-	public void setNome(String nome) {
+	public void setNome(String nome) throws Exception {
+		if (nome == null) {
+			throw new Exception("Especialidade inválida.");
+		}
+		if (nome.isEmpty() || nome.length() < 5) {
+			throw new Exception("Especialidade inválida.");
+		}
 		this.nome = nome;
 	}
 
