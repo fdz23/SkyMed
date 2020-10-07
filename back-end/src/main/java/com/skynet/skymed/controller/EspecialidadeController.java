@@ -23,32 +23,34 @@ public class EspecialidadeController implements IController<Especialidade> {
 	
 	@Autowired
 	private EspecialidadeRepository especialidadeDB;
-	
+
 	@GetMapping
 	@Override
 	public ArrayList<Especialidade> getObject(){
 		return (ArrayList<Especialidade>) especialidadeDB.findAll();
 	}
-	
+
 	@GetMapping
 	@Override
 	public void postAndPutObject(@RequestBody Especialidade object) {
 		especialidadeDB.save(object);
-		
+
 	}
 	@DeleteMapping("/{id}")
 	@Override
 	public void deleteObject(@PathVariable("id") Integer id) {
 		especialidadeDB.deleteById((long)id);
-		
+
 	}
-	
+
 	@GetMapping("/{id}")
 	@Override
 	public Especialidade getById(@PathVariable("id") Integer id)  {
-		
+
 		return especialidadeDB.getOne((long)id);
 	}
+
+
 	
 	
 
