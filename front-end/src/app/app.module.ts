@@ -32,8 +32,10 @@ import { PacienteListarComponent} from './cruds/pacientes/paciente-listar/pacien
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
- import { TableModule } from 'primeng/table';
- import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component'
+
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
     CreateHospitalComponent,
     LoginComponent,
     PacienteListarComponent,
-    PacienteEditarComponent
+    PacienteEditarComponent,
+    CreateEspecialidadeComponent
+
   ],
   imports: [
     BrowserModule,
