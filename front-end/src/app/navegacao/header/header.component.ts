@@ -27,7 +27,7 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Leads', icon: 'pi pi-fw pi-users',
         items: [
-          { label: 'Pacientes', icon: 'pi pi-fw pi-user', routerLink: 'listagem-pacientes' }
+          { label: 'Pacientes', icon: 'pi pi-fw pi-user', routerLink: 'paciente-listar' }
 
         ]
       }

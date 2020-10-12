@@ -9,12 +9,12 @@ import { Enderecos } from 'src/assets/enderecos';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-editar-paciente',
-  templateUrl: './editar-paciente.component.html',
+  selector: 'app-paciente-editar',
+  templateUrl: './paciente-editar.component.html',
   providers: [ConfirmationService]
 
 })
-export class EditarPacienteComponent implements OnInit {
+export class PacienteEditarComponent implements OnInit {
   paciente: Pacientes;
   pacientes: Pacientes[];
   msgs: Message[] = [];
@@ -22,7 +22,7 @@ export class EditarPacienteComponent implements OnInit {
   cidadesArray: string[] = [];
   filteredEstados: string[];
   filteredCidades: string[];
-  
+
   public pacienteid;
   nome: string;
   cpf: string;
@@ -37,7 +37,7 @@ export class EditarPacienteComponent implements OnInit {
   email: string;
   logradouro: string;
   ehPaciente: boolean;
- 
+
   constructor(private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
     private pacienteService: PacienteService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
@@ -47,7 +47,7 @@ export class EditarPacienteComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.pegarPacientePorId(this.pacienteid);
+    this.obtenhaPacientePorId(this.pacienteid);
 
     this.primengConfig.ripple = true;
     this.http.get<any>('assets/estados-cidades.json')
@@ -65,23 +65,9 @@ export class EditarPacienteComponent implements OnInit {
       });
   }
 
-  searchCidades(event): void {
-    this.filteredCidades = this.cidadesArray.filter(
-      cidade => cidade.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
+  public obtenhaPacientePorId(id: any): void {
 
-  searchEstados(event): void {
-    this.filteredEstados = this.estadosArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
-
-  public pegarPacientePorId(id: any): void {
-
-    this.pacienteService.pegaPacientePorId(this.pacienteid).subscribe((paciente: Pacientes) => {
+    this.pacienteService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pacientes) => {
 
       this.paciente = paciente;
 
@@ -130,9 +116,9 @@ export class EditarPacienteComponent implements OnInit {
       );
 
   }
-  pegarListagemPaciente() {
+  obtenhaPacientes() {
 
-    this.pacienteService.pegaListagemPaciente().subscribe(pacientes => this.pacientes = pacientes);
+    this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
 
   }
 
@@ -172,7 +158,7 @@ export class EditarPacienteComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
-   
+
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,

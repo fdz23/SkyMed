@@ -1,23 +1,21 @@
 <div class="card ">
     <p-table #dt [value]="pacientes" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
-        [rowsPerPageOptions]="[10,25,50]" [loading]="loading" [paginator]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
         currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
-        [globalFilterFields]="['id','nome','cpf','telefone','email']" [resizableColumns]="true" [autoLayout]="true">
+        [globalFilterFields]="['nome','cpf','telefone','email']" [resizableColumns]="true" [autoLayout]="true">
         <ng-template pTemplate="caption">
             <div class="table-header">
                 Lista de Pacientes
                 <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
                     <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
-                        placeholder="Pesquisa  Global" />
+                        placeholder="Pesquisa Global" />
                 </span>
             </div>
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
                 <th style="width: 3rem"></th>
-                <th pSortableColumn="id">ID<p-sortIcon field="id"></p-sortIcon>
-                </th>
                 <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
                 </th>
                 <th pSortableColumn="cpf">CPF<p-sortIcon field="cpf"></p-sortIcon>
@@ -31,10 +29,6 @@
             </tr>
             <tr>
                 <th> </th>
-                <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'id', 'contains')"
-                        placeholder="Busca por ID" class="p-column-filter">
-                </th>
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
                         placeholder="Pesquisa por Nome" class="p-column-filter">
@@ -60,15 +54,9 @@
             <tr class="p-selectable-row">
                 <td></td>
                 <td>
-
-                    {{paciente.id}}
-                </td>
-                <td>
-
                     {{paciente.nome}}
                 </td>
                 <td>
-
                     {{paciente.cpf}}
                 </td>
                 <td>
@@ -79,7 +67,7 @@
                 </td>
                 <td style="text-align: center">
                     <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
-                        [routerLink]="['/editar-paciente',paciente.id]"></button>
+                        [routerLink]="['/paciente-editar',paciente.id]"></button>
                 </td>
                 <td style="text-align: center">
 

@@ -23,14 +23,14 @@ export class PacienteService {
 
   }
 
-  pegaListagemPaciente(): Observable<any> {
+  obtenhaPacientes(): Observable<any> {
 
     const url = `http://127.0.0.1:8080/pessoa/pacientes/`;
     return this.http.get<Pacientes[]>(url);
 
   }
 
-  pegaPacientePorId(id: any): Observable<any> {
+  obtenhaPacientePorId(id: any): Observable<any> {
     const url = `http://127.0.0.1:8080/pessoa/`;
     return this.http.get<Pacientes[]>(url.concat(id));
   }

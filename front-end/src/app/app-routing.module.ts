@@ -5,8 +5,8 @@ import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/creat
 import { HomeComponent } from './navegacao/home/home.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 import { LoginComponent } from './acessos/login/login.component';
-import { EditarPacienteComponent } from './cruds/pacientes/editar-paciente/editar-paciente.component';
-import { ListagemPacientesComponent } from './cruds/pacientes/listagem-pacientes/listagem-pacientes.component';
+import { PacienteEditarComponent } from './cruds/pacientes/paciente-editar/paciente-editar.component';
+import { PacienteListarComponent } from './cruds/pacientes/paciente-listar/paciente-listar.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -15,8 +15,8 @@ const routes: Routes = [
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'editar-paciente/:id', component: EditarPacienteComponent },
-  { path: 'listagem-pacientes', component: ListagemPacientesComponent },
+  { path: 'paciente-editar/:id', component: PacienteEditarComponent },
+  { path: 'paciente-listar', component: PacienteListarComponent },
   { path: '**', redirectTo: '' }
 ];
 

@@ -8,15 +8,15 @@ import { Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
-  selector: 'app-listagem-pacientes',
-  templateUrl: './listagem-pacientes.component.html',
+  selector: 'app-paciente-listar',
+  templateUrl: './paciente-listar.component.html',
   providers: [ConfirmationService]
 
 })
-export class ListagemPacientesComponent implements OnInit {
+export class PacienteListarComponent implements OnInit {
 
   pacientes: Pacientes[];
-  loading: boolean = true;
+   
   msgs: Message[] = [];
   @ViewChild('dt') table: Table;
 
@@ -24,13 +24,13 @@ export class ListagemPacientesComponent implements OnInit {
 
   ngOnInit(): void {
     this.pegarListagemPaciente();
-    this.loading = false;
+    
 
   }
 
   pegarListagemPaciente() {
 
-    this.pacienteService.pegaListagemPaciente().subscribe(pacientes => this.pacientes = pacientes);
+    this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
 
   }
   
