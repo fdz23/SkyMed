@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Entity
 public class Especialidade {
@@ -32,8 +34,16 @@ public class Especialidade {
 		if (nome == null) {
 			throw new Exception("Nome inválido.");
 		}
-		if (nome.isEmpty() || nome.length() < 5) {
+		else if (nome.isEmpty() || nome.length() < 5) {
 			throw new Exception("Nome inválido.");
+		}
+		else {
+			Pattern pattern = Pattern.compile("[0-9]");
+			Matcher matcher = pattern.matcher(nome);
+			if(matcher.find()){
+				throw new Exception("Nome inválido");
+			}
+			
 		}
 		this.nome = nome;
 	}
