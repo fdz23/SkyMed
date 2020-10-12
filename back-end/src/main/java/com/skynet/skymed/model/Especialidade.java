@@ -1,10 +1,15 @@
 package com.skynet.skymed.model;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Especialidade {
@@ -16,6 +21,10 @@ public class Especialidade {
 	
 	@Column(name = "esp_nome")
 	private String nome;
+	
+	@ManyToMany(mappedBy = "especialidades")
+    @JsonBackReference
+    private List<Medico> medicos;
 	
 	public Especialidade() {
 	}
