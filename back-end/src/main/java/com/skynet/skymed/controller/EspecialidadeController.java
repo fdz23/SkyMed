@@ -61,7 +61,7 @@ public class EspecialidadeController {
 		var especialidade = getById(object.getId().intValue());
 
 		if (!especialidade.hasBody()) {
-			return especialidade;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 
 		especialidadeDB.save(object);
@@ -74,7 +74,7 @@ public class EspecialidadeController {
 		var especialidade = getById(id);
 
 		if (!especialidade.hasBody()) {
-			return especialidade;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 
 		especialidadeDB.deleteById((long) id);
