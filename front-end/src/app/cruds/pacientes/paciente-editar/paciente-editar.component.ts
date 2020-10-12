@@ -16,12 +16,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PacienteEditarComponent implements OnInit {
   paciente: Pacientes;
-  pacientes: Pacientes[];
   msgs: Message[] = [];
-  estadosArray: string[];
-  cidadesArray: string[] = [];
-  filteredEstados: string[];
-  filteredCidades: string[];
 
   public pacienteid;
   nome: string;
@@ -49,20 +44,6 @@ export class PacienteEditarComponent implements OnInit {
 
     this.obtenhaPacientePorId(this.pacienteid);
 
-    this.primengConfig.ripple = true;
-    this.http.get<any>('assets/estados-cidades.json')
-      .toPromise()
-      .then(res => res.estados as Estados[])
-      .then(data => {
-        data.forEach(
-          estado => estado.cidades.forEach(
-            cidade => this.cidadesArray.push(cidade)
-          )
-        );
-        this.estadosArray = data.map(
-          estado => estado.nome
-        );
-      });
   }
 
   public obtenhaPacientePorId(id: any): void {
@@ -116,12 +97,7 @@ export class PacienteEditarComponent implements OnInit {
       );
 
   }
-  obtenhaPacientes() {
-
-    this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
-
-  }
-
+  
   deletaPaciente() {
 
     this.confirmationService.confirm({
@@ -130,10 +106,10 @@ export class PacienteEditarComponent implements OnInit {
       icon: 'pi pi-info-circle',
       accept: () => {
         this.pacienteService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
-        this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Registro Excluido' }];
+        this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
       },
       reject: () => {
-        this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'Operação Cancelada' }];
+        this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
       }
     });
 

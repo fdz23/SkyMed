@@ -16,22 +16,16 @@ import { PrimeNGConfig } from 'primeng/api';
 export class PacienteListarComponent implements OnInit {
 
   pacientes: Pacientes[];
-   
   msgs: Message[] = [];
   @ViewChild('dt') table: Table;
 
   constructor(private pacienteService: PacienteService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.pegarListagemPaciente();
-    
-
+    this.obtenhaPacientes();
   }
-
-  pegarListagemPaciente() {
-
+  obtenhaPacientes() {
     this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
-
   }
-  
+
 }
