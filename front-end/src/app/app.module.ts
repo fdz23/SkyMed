@@ -28,7 +28,11 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
 import { LoginComponent } from './acessos/login/login.component';
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { ListagemPacientesComponent } from './cruds/pacientes/listagem-pacientes/listagem-pacientes.component'
+import { TableModule } from 'primeng/table';
+import { EditarPacienteComponent } from './cruds/pacientes/editar-paciente/editar-paciente.component';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -40,7 +44,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     HomeComponent,
     CreatePacienteComponent,
     CreateHospitalComponent,
-    LoginComponent
+    LoginComponent,
+    ListagemPacientesComponent,
+    EditarPacienteComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +68,10 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     KeyFilterModule,
     PasswordModule,
     MenubarModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    TableModule,
+    ConfirmDialogModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]

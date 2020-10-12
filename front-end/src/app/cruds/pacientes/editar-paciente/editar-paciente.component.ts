@@ -1,30 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-import { PrimeNGConfig, Message } from 'primeng/api';
+import { PrimeNGConfig, Message, ConfirmationService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
 import { Pacientes } from '../../../../assets/Pacientes';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PacienteService } from 'src/app/servicos/paciente.service';
 import { Enderecos } from 'src/assets/enderecos';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-create-paciente',
-  templateUrl: './create-paciente.component.html'
+  selector: 'app-editar-paciente',
+  templateUrl: './editar-paciente.component.html',
+  providers: [ConfirmationService]
 
 })
-export class CreatePacienteComponent implements OnInit {
-
-  constructor(private primengConfig: PrimeNGConfig,
-    private http: HttpClient, private cepService: CepService,
-    private pacienteService: PacienteService) { }
-
-
+export class EditarPacienteComponent implements OnInit {
+  paciente: Pacientes;
+  pacientes: Pacientes[];
   msgs: Message[] = [];
   estadosArray: string[];
   cidadesArray: string[] = [];
   filteredEstados: string[];
   filteredCidades: string[];
-
+  
+  public pacienteid;
   nome: string;
   cpf: string;
   rg: string;
@@ -38,10 +37,18 @@ export class CreatePacienteComponent implements OnInit {
   email: string;
   logradouro: string;
   ehPaciente: boolean;
+ 
+  constructor(private primengConfig: PrimeNGConfig,
+    private http: HttpClient, private cepService: CepService,
+    private pacienteService: PacienteService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+    this.route.params.subscribe(params => this.pacienteid = params['id']);
 
-
+  }
 
   ngOnInit(): void {
+
+    this.pegarPacientePorId(this.pacienteid);
+
     this.primengConfig.ripple = true;
     this.http.get<any>('assets/estados-cidades.json')
       .toPromise()
@@ -72,7 +79,29 @@ export class CreatePacienteComponent implements OnInit {
     );
   }
 
-  inserePaciente(paciente: Pacientes): void {
+  public pegarPacientePorId(id: any): void {
+
+    this.pacienteService.pegaPacientePorId(this.pacienteid).subscribe((paciente: Pacientes) => {
+
+      this.paciente = paciente;
+
+      this.cep = paciente.endereco.cep;
+      this.nome = paciente.nome;
+      this.cpf = paciente.cpf;
+      this.rg = paciente.rg;
+      this.endereco = paciente.endereco;
+      this.logradouro = paciente.endereco.logradouro;
+      this.complemento = paciente.endereco.complemento;
+      this.numero = paciente.endereco.numero;
+      this.uf = paciente.endereco.uf;
+      this.cidade = paciente.endereco.localidade;
+      this.telefone = paciente.telefone;
+      this.email = paciente.email;
+    }, () => { });
+
+
+  }
+  atualizaPaciente(paciente: Pacientes): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -81,15 +110,15 @@ export class CreatePacienteComponent implements OnInit {
 
           paciente.endereco = endereco;
 
-          this.pacienteService.inserePaciente(paciente)
+          this.pacienteService.atualizaPaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
+                this.msgs.push({ severity: 'success', detail: 'Paciente Atualizado com sucesso' });
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar Paciente : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao atualizar Paciente : ${error}` });
                 return;
               }
             );
@@ -99,7 +128,32 @@ export class CreatePacienteComponent implements OnInit {
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
         }
       );
+
   }
+  pegarListagemPaciente() {
+
+    this.pacienteService.pegaListagemPaciente().subscribe(pacientes => this.pacientes = pacientes);
+
+  }
+
+  deletaPaciente() {
+
+    this.confirmationService.confirm({
+      message: 'Deseja realmente excluir o cadastro?',
+      header: 'Exclusão de cadastro',
+      icon: 'pi pi-info-circle',
+      accept: () => {
+        this.pacienteService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
+        this.msgs = [{ severity: 'info', summary: 'Confirmed', detail: 'Registro Excluido' }];
+      },
+      reject: () => {
+        this.msgs = [{ severity: 'info', summary: 'Rejected', detail: 'Operação Cancelada' }];
+      }
+    });
+
+
+  }
+
   salvar(): void {
 
     if (this.nome == null || this.nome == ''
@@ -118,20 +172,17 @@ export class CreatePacienteComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
-
-
+   
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
       telefone: this.telefone,
       email: this.email,
-      ehPaciente : true,
+      ehPaciente: true,
     } as Pacientes;
 
-    this.inserePaciente(paciente);
-
+    this.atualizaPaciente(paciente);
 
   }
-
 }
