@@ -3,7 +3,7 @@ package com.skynet.skymed.model;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.junit.Assert;
 
