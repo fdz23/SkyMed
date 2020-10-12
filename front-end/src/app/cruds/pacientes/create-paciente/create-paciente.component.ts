@@ -26,7 +26,7 @@ export class CreatePacienteComponent implements OnInit {
   filteredCidades: string[];
 
   nome: string;
-  cpfcnpj: string;
+  cpf: string;
   rg: string;
   endereco: Enderecos;
   complemento: string;
@@ -37,6 +37,7 @@ export class CreatePacienteComponent implements OnInit {
   telefone: string;
   email: string;
   logradouro: string;
+  ehPaciente: boolean;
 
 
 
@@ -102,7 +103,7 @@ export class CreatePacienteComponent implements OnInit {
   salvar(): void {
 
     if (this.nome == null || this.nome == ''
-      || this.cpfcnpj == null || this.cpfcnpj == ''
+      || this.cpf == null || this.cpf == ''
       || this.rg == null || this.rg == ''
       || this.rg == null || this.rg == ''
       || this.logradouro == null || this.logradouro == ''
@@ -121,10 +122,11 @@ export class CreatePacienteComponent implements OnInit {
 
     const paciente = {
       nome: this.nome,
-      cpf_cnpj: this.cpfcnpj,
+      cpf: this.cpf,
       rg: this.rg,
       telefone: this.telefone,
-      email: this.email
+      email: this.email,
+      ehPaciente : true,
     } as Pacientes;
 
     this.inserePaciente(paciente);

@@ -26,10 +26,16 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 import { LoginComponent } from './acessos/login/login.component';
+import { PacienteEditarComponent} from './cruds/pacientes/paciente-editar/paciente-editar.component';
+import { PacienteListarComponent} from './cruds/pacientes/paciente-listar/paciente-listar.component';
+
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { TableModule } from 'primeng/table';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component'
+
 
 
 @NgModule({
@@ -42,7 +48,10 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     CreatePacienteComponent,
     CreateHospitalComponent,
     LoginComponent,
+    PacienteListarComponent,
+    PacienteEditarComponent,
     CreateEspecialidadeComponent
+
   ],
   imports: [
     BrowserModule,
@@ -64,7 +73,10 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     KeyFilterModule,
     PasswordModule,
     MenubarModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    TableModule,
+    ConfirmDialogModule
+
   ],
   providers: [],
   bootstrap: [AppComponent]
