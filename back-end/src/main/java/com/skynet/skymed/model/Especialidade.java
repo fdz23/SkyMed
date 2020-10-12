@@ -34,7 +34,7 @@ public class Especialidade {
 		if (nome == null) {
 			throw new Exception("Nome inválido.");
 		}
-		else if (nome.isEmpty() || nome.length() < 5) {
+		if (nome.isEmpty() || nome.length() < 5) {
 			throw new Exception("Nome inválido.");
 		}
 		else {
