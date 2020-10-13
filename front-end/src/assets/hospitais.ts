@@ -1,13 +1,10 @@
+import { Medicos } from './medicos';
+import { Pacientes } from './Pacientes';
+
 export interface Hospitais {
     id: number;
-    nome: string;
     cnpj: string;
-    endereco: string;
-    complemento: string;
-    numero: number;
-    cep: string;
-    uf: string;
-    cidade: string;
-    telefone: string;
-    email: string;
+    razao_social: string;
+    medicos: Medicos[];
+    pessoa: Pacientes;
 }

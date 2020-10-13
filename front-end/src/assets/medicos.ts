@@ -1,10 +1,11 @@
 import { ParseSourceSpan } from '@angular/compiler';
 import { Enderecos } from './enderecos';
+import { Especialidades } from './especialidades';
 import { Pacientes } from './Pacientes';
 
 export interface Medicos {
   id: number;
   registro: string;
-  endereco: Enderecos;
+  especialidades: Especialidades[];
   pessoa: Pacientes;
 }
