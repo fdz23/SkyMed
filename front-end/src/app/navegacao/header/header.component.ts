@@ -19,16 +19,17 @@ export class HeaderComponent implements OnInit {
       {
         label: 'Cadastros', icon: 'pi pi-fw pi-user-plus',
         items: [
-          { label: 'Cadastrar Médico', icon: 'pi pi-fw pi-plus', routerLink: 'medico-criar' },
-          { label: 'Cadastrar Paciente', icon: 'pi pi-fw pi-plus', routerLink: 'paciente-criar' },
-          { label: 'Cadastrar Hospital', icon: 'pi pi-fw pi-plus', routerLink: 'hospital-criar' },
-          { label: 'Cadastrar Especialidade', icon: 'pi pi-fw pi-plus', routerLink: 'especialidade-criar' }
+          { label: 'Médico', icon: 'pi pi-fw pi-plus', routerLink: 'medico-criar' },
+          { label: 'Paciente', icon: 'pi pi-fw pi-plus', routerLink: 'paciente-criar' },
+          { label: 'Hospital', icon: 'pi pi-fw pi-plus', routerLink: 'hospital-criar' },
+          { label: 'Especialidade', icon: 'pi pi-fw pi-plus', routerLink: 'especialidade-criar' }
         ]
       },
       {
         label: 'Leads', icon: 'pi pi-fw pi-users',
         items: [
-          { label: 'Pacientes', icon: 'pi pi-fw pi-user', routerLink: 'paciente-listar' }
+          { label: 'Pacientes', icon: 'pi pi-fw pi-user', routerLink: 'paciente-listar' },
+          { label: 'Médicos', icon: 'pi pi-fw pi-user', routerLink: 'medico-listar' }
 
         ]
       }
