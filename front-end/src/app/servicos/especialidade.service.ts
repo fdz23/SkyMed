@@ -25,7 +25,7 @@ export class EspecialidadeService {
     return this.http.delete(url.concat(id));
   }
 
-  obtenhaEspecialidade(): Observable<any> {
+  obtenhaEspecialidades(): Observable<any> {
 
     const url = `http://127.0.0.1:8080/pessoa/pacientes/`;
     return this.http.get<Especialidades[]>(url);
