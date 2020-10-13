@@ -34,7 +34,6 @@ import { MenubarModule } from 'primeng/menubar';
 import { ListMedicoComponent } from './cruds/medicos/list-medico/list-medico.component';
 import { EditMedicoComponent } from './cruds/medicos/edit-medico/edit-medico.component';
 import { AccordionModule } from 'primeng/accordion';
-import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { CalendarModule } from 'primeng/calendar';
 import { SliderModule } from 'primeng/slider';
@@ -61,7 +60,7 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     CreateHospitalComponent,
     LoginComponent,
     ListMedicoComponent,
-    EditMedicoComponent
+    EditMedicoComponent,
     PacienteListarComponent,
     PacienteEditarComponent,
     CreateEspecialidadeComponent
@@ -96,7 +95,7 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     DropdownModule,
     ToastModule,
     ProgressBarModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
     NgxMaskModule.forRoot(),
     TableModule
   ],
