@@ -91,12 +91,9 @@ export class CreatePacienteComponent implements OnInit {
       || this.cpf == null || this.cpf == ''
       || this.rg == null || this.rg == ''
       || this.rg == null || this.rg == ''
-      || this.logradouro == null || this.logradouro == ''
       || this.complemento == null || this.complemento == ''
       || this.numero == null
       || this.cep == null || this.cep == ''
-      || this.uf == null || this.uf == ''
-      || this.cidade == null || this.cidade == ''
       || this.telefone == null || this.telefone == ''
       || this.email == null || this.email == '') {
       this.msgs = [];
