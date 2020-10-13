@@ -136,7 +136,6 @@ export class PacienteEditarComponent implements OnInit {
     if (this.nome == null || this.nome == ''
       || this.cpf == null || this.cpf == ''
       || this.rg == null || this.rg == ''
-      || this.rg == null || this.rg == ''
       || this.logradouro == null || this.logradouro == ''
       || this.complemento == null || this.complemento == ''
       || this.numero == null
