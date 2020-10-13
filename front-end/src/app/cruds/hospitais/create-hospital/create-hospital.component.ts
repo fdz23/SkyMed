@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { Hospitais } from '../../../../assets/hospitais';
-import { Pacientes } from 'src/assets/Pacientes';
+import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { Medicos } from 'src/assets/medicos';
@@ -16,7 +16,7 @@ export class CreateHospitalComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig, private cepService: CepService, private hospitalService: HospitalService, private medicoService: MedicoService) { }
 
   msgs: Message[] = [];
-  medico: Medicos[];
+  medico: Medicos;
   filteredMedicos: Medicos[];
   medicosArray: Medicos[];
 
@@ -83,8 +83,6 @@ export class CreateHospitalComponent implements OnInit {
 
   salvar(): void {
 
-    debugger;
-
     if (this.nome == null || this.nome === ''
      || this.cnpj == null || this.cnpj === ''
      || this.complemento == null || this.complemento === ''
@@ -107,13 +105,13 @@ export class CreateHospitalComponent implements OnInit {
       email: this.email,
       cpf: this.cpf,
       rg: this.rg
-     } as Pacientes;
+     } as Pessoas;
 
     const hospital = {
       razao_social: this.razaoSocial,
       cnpj: this.cnpj,
       pessoa: pessoaHospital,
-      medicos: this.medico
+      medicos: [this.medico]
     } as Hospitais;
 
     this.insereHospital(hospital);
