@@ -60,11 +60,11 @@ public class Medico {
 		this.registro = registro;
 	}
 
-	public Especialidade getEspecialidade() {
+	public List<Especialidade> getEspecialidade() {
 		return especialidades;
 	}
 
-	public void setEspecialidade(Especialidade especialidades) throws Exception {
+	public void setEspecialidade(List<Especialidade> especialidades) throws Exception {
 		if (especialidades == null) {
 			throw new Exception("Especialidades inválidas.");
 		}

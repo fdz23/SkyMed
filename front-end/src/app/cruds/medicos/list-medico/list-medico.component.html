@@ -2,7 +2,7 @@
     <p-table #dt [value]="medicos" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
         currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
-        [globalFilterFields]="['nome','cidade','especialidade']" [resizableColumns]="true" [autoLayout]="true">
+        [globalFilterFields]="['pessoa.nome','pessoa.endereco.localidade','especialidade']" [resizableColumns]="true" [autoLayout]="true">
         <ng-template pTemplate="caption">
             <div class="table-header">
                 Lista de médicos
@@ -28,11 +28,11 @@
             <tr>
                 <th> </th>
                 <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'pessoa.nome', 'contains')"
                         placeholder="Pesquisa por Nome" class="p-column-filter">
                 </th>
                 <th>
-                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'cidade', 'contains')"
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'pessoa.endereco.localidade', 'contains')"
                         placeholder="Pesquisa por Cidade" class="p-column-filter">
                 </th>
                 <th>
@@ -51,7 +51,7 @@
                     {{medico.pessoa.nome}}
                 </td>
                 <td>
-                    {{medico.registro}}
+                    {{medico.pessoa.endereco.localidade}}
                 </td>
                 <td>
                     {{medico.pessoa.email}}

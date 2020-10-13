@@ -23,8 +23,8 @@ const routes: Routes = [
   { path: 'medico-editar/:id', component: EditMedicoComponent },
   { path: 'paciente-editar/:id', component: PacienteEditarComponent },
   { path: 'paciente-listar', component: PacienteListarComponent },
-  
-  
+
+
   { path: '**', redirectTo: '' }
 ];
 
