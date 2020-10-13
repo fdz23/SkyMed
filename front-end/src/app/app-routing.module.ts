@@ -5,6 +5,8 @@ import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/creat
 import { HomeComponent } from './navegacao/home/home.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 import { LoginComponent } from './acessos/login/login.component';
+import { ListMedicoComponent } from './cruds/medicos/list-medico/list-medico.component';
+import { EditMedicoComponent } from './cruds/medicos/edit-medico/edit-medico.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'paciente-criar', component: CreatePacienteComponent},
   { path: 'hospital-criar', component: CreateHospitalComponent},
   { path: 'login', component: LoginComponent },
+  { path: 'medico-listar', component: ListMedicoComponent },
+  { path: 'medico-editar/:id', component: EditMedicoComponent },
 
 
 
