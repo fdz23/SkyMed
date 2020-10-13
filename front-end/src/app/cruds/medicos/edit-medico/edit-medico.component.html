@@ -1,0 +1,91 @@
+<p-messages [(value)]="msgs"></p-messages>
+<p-fieldset legend="Informações">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-12">
+            <label for="nome">Nome</label>
+            <input id="nome" [(ngModel)]="nome" type="text" placeholder="{{nome}}" pInputText required>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-6">
+            <label for="cpfcnpj">CPF</label>
+            <input id="cpf" [(ngModel)]="cpf" type="text" placeholder="{{cpf}}" [disabled]="true" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-6">
+            <label for="rg">RG</label>
+            <input id="rg" [(ngModel)]="rg" [disabled]="true" type="text" placeholder="{{rg}}" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="registro">Registro</label>
+            <input id="registro" [(ngModel)]="registro" type="text" placeholder="{{registro}}" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="tipoDeRegistro">Tipo de registro</label>
+            <input id="tipoDeRegistro" [(ngModel)]="tipoDeRegistro" type="text" placeholder="{{tipoDeRegistro}}" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="especialidade">Especialidade</label>
+            <input id="especialidade" [(ngModel)]="especialidade" type="text" placeholder="{{especialidade}}" pInputText required>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-6">
+            <label for="endereco">Logradouro</label>
+            <input id="endereco" [(ngModel)]="logradouro" type="text"[disabled]="true" placeholder="{{logradouro}}" pInputText required>
+        </div>
+
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="complemento">Complemento</label>
+            <input id="complemento" [(ngModel)]="complemento" type="text" placeholder="{{complemento}}" pInputText
+                required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="numero">Nº</label>
+            <input id="numero" [(ngModel)]="numero" type="text" placeholder="{{numero}}" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="cep">CEP</label>
+            <p-inputMask [(ngModel)]="cep" mask="99999-999" placeholder="{{cep}}" required></p-inputMask>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="estado">Estado</label>
+            <input id="estados"[(ngModel)]="uf" type="text" [disabled]="true" 
+                placeholder="{{uf}}" required>
+            </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="cidade">Cidade</label>
+            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}" required>
+             
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="celular">Celular</label>
+            <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" placeholder="{{telefone}}" required>
+            </p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-5">
+            <label for="email">E-mail</label>
+            <input id="email" [(ngModel)]="email" type="text" placeholder="{{email}}" pInputText required>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-2 p-lg-1">
+            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
+                (click)="salvar()"></button>
+        </div>
+        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+        <div class="p-col-12 p-md-2 p-lg-1">
+            <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir" icon="pi pi-trash"
+                (click)="deletaMedico()"></button>
+        </div>
+        <div class="p-col-12 p-md-2 p-lg-1">
+            <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"
+                [routerLink]="['/medico-listar']"></button>
+        </div>
+
+
+
+    </div>
+
+</p-fieldset>

@@ -61,7 +61,7 @@ public class MedicoController {
 		var medico = getById(object.getId().intValue());
 
 		if (!medico.hasBody()) {
-			return medico;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 
 		medicoDB.save(object);
@@ -74,7 +74,7 @@ public class MedicoController {
 		var medico = getById(id);
 
 		if (!medico.hasBody()) {
-			return medico;
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
 
 		medicoDB.deleteById((long) id);

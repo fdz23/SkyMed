@@ -6,6 +6,7 @@ import { Medicos } from '../../../../assets/medicos';
 import { CepService } from 'src/app/servicos/cep.service';
 import { Enderecos } from 'src/assets/enderecos';
 import { MedicoService } from 'src/app/servicos/medico.service';
+import { Pacientes } from 'src/assets/Pacientes';
 
 @Component({
   selector: 'app-create-medico',
@@ -142,16 +143,17 @@ export class CreateMedicoComponent implements OnInit {
       return;
     }
 
-    const medico = {
-      id: 0,
+    const pacientes = {
       nome: this.nome,
       cpf_cnpj: this.cpfcnpj,
       rg: this.rg,
-      tipoDeRegistro: this.tipoDeRegistro,
-      registro: this.registro,
-      especialidade: this.especialidade,
       telefone: this.celular,
       email: this.email
+    } as Pacientes;
+
+    const medico = {
+      id: 0,
+      pessoa: pacientes,
     } as Medicos;
 
     this.insereMedico(medico);

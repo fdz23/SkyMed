@@ -31,6 +31,18 @@ import { PacienteListarComponent} from './cruds/pacientes/paciente-listar/pacien
 
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
+import { ListMedicoComponent } from './cruds/medicos/list-medico/list-medico.component';
+import { EditMedicoComponent } from './cruds/medicos/edit-medico/edit-medico.component';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -48,10 +60,11 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     CreatePacienteComponent,
     CreateHospitalComponent,
     LoginComponent,
+    ListMedicoComponent,
+    EditMedicoComponent
     PacienteListarComponent,
     PacienteEditarComponent,
     CreateEspecialidadeComponent
-
   ],
   imports: [
     BrowserModule,
@@ -73,10 +86,19 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     KeyFilterModule,
     PasswordModule,
     MenubarModule,
-    NgxMaskModule.forRoot(),
+    AccordionModule,
     TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ToastModule,
+    ProgressBarModule,
     ConfirmDialogModule
-
+    NgxMaskModule.forRoot(),
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

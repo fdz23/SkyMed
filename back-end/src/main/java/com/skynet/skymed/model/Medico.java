@@ -1,6 +1,5 @@
 package com.skynet.skymed.model;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -10,7 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,10 +24,12 @@ public class Medico {
 	@Column(name = "med_registro")
 	private String registro;
 	
-	//Esperando a boa vontade do Carlos
-	//@OneToMany(cascade = CascadeType.ALL)
-	//@JoinColumn(name = "esp_med_iden")
-	//private List<Especialidade> especialidades;
+	@ManyToMany()
+	@JoinTable(
+			  name = "medico_especialidades", 
+			  joinColumns = @JoinColumn(name = "med_iden"), 
+			  inverseJoinColumns = @JoinColumn(name = "esp_iden"))
+	private List<Especialidade> especialidades;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "med_pes_iden")
@@ -43,6 +45,10 @@ public class Medico {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+	public String getRegistro() {
+		return registro;
+	}
 
 	public void setRegistro(String registro) throws Exception {
 		if (registro == null) {
@@ -52,6 +58,17 @@ public class Medico {
 			throw new Exception("Registro inválido.");
 		}
 		this.registro = registro;
+	}
+
+	public Especialidade getEspecialidade() {
+		return especialidades;
+	}
+
+	public void setEspecialidade(Especialidade especialidades) throws Exception {
+		if (especialidades == null) {
+			throw new Exception("Especialidades inválidas.");
+		}
+		this.especialidades = especialidades;
 	}
 
 	public Pessoa getPessoa() {
