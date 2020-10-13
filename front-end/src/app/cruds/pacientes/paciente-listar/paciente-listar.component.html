@@ -1,0 +1,82 @@
+<div class="card ">
+    <p-table #dt [value]="pacientes" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
+        [globalFilterFields]="['nome','cpf','telefone','email']" [resizableColumns]="true" [autoLayout]="true">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de Pacientes
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Pesquisa Global" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cpf">CPF<p-sortIcon field="cpf"></p-sortIcon>
+                </th>
+                <th pSortableColumn="telefone">Telefone <p-sortIcon field="telefone"></p-sortIcon>
+                </th>
+                <th pSortableColumn="email">E-mail<p-sortIcon field="email"></p-sortIcon>
+                </th>
+                <th></th>
+                <th style="width: 8rem"></th>
+            </tr>
+            <tr>
+                <th> </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
+                        placeholder="Pesquisa por Nome" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'cpf', 'contains')"
+                        placeholder="Pesquisa por CPF" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'telefone', 'contains')"
+                        placeholder="Pesquisa por Telefone" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'email', 'contains')"
+                        placeholder="Pesquisa por E-mail" class="p-column-filter">
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-paciente>
+            <tr class="p-selectable-row">
+                <td></td>
+                <td>
+                    {{paciente.nome}}
+                </td>
+                <td>
+                    {{paciente.cpf}}
+                </td>
+                <td>
+                    {{paciente.telefone}}
+                </td>
+                <td>
+                    {{paciente.email}}
+                </td>
+                <td style="text-align: center">
+                    <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
+                        [routerLink]="['/paciente-editar',paciente.id]"></button>
+                </td>
+                <td style="text-align: center">
+
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhum paciente encontrado.</td>
+            </tr>
+        </ng-template>
