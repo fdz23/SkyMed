@@ -8,6 +8,8 @@ import { LoginComponent } from './acessos/login/login.component';
 import { PacienteEditarComponent } from './cruds/pacientes/paciente-editar/paciente-editar.component';
 import { PacienteListarComponent } from './cruds/pacientes/paciente-listar/paciente-listar.component';
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
+import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
+import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
   { path: 'especialidade-criar', component: CreateEspecialidadeComponent },
+  { path: 'especialidade-editar', component: EditEspecialidadeComponent },
+  { path: 'especialidade-listar', component: ListEspecialidadeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'paciente-editar/:id', component: PacienteEditarComponent },
   { path: 'paciente-listar', component: PacienteListarComponent },
