@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
-import { Pacientes } from '../../../../assets/Pacientes';
+import { Pessoas } from '../../../../assets/pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
-import { PacienteService } from 'src/app/servicos/paciente.service';
+import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
 
 @Component({
@@ -16,9 +16,8 @@ export class CreatePacienteComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
-    private pacienteService: PacienteService) { }
-
-
+    private pacienteService: PessoaService) { }
+    
   msgs: Message[] = [];
   estadosArray: string[];
   cidadesArray: string[] = [];
@@ -58,21 +57,7 @@ export class CreatePacienteComponent implements OnInit {
       });
   }
 
-  searchCidades(event): void {
-    this.filteredCidades = this.cidadesArray.filter(
-      cidade => cidade.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
-
-  searchEstados(event): void {
-    this.filteredEstados = this.estadosArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
-
-  inserePaciente(paciente: Pacientes): void {
+  inserePaciente(paciente: Pessoas): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -119,15 +104,14 @@ export class CreatePacienteComponent implements OnInit {
       return;
     }
 
-
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
       telefone: this.telefone,
       email: this.email,
-      ehPaciente : true,
-    } as Pacientes;
+      ehPaciente: true,
+    } as Pessoas;
 
     this.inserePaciente(paciente);
 

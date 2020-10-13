@@ -41,13 +41,12 @@
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
             <input id="estados"[(ngModel)]="uf" type="text" [disabled]="true" 
-                placeholder="{{uf}}" required>
+                placeholder="{{uf}}" pInputText required>
             </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}" required>
-             
-        </div>
+            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}"pInputText required>
+          </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="celular">Celular</label>
             <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" placeholder="{{telefone}}" required>
