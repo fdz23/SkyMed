@@ -22,10 +22,10 @@ export class ListEspecialidadeComponent implements OnInit {
   constructor(private especialidadeService: EspecialidadeService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.obtenhaEspecialidade();
+    this.obtenhaEspecialidades();
   }
-  obtenhaEspecialidade() {
-    this.especialidadeService.obtenhaEspecialidade().subscribe(especialidades => this.especialidades = especialidades);
+  obtenhaEspecialidades() {
+    this.especialidadeService.obtenhaEspecialidades().subscribe(especialidades => this.especialidades = especialidades);
   }
 
 }
