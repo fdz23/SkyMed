@@ -33,7 +33,7 @@ public class EspecialidadeTest {
 	public void testSetNomeNull() {
 		
 		try {
-			esp.setNome("null");
+			esp.setNome(null);
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
@@ -45,7 +45,7 @@ public class EspecialidadeTest {
 	public void testSetNomeVazio() {
 		
 		try {
-			esp.setNome("      ");
+			esp.setNome("");
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
@@ -53,29 +53,7 @@ public class EspecialidadeTest {
 		
 	}
 	
-	@Test
-	public void testSetNomePontuacao() {
-		
-		try {
-			esp.setNome("e.s.p.e.c.i.a.l.i.d.a.d.e.");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-		
-	}
 	
-	@Test
-	public void testSetNomeNumero() {
-		
-		try {
-			esp.setNome("1234567890");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-		
-	}
 	@Test
 	public void testSetNomeMenosDe5() {
 		
