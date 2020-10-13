@@ -55,18 +55,18 @@ export class EditMedicoComponent implements OnInit {
 
       this.medico = medico;
 
-      //this.cep = medico.endereco.cep;
+      this.cep = medico.pessoa.endereco.cep;
       this.nome = medico.pessoa.nome;
-      this.cpf = medico.pessoa.cpf_cnpj;
+      this.cpf = medico.pessoa.cpf;
       this.rg = medico.pessoa.rg;
-      //this.endereco = medico.endereco;
-      //this.logradouro = medico.endereco.logradouro;
-      //this.complemento = medico.endereco.complemento;
-      //this.numero = medico.endereco.numero;
-      //this.uf = medico.endereco.uf;
-      //this.cidade = medico.endereco.localidade;
+      this.logradouro = medico.pessoa.endereco.logradouro;
+      this.complemento = medico.pessoa.endereco.complemento;
+      this.numero = medico.pessoa.endereco.numero;
+      this.uf = medico.pessoa.endereco.uf;
+      this.cidade = medico.pessoa.endereco.localidade;
       this.telefone = medico.pessoa.telefone;
       this.email = medico.pessoa.email;
+      this.registro = medico.registro;
     }, () => { });
 
 
@@ -78,7 +78,7 @@ export class EditMedicoComponent implements OnInit {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
 
-          medico.endereco = endereco;
+          medico.pessoa.endereco = endereco;
 
           this.medicoService.atualizaMedico(medico)
             .subscribe(
@@ -115,7 +115,7 @@ export class EditMedicoComponent implements OnInit {
           },
           err => {
             this.msgs = [];
-            this.msgs = [{ severity: 'danger', summary: 'Erro', detail: 'Erro ao excluir registro' }];
+            this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Erro ao excluir registro' }];
             }
           );
       },
@@ -149,7 +149,7 @@ export class EditMedicoComponent implements OnInit {
 
     const paciente = {
       nome: this.nome,
-      cpf_cnpj: this.cpf,
+      cpf: this.cpf,
       rg: this.rg,
       telefone: this.telefone,
       email: this.email

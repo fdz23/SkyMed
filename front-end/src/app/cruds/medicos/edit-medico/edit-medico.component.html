@@ -7,17 +7,17 @@
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-6">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cpfcnpj">CPF</label>
             <input id="cpf" [(ngModel)]="cpf" type="text" placeholder="{{cpf}}" [disabled]="true" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-6">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" [disabled]="true" type="text" placeholder="{{rg}}" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="registro">Registro</label>
-            <input id="registro" [(ngModel)]="registro" type="text" placeholder="{{registro}}" pInputText required>
+            <input id="registro" [(ngModel)]="registro" type="text" placeholder="{{registro}}" [disabled]="true" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="tipoDeRegistro">Tipo de registro</label>
@@ -51,12 +51,12 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <input id="estados"[(ngModel)]="uf" type="text" [disabled]="true" 
-                placeholder="{{uf}}" required>
+            <input id="estados" [(ngModel)]="uf" type="text" [disabled]="true" 
+                placeholder="{{uf}}" pInputText required>
             </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}" required>
+            <input id="cidade" [(ngModel)]="cidade" [disabled]="true" placeholder="{{cidade}}" pInputText required>
              
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
