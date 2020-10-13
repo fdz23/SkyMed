@@ -1,0 +1,73 @@
+<div class="card">
+    <p-table #dt [value]="medicos" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
+        [globalFilterFields]="['nome','cidade','especialidade']" [resizableColumns]="true" [autoLayout]="true">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de médicos
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Pesquisa Global" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cidade">Cidade<p-sortIcon field="cidade"></p-sortIcon>
+                </th>
+                <th pSortableColumn="especialidade">Especialidade<p-sortIcon field="especialidade"></p-sortIcon>
+                </th>
+                <th></th>
+                <th style="width: 8rem"></th>
+            </tr>
+            <tr>
+                <th> </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
+                        placeholder="Pesquisa por Nome" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'cidade', 'contains')"
+                        placeholder="Pesquisa por Cidade" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'especialidade', 'contains')"
+                        placeholder="Pesquisa por Especialidade" class="p-column-filter">
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-medico>
+            <tr class="p-selectable-row">
+                <td></td>
+                <td>
+                    {{medico.pessoa.nome}}
+                </td>
+                <td>
+                    {{medico.registro}}
+                </td>
+                <td>
+                    {{medico.pessoa.email}}
+                </td>
+                <td style="text-align: center">
+                    <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
+                        [routerLink]="['/medico-editar',medico.id]"></button>
+                </td>
+                <td style="text-align: center">
+
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhum médico encontrado.</td>
+            </tr>
+        </ng-template>
