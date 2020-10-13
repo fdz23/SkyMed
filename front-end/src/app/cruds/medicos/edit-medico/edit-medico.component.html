@@ -7,15 +7,26 @@
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-6">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cpfcnpj">CPF</label>
             <input id="cpf" [(ngModel)]="cpf" type="text" placeholder="{{cpf}}" [disabled]="true" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-6">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" [disabled]="true" type="text" placeholder="{{rg}}" pInputText required>
         </div>
-
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="registro">Registro</label>
+            <input id="registro" [(ngModel)]="registro" type="text" placeholder="{{registro}}" [disabled]="true" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="tipoDeRegistro">Tipo de registro</label>
+            <input id="tipoDeRegistro" [(ngModel)]="tipoDeRegistro" type="text" placeholder="{{tipoDeRegistro}}" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="especialidade">Especialidade</label>
+            <input id="especialidade" [(ngModel)]="especialidade" type="text" placeholder="{{especialidade}}" pInputText required>
+        </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-6">
@@ -40,13 +51,14 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <input id="estados"[(ngModel)]="uf" type="text" [disabled]="true" 
+            <input id="estados" [(ngModel)]="uf" type="text" [disabled]="true" 
                 placeholder="{{uf}}" pInputText required>
             </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}"pInputText required>
-          </div>
+            <input id="cidade" [(ngModel)]="cidade" [disabled]="true" placeholder="{{cidade}}" pInputText required>
+             
+        </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="celular">Celular</label>
             <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" placeholder="{{telefone}}" required>
@@ -65,11 +77,11 @@
         <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir" icon="pi pi-trash"
-                (click)="deletaPaciente()"></button>
+                (click)="deletaMedico()"></button>
         </div>
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"
-                [routerLink]="['/paciente-listar']"></button>
+                [routerLink]="['/medico-listar']"></button>
         </div>
 
 

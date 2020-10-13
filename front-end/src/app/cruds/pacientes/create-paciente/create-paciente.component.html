@@ -20,7 +20,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-6">
             <label for="endereco">Logradouro</label>
-            <input id="endereco" [(ngModel)]="logradouro" type="text" pInputText required>
+            <input id="endereco" [(ngModel)]="logradouro" [disabled]="true" type="text" pInputText required>
         </div>
 
         <div class="p-field p-col-12 p-md-6 p-lg-3">
@@ -39,25 +39,11 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <p-autoComplete [(ngModel)]="uf" [suggestions]="filteredEstados" (completeMethod)="searchEstados($event)"
-                [dropdown]="false" required>
-                <ng-template let-estado pTemplate="item">
-                    <div class="estado-item">
-                        <div>{{estado}}</div>
-                    </div>
-                </ng-template>
-            </p-autoComplete>
+            <input [(ngModel)]="uf" [disabled]="true" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <p-autoComplete [(ngModel)]="cidade" [suggestions]="filteredCidades"
-                (completeMethod)="searchCidades($event)" [dropdown]="false" required>
-                <ng-template let-cidade pTemplate="item">
-                    <div class="cidade-item">
-                        <div>{{cidade}}</div>
-                    </div>
-                </ng-template>
-            </p-autoComplete>
+            <input [(ngModel)]="cidade" [disabled]="true" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="celular">Celular</label>

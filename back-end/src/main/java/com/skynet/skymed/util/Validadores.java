@@ -53,9 +53,7 @@ public class Validadores {
 			String expression = "^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$";
 			Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 			Matcher matcher = pattern.matcher(email);
-			if (matcher.matches()) {
-				isEmailIdValid = true;
-			}
+			isEmailIdValid = matcher.matches();
 		}
 
 		return isEmailIdValid;
@@ -66,12 +64,10 @@ public class Validadores {
 		boolean isCelularValid = false;
 
 		if (celular != null && celular.length() > 0) {
-			String expression = "^[1-9]{2}9[7-9]{1}[0-9]{3}[0-9]{4}$";
+			String expression = "^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}-[0-9]{4}$";
 			Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 			Matcher matcher = pattern.matcher(celular);
-			if (matcher.matches()) {
-				isCelularValid = true;
-			}
+			isCelularValid = matcher.matches();
 		}
 
 		return isCelularValid;
@@ -85,9 +81,7 @@ public class Validadores {
 			String expression = "^\\d{5}[-]\\d{3}$";
 			Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 			Matcher matcher = pattern.matcher(cep);
-			if (matcher.matches()) {
-				isCepValid = true;
-			}
+			isCepValid = matcher.matches();
 		}
 
 		return isCepValid;

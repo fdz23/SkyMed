@@ -1,14 +1,11 @@
+import { ParseSourceSpan } from '@angular/compiler';
 import { Enderecos } from './enderecos';
+import { Especialidades } from './especialidades';
+import { Pacientes } from './Pacientes';
 
 export interface Medicos {
   id: number;
-  nome: string;
-  cpf_cnpj: string;
-  rg: string;
-  tipoDeRegistro: string;
   registro: string;
-  especialidade: string;
-  endereco: Enderecos;
-  telefone: string;
-  email: string;
+  especialidades: Especialidades[];
+  pessoa: Pacientes;
 }

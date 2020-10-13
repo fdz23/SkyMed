@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message, ConfirmationService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
-import { Estados } from '../../../../assets/estados';
-import { Pacientes } from '../../../../assets/Pacientes';
+import { Pessoas } from '../../../../assets/pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
-import { PacienteService } from 'src/app/servicos/paciente.service';
+import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-paciente-editar',
@@ -15,10 +15,11 @@ import { ActivatedRoute } from '@angular/router';
 
 })
 export class PacienteEditarComponent implements OnInit {
-  paciente: Pacientes;
+  paciente: Pessoas;
   msgs: Message[] = [];
 
   public pacienteid;
+  id :any;
   nome: string;
   cpf: string;
   rg: string;
@@ -33,9 +34,9 @@ export class PacienteEditarComponent implements OnInit {
   logradouro: string;
   ehPaciente: boolean;
 
-  constructor(private primengConfig: PrimeNGConfig,
+  constructor(private router: Router,private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
-    private pacienteService: PacienteService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+    private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
     this.route.params.subscribe(params => this.pacienteid = params['id']);
 
   }
@@ -48,7 +49,7 @@ export class PacienteEditarComponent implements OnInit {
 
   public obtenhaPacientePorId(id: any): void {
 
-    this.pacienteService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pacientes) => {
+    this.pessoaService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pessoas) => {
 
       this.paciente = paciente;
 
@@ -64,11 +65,12 @@ export class PacienteEditarComponent implements OnInit {
       this.cidade = paciente.endereco.localidade;
       this.telefone = paciente.telefone;
       this.email = paciente.email;
+      this.id = paciente.id;
     }, () => { });
 
 
   }
-  atualizaPaciente(paciente: Pacientes): void {
+  atualizaPaciente(paciente: Pessoas): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -77,11 +79,16 @@ export class PacienteEditarComponent implements OnInit {
 
           paciente.endereco = endereco;
 
-          this.pacienteService.atualizaPaciente(paciente)
+          this.pessoaService.atualizaPaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Paciente Atualizado com sucesso' });
+
+                setTimeout(() => {
+                  this.router.navigateByUrl('/paciente-listar');
+                }, 2000);
+                 
               },
               error => {
                 this.msgs = [];
@@ -89,6 +96,8 @@ export class PacienteEditarComponent implements OnInit {
                 return;
               }
             );
+
+            
         },
         error => {
           this.msgs = [];
@@ -96,6 +105,8 @@ export class PacienteEditarComponent implements OnInit {
         }
       );
 
+     
+      
   }
   
   deletaPaciente() {
@@ -105,8 +116,12 @@ export class PacienteEditarComponent implements OnInit {
       header: 'Exclusão de cadastro',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.pacienteService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
+        this.pessoaService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
         this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
+
+        setTimeout(() => {
+          this.router.navigateByUrl('/paciente-listar');
+        }, 2000);
       },
       reject: () => {
         this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
@@ -142,7 +157,9 @@ export class PacienteEditarComponent implements OnInit {
       telefone: this.telefone,
       email: this.email,
       ehPaciente: true,
-    } as Pacientes;
+      id: this.id,
+     
+    } as Pessoas;
 
     this.atualizaPaciente(paciente);
 

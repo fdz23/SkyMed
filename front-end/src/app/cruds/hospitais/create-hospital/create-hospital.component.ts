@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
-import { HttpClient } from '@angular/common/http';
-import { Estados } from '../../../../assets/estados';
 import { Hospitais } from '../../../../assets/hospitais';
+import { Pacientes } from 'src/assets/Pacientes';
+import { CepService } from 'src/app/servicos/cep.service';
+import { HospitalService } from 'src/app/servicos/hospital.service';
+import { Medicos } from 'src/assets/medicos';
+import { MedicoService } from 'src/app/servicos/medico.service';
 
 @Component({
   selector: 'app-create-hospital',
@@ -10,89 +13,110 @@ import { Hospitais } from '../../../../assets/hospitais';
 })
 export class CreateHospitalComponent implements OnInit {
 
-  constructor(private primengConfig: PrimeNGConfig, private http: HttpClient) { }
+  constructor(private primengConfig: PrimeNGConfig, private cepService: CepService, private hospitalService: HospitalService, private medicoService: MedicoService) { }
 
   msgs: Message[] = [];
-  estadosArray: string[];
-  cidadesArray: string[] = [];
-  filteredEstados: string[];
-  filteredCidades: string[];
+  medico: Medicos[];
+  filteredMedicos: Medicos[];
+  medicosArray: Medicos[];
 
+  razaoSocial: string;
   nome: string;
   cnpj: string;
-  endereco: string;
   complemento: string;
-  numero: number;
+  numero: string;
   cep: string;
-  uf: string;
-  cidade: string;
   telefone: string;
   email: string;
+  rg: string;
+  cpf: string;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.http.get<any>('assets/estados-cidades.json')
-      .toPromise()
-      .then(res => res.estados as Estados[])
-      .then(data => {
-        data.forEach(
-          estado => estado.cidades.forEach(
-            cidade => this.cidadesArray.push(cidade)
-          )
-        );
-        this.estadosArray = data.map(
-          estado => estado.nome
-        );
-      });
+
+    this.medicoService.obtenhaMedicos().subscribe(
+      medicos => {
+        this.medicosArray = medicos;
+      },
+      erro => {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', detail: 'Erro ao encontrar médicos disponíveis'});
+      }
+    );
   }
 
-  searchCidades(event): void {
-    this.filteredCidades = this.cidadesArray.filter(
-      cidade => cidade.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+  searchMedicos(event): void {
+    this.filteredMedicos = this.medicosArray.filter(
+      medicos => medicos.pessoa.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
 
-  searchEstados(event): void {
-    this.filteredEstados = this.estadosArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
+  insereHospital(hospital: Hospitais): void {
+    this.cepService.getEnderecoPeloCep(this.cep)
+      .subscribe(
+        endereco => {
+          endereco.complemento = this.complemento;
+          endereco.numero = this.numero;
+
+          hospital.pessoa.endereco = endereco;
+
+          this.hospitalService.insereHospital(hospital)
+            .subscribe(
+              () => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
+              },
+              error => {
+                this.msgs = [];
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error}` });
+                return;
+              }
+            );
+        },
+        error => {
+          this.msgs = [];
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+        }
+      );
   }
 
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-     || this.cnpj == null || this.cnpj == ''
-     || this.endereco == null || this.endereco == ''
-     || this.complemento == null || this.complemento == ''
+    debugger;
+
+    if (this.nome == null || this.nome === ''
+     || this.cnpj == null || this.cnpj === ''
+     || this.complemento == null || this.complemento === ''
      || this.numero == null
-     || this.cep == null || this.cep == ''
-     || this.uf == null || this.uf == ''
-     || this.cidade == null || this.cidade == ''
-     || this.telefone == null || this.telefone == ''
-     || this.email == null || this.email == '')
+     || this.cep == null || this.cep === ''
+     || this.telefone == null || this.telefone === ''
+     || this.razaoSocial == null || this.razaoSocial === ''
+     || this.cpf == null || this.cpf === ''
+     || this.rg == null || this.rg === ''
+     || this.email == null || this.email === '')
      {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
 
-    const hospital = {
-      id: 0,
+    const pessoaHospital = {
       nome: this.nome,
-      cnpj: this.cnpj,
-      endereco: this.endereco,
-      complemento: this.complemento,
-      numero: this.numero,
-      cep: this.cep,
-      uf: this.uf,
-      cidade: this.cidade,
       telefone: this.telefone,
-      email: this.email
+      email: this.email,
+      cpf: this.cpf,
+      rg: this.rg
+     } as Pacientes;
+
+    const hospital = {
+      razao_social: this.razaoSocial,
+      cnpj: this.cnpj,
+      pessoa: pessoaHospital,
+      medicos: this.medico
     } as Hospitais;
 
-    //TODO: integrar com back-end
+    this.insereHospital(hospital);
 
     this.msgs = [];
     this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });

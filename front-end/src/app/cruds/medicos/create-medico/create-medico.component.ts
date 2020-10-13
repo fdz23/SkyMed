@@ -6,6 +6,7 @@ import { Medicos } from '../../../../assets/medicos';
 import { CepService } from 'src/app/servicos/cep.service';
 import { Enderecos } from 'src/assets/enderecos';
 import { MedicoService } from 'src/app/servicos/medico.service';
+import { Pacientes } from 'src/assets/Pacientes';
 
 @Component({
   selector: 'app-create-medico',
@@ -19,26 +20,21 @@ export class CreateMedicoComponent implements OnInit {
               private medicoService: MedicoService) { }
 
   msgs: Message[] = [];
-  estadosArray: string[];
-  cidadesArray: string[] = [];
   tipoDeRegistrosArray: string[] = [
     'CRM', 'CRO', 'CRP'
   ];
   especialidadesArray: string[] = [
     'Psicologia', 'Podologia', 'Pediatria'
   ];
-  filteredEstados: string[];
-  filteredCidades: string[];
-  filteredTipoDeRegistros: string[];
   filteredEspecialidades: string[];
+  filteredTipoDeRegistros: string[];
 
   nome: string;
-  cpfcnpj: string;
+  cpf: string;
   rg: string;
   tipoDeRegistro: string;
   registro: string;
-  especialidade: string;
-  endereco: string;
+  logradouro: string;
   complemento: string;
   numero: string;
   cep: string;
@@ -46,33 +42,14 @@ export class CreateMedicoComponent implements OnInit {
   cidade: string;
   celular: string;
   email: string;
+  especialidade: string;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-    this.http.get<any>('assets/estados-cidades.json')
-      .toPromise()
-      .then(res => res.estados as Estados[])
-      .then(data => {
-        data.forEach(
-          estado => estado.cidades.forEach(
-            cidade => this.cidadesArray.push(cidade)
-          )
-        );
-        this.estadosArray = data.map(
-          estado => estado.nome
-        );
-      });
   }
 
-  searchCidades(event): void {
-    this.filteredCidades = this.cidadesArray.filter(
-      cidade => cidade.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
-
-  searchEstados(event): void {
-    this.filteredEstados = this.estadosArray.filter(
+  searchEspecialidades(event): void {
+    this.filteredEspecialidades = this.especialidadesArray.filter(
       estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
@@ -80,14 +57,7 @@ export class CreateMedicoComponent implements OnInit {
 
   searchTipoDeRegistros(event): void {
     this.filteredTipoDeRegistros = this.tipoDeRegistrosArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
-    );
-  }
-
-  searchEspecialidades(event): void {
-    this.filteredEspecialidades = this.especialidadesArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      tipoDeRegistros => tipoDeRegistros.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
         .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
@@ -99,7 +69,7 @@ export class CreateMedicoComponent implements OnInit {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
 
-          medico.endereco = endereco;
+          medico.pessoa.endereco = endereco;
 
           this.medicoService.insereMedico(medico)
             .subscribe(
@@ -124,12 +94,11 @@ export class CreateMedicoComponent implements OnInit {
   salvar(): void {
 
     if (this.nome == null || this.nome === ''
-      || this.cpfcnpj == null || this.cpfcnpj === ''
+      || this.cpf == null || this.cpf === ''
       || this.rg == null || this.rg === ''
       || this.tipoDeRegistro == null || this.tipoDeRegistro === ''
       || this.registro == null || this.rg === ''
-      || this.especialidade == null || this.especialidade === ''
-      || this.endereco == null || this.endereco === ''
+      || this.logradouro == null || this.logradouro === ''
       || this.complemento == null || this.complemento === ''
       || this.numero == null
       || this.cep == null || this.cep === ''
@@ -142,16 +111,17 @@ export class CreateMedicoComponent implements OnInit {
       return;
     }
 
-    const medico = {
-      id: 0,
+    const pacientes = {
       nome: this.nome,
-      cpf_cnpj: this.cpfcnpj,
+      cpf: this.cpf,
       rg: this.rg,
-      tipoDeRegistro: this.tipoDeRegistro,
-      registro: this.registro,
-      especialidade: this.especialidade,
       telefone: this.celular,
       email: this.email
+    } as Pacientes;
+
+    const medico = {
+      id: 0,
+      pessoa: pacientes,
     } as Medicos;
 
     this.insereMedico(medico);

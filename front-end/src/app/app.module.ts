@@ -26,11 +26,22 @@ import { KeyFilterModule } from 'primeng/keyfilter';
 import { CreatePacienteComponent } from './cruds/pacientes/create-paciente/create-paciente.component';
 import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/create-hospital.component';
 import { LoginComponent } from './acessos/login/login.component';
-import { PacienteEditarComponent} from './cruds/pacientes/paciente-editar/paciente-editar.component';
-import { PacienteListarComponent} from './cruds/pacientes/paciente-listar/paciente-listar.component';
+import { PacienteEditarComponent } from './cruds/pacientes/paciente-editar/paciente-editar.component';
+import { PacienteListarComponent } from './cruds/pacientes/paciente-listar/paciente-listar.component';
 
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
+import { ListMedicoComponent } from './cruds/medicos/list-medico/list-medico.component';
+import { EditMedicoComponent } from './cruds/medicos/edit-medico/edit-medico.component';
+import { AccordionModule } from 'primeng/accordion';
+import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
@@ -50,12 +61,13 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     CreatePacienteComponent,
     CreateHospitalComponent,
     LoginComponent,
+    ListMedicoComponent,
+    EditMedicoComponent,
     PacienteListarComponent,
     PacienteEditarComponent,
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
     EditEspecialidadeComponent
-
   ],
   imports: [
     BrowserModule,
@@ -77,10 +89,19 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     KeyFilterModule,
     PasswordModule,
     MenubarModule,
-    NgxMaskModule.forRoot(),
+    AccordionModule,
     TableModule,
-    ConfirmDialogModule
-
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ToastModule,
+    ProgressBarModule,
+    ConfirmDialogModule,
+    NgxMaskModule.forRoot(),
+    TableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
