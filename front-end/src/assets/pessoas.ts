@@ -1,6 +1,6 @@
 import { Enderecos } from './enderecos';
 
-export interface Pacientes {
+export interface Pessoas {
     id?: number,
     nome: string;
     cpf: string;

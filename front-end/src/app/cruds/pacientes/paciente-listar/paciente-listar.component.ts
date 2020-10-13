@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { PacienteService } from 'src/app/servicos/paciente.service';
-import { Pacientes } from 'src/assets/Pacientes';
+import { PessoaService } from 'src/app/servicos/pessoa.service';
+import { Pessoas } from 'src/assets/pessoas';
 import { Table } from 'primeng/table';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
@@ -15,17 +15,17 @@ import { PrimeNGConfig } from 'primeng/api';
 })
 export class PacienteListarComponent implements OnInit {
 
-  pacientes: Pacientes[];
+  pacientes: Pessoas[];
   msgs: Message[] = [];
   @ViewChild('dt') table: Table;
 
-  constructor(private pacienteService: PacienteService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(private pessoaService: PessoaService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.obtenhaPacientes();
   }
   obtenhaPacientes() {
-    this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
+    this.pessoaService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
   }
 
 }
