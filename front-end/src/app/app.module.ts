@@ -28,7 +28,19 @@ import { CreateHospitalComponent } from './cruds/hospitais/create-hospital/creat
 import { LoginComponent } from './acessos/login/login.component';
 import { PasswordModule } from 'primeng/password';
 import { MenubarModule } from 'primeng/menubar';
-import { NgxMaskModule, IConfig } from 'ngx-mask'
+import { ListMedicoComponent } from './cruds/medicos/list-medico/list-medico.component';
+import { EditMedicoComponent } from './cruds/medicos/edit-medico/edit-medico.component';
+import { AccordionModule } from 'primeng/accordion';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { CalendarModule } from 'primeng/calendar';
+import { SliderModule } from 'primeng/slider';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { DialogModule } from 'primeng/dialog';
+import { DropdownModule } from 'primeng/dropdown';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 
 @NgModule({
@@ -40,7 +52,9 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     HomeComponent,
     CreatePacienteComponent,
     CreateHospitalComponent,
-    LoginComponent
+    LoginComponent,
+    ListMedicoComponent,
+    EditMedicoComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +76,17 @@ import { NgxMaskModule, IConfig } from 'ngx-mask'
     KeyFilterModule,
     PasswordModule,
     MenubarModule,
-    NgxMaskModule.forRoot()
+    AccordionModule,
+    TableModule,
+    CalendarModule,
+    SliderModule,
+    DialogModule,
+    MultiSelectModule,
+    ContextMenuModule,
+    DropdownModule,
+    ToastModule,
+    ProgressBarModule,
+    ConfirmDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
