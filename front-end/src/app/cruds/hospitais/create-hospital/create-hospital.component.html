@@ -1,37 +1,21 @@
 <p-messages [(value)]="msgs"></p-messages>
 <p-fieldset legend="Informações">
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-8">
+        <div class="p-field p-col-12 p-md-6 p-lg-4">
             <label for="nome">Nome</label>
             <input id="nome" [(ngModel)]="nome" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cnpj">CNPJ</label>
             <input id="cnpj" [(ngModel)]="cnpj" pKeyFilter="pint" type="text" pInputText required>
         </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
-            <label for="complemento">Complemento</label>
-            <input id="complemento" [(ngModel)]="complemento" type="text" pInputText required>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="cpf">CPF</label>
+            <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
-            <label for="numero">Nº</label>
-            <input id="numero" [(ngModel)]="numero" pKeyFilter="pint" type="text" pInputText required>
-        </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
-            <label for="cep">CEP</label>
-            <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
-        </div>
-    </div>
-    <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
-            <label for="telefone">Telefone</label>
-            <p-inputMask [(ngModel)]="telefone" mask="(99) 9999-9999" required></p-inputMask>
-        </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
-            <label for="email">E-mail</label>
-            <input id="email" [(ngModel)]="email" pKeyFilter="email" type="text" pInputText required>
+            <label for="rg">RG</label>
+            <input id="rg" [(ngModel)]="rg" pKeyFilter="pint" type="text" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="medico">Médicos</label>
@@ -43,6 +27,32 @@
                     </div>
                 </ng-template>
             </p-autoComplete>
+        </div>
+    </div>
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="razaoSocial">Razão Social</label>
+            <input id="razaoSocial" type="text" [(ngModel)]="razaoSocial" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="cep">CEP</label>
+            <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="complemento">Complemento</label>
+            <input id="complemento" [(ngModel)]="complemento" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="numero">Nº</label>
+            <input id="numero" [(ngModel)]="numero" pKeyFilter="pint" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="telefone">Telefone</label>
+            <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" required></p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="email">E-mail</label>
+            <input id="email" [(ngModel)]="email" pKeyFilter="email" type="text" pInputText required>
         </div>
     </div>
     <div class="p-grid">

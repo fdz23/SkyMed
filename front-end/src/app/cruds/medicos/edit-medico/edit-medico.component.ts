@@ -6,7 +6,7 @@ import { Enderecos } from 'src/assets/enderecos';
 import { ActivatedRoute } from '@angular/router';
 import { Medicos } from 'src/assets/medicos';
 import { MedicoService } from 'src/app/servicos/medico.service';
-import { Pacientes } from 'src/assets/Pacientes';
+import { Pessoas } from 'src/assets/Pessoas';
 
 @Component({
   selector: 'app-edit-medico',
@@ -153,7 +153,7 @@ export class EditMedicoComponent implements OnInit {
       rg: this.rg,
       telefone: this.telefone,
       email: this.email
-    } as Pacientes;
+    } as Pessoas;
 
     const medico = {
       pessoa: paciente

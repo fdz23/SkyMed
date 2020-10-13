@@ -36,7 +36,7 @@
                 (completeMethod)="searchEspecialidades($event)" [dropdown]="true" required>
                 <ng-template let-especialidade pTemplate="item">
                     <div class="especialidade-item">
-                        <div>{{especialidade}}</div>
+                        <div>{{especialidade.nome}}</div>
                     </div>
                 </ng-template>
             </p-autoComplete>
