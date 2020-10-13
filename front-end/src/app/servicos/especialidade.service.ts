@@ -27,7 +27,7 @@ export class EspecialidadeService {
 
   obtenhaEspecialidades(): Observable<any> {
 
-    const url = `http://127.0.0.1:8080/pessoa/pacientes/`;
+    const url = `http://127.0.0.1:8080/especialidades/`;
     return this.http.get<Especialidades[]>(url);
 
   }
