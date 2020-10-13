@@ -19,13 +19,13 @@ export class PacienteListarComponent implements OnInit {
   msgs: Message[] = [];
   @ViewChild('dt') table: Table;
 
-  constructor(private pacienteService: PessoaService, private router: Router, private confirmationService: ConfirmationService) { }
+  constructor(private pessoaService: PessoaService, private router: Router, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.obtenhaPacientes();
   }
   obtenhaPacientes() {
-    this.pacienteService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
+    this.pessoaService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
   }
 
 }

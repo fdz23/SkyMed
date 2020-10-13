@@ -16,8 +16,8 @@ export class CreatePacienteComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
-    private pacienteService: PessoaService) { }
-    
+    private pessoaService: PessoaService) { }
+
   msgs: Message[] = [];
   estadosArray: string[];
   cidadesArray: string[] = [];
@@ -66,7 +66,7 @@ export class CreatePacienteComponent implements OnInit {
 
           paciente.endereco = endereco;
 
-          this.pacienteService.inserePaciente(paciente)
+          this.pessoaService.inserePaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];

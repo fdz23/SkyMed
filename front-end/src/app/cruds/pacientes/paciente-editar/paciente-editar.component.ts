@@ -36,7 +36,7 @@ export class PacienteEditarComponent implements OnInit {
 
   constructor(private router: Router,private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
-    private pacienteService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+    private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
     this.route.params.subscribe(params => this.pacienteid = params['id']);
 
   }
@@ -49,7 +49,7 @@ export class PacienteEditarComponent implements OnInit {
 
   public obtenhaPacientePorId(id: any): void {
 
-    this.pacienteService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pessoas) => {
+    this.pessoaService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pessoas) => {
 
       this.paciente = paciente;
 
@@ -79,7 +79,7 @@ export class PacienteEditarComponent implements OnInit {
 
           paciente.endereco = endereco;
 
-          this.pacienteService.atualizaPaciente(paciente)
+          this.pessoaService.atualizaPaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
@@ -116,7 +116,7 @@ export class PacienteEditarComponent implements OnInit {
       header: 'Exclusão de cadastro',
       icon: 'pi pi-info-circle',
       accept: () => {
-        this.pacienteService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
+        this.pessoaService.deletaPaciente(this.paciente.id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
         this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
 
         setTimeout(() => {
