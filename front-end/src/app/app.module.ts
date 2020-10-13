@@ -45,7 +45,9 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { TableModule } from 'primeng/table';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component'
+import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
+import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
+import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
 
 
 
@@ -63,7 +65,9 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
     EditMedicoComponent,
     PacienteListarComponent,
     PacienteEditarComponent,
-    CreateEspecialidadeComponent
+    CreateEspecialidadeComponent,
+    ListEspecialidadeComponent,
+    EditEspecialidadeComponent
   ],
   imports: [
     BrowserModule,

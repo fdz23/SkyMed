@@ -1,0 +1,53 @@
+<div class="card ">
+    <p-table #dt [value]="especialidades" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
+        [globalFilterFields]="['nome']" [resizableColumns]="true" [autoLayout]="true">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de Especialidades
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Pesquisa Global" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th style="width: 3rem"></th>
+                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
+                <th style="width: 8rem"></th>
+            </tr>
+            <tr>
+                <th> </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
+                        placeholder="Pesquisa por Nome" class="p-column-filter">
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-paciente>
+            <tr class="p-selectable-row">
+                <td></td>
+                <td>
+                    {{especialidade.nome}}
+                </td>
+                <td style="text-align: center">
+                    <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
+                        [routerLink]="['/especialidade-editar',especialidade.id]"></button>
+                </td>
+                <td style="text-align: center">
+
+                </td>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="8">Nenhuma especialidade encontrada.</td>
+            </tr>
+        </ng-template>
