@@ -15,28 +15,32 @@
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" type="text" pInputText required>
         </div>
-   <div class="p-field p-col-12 p-md-6 p-lg-3">
-        <label for="complemento">Complemento</label>
-        <input id="complemento" [(ngModel)]="complemento" type="text" pInputText required>
+
     </div>
-    <div class="p-field p-col-12 p-md-6 p-lg-1">
-        <label for="numero">Nº</label>
-        <input id="numero" [(ngModel)]="numero" type="text" pInputText required>
-    </div>
-    <div class="p-field p-col-12 p-md-6 p-lg-2">
-        <label for="cep">CEP</label>
-        <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
-    </div>
-    </div>
-         <div class="p-field p-col-12 p-md-6 p-lg-3">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
+            <label for="complemento">Complemento</label>
+            <input id="complemento" [(ngModel)]="complemento" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="numero">Nº</label>
+            <input id="numero" [(ngModel)]="numero" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="cep">CEP</label>
+            <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
+        </div>
+        <div class="p-field p-col-12 p-md-2 p-lg-2">
             <label for="celular">Celular</label>
             <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" required></p-inputMask>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-5">
+        <div class="p-field p-col-12 p-md-4 p-lg-4">
             <label for="email">E-mail</label>
             <input id="email" [(ngModel)]="email" type="text" pInputText required>
         </div>
-      <div class="p-grid">
+    </div>
+
+    <div class="p-grid">
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
                 (click)="salvar()"></button>
