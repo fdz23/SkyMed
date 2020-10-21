@@ -121,7 +121,7 @@ export class CreateMedicoComponent implements OnInit {
       id: 0,
       pessoa: pacientes,
       registro: this.registro,
-      especialidade: this.especialidades
+      especialidade: this.especialidadesSelecionadas
     } as Medicos;
 
     this.insereMedico(medico);
