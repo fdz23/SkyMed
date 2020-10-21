@@ -31,15 +31,10 @@
             </p-autoComplete>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-4">
-            <label for="especialidade">Especialidade</label>
-            <p-autoComplete [(ngModel)]="especialidade" [suggestions]="filteredEspecialidades"
-                (completeMethod)="searchEspecialidades($event)" [dropdown]="true" required>
-                <ng-template let-especialidade pTemplate="item">
-                    <div class="especialidade-item">
-                        <div>{{especialidade.nome}}</div>
-                    </div>
-                </ng-template>
-            </p-autoComplete>
+            <label for="especialidade">Especialidades</label>
+            <p-multiSelect [options]="especialidades" [(ngModel)]="especialidadesSelecionadas" optionLabel="nome" 
+                [filter]="true" filterBy="value.nome">
+            </p-multiSelect>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
