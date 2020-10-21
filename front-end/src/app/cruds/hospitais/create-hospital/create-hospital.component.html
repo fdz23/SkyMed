@@ -18,15 +18,10 @@
             <input id="rg" [(ngModel)]="rg" pKeyFilter="pint" type="text" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
-            <label for="medico">Médicos</label>
-            <p-autoComplete [(ngModel)]="medico" [suggestions]="filteredMedicos"
-                (completeMethod)="searchMedicos($event)" [dropdown]="true" required>
-                <ng-template let-medico pTemplate="item">
-                    <div class="medico-item">
-                        <div>{{medico.pessoa.nome}} - {{medico.pessoa.endereco.localidade}} - {{medico.registro}}</div>
-                    </div>
-                </ng-template>
-            </p-autoComplete>
+            <label for="medicos">Medicos</label>
+            <p-multiSelect [options]="medicos" [(ngModel)]="medicosSelecionados" optionLabel="pessoa.nome" 
+                [filter]="true" filterBy="value.pessoa.nome">
+            </p-multiSelect>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">

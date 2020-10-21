@@ -24,8 +24,8 @@ export class CreateMedicoComponent implements OnInit {
   tipoDeRegistrosArray: string[] = [
     'CRM', 'CRO', 'CRP'
   ];
-  especialidadesArray: Especialidades[];
-  filteredEspecialidades: Especialidades[];
+  especialidades: Especialidades[];
+  especialidadesSelecionadas: Especialidades[];
   filteredTipoDeRegistros: string[];
 
   nome: string;
@@ -48,19 +48,12 @@ export class CreateMedicoComponent implements OnInit {
 
     this.especialidadeService.obtenhaEspecialidades().subscribe(
       especialidades => {
-        this.especialidadesArray = especialidades;
+        this.especialidades = especialidades;
       },
       erro => {
         this.msgs = [];
         this.msgs.push({severity: 'error', detail: 'Erro ao encontrar especialidades disponíveis'});
       }
-    );
-  }
-
-  searchEspecialidades(event): void {
-    this.filteredEspecialidades = this.especialidadesArray.filter(
-      especialidade => especialidade.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
 
@@ -88,7 +81,7 @@ export class CreateMedicoComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
                 return;
               }
             );
@@ -101,8 +94,6 @@ export class CreateMedicoComponent implements OnInit {
   }
 
   salvar(): void {
-    debugger;
-
     if (this.nome == null || this.nome === ''
       || this.cpf == null || this.cpf === ''
       || this.rg == null || this.rg === ''
@@ -126,15 +117,11 @@ export class CreateMedicoComponent implements OnInit {
       email: this.email
     } as Pessoas;
 
-    const especialidadesMedico = [
-      this.especialidade
-    ] as Especialidades[];
-
     const medico = {
       id: 0,
       pessoa: pacientes,
       registro: this.registro,
-      especialidade: especialidadesMedico
+      especialidade: this.especialidadesSelecionadas
     } as Medicos;
 
     this.insereMedico(medico);

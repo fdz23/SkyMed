@@ -17,8 +17,8 @@ export class CreateHospitalComponent implements OnInit {
 
   msgs: Message[] = [];
   medico: Medicos;
-  filteredMedicos: Medicos[];
-  medicosArray: Medicos[];
+  medicosSelecionados: Medicos[];
+  medicos: Medicos[];
 
   razaoSocial: string;
   nome: string;
@@ -36,19 +36,12 @@ export class CreateHospitalComponent implements OnInit {
 
     this.medicoService.obtenhaMedicos().subscribe(
       medicos => {
-        this.medicosArray = medicos;
+        this.medicos = medicos;
       },
       erro => {
         this.msgs = [];
         this.msgs.push({severity: 'error', detail: 'Erro ao encontrar médicos disponíveis'});
       }
-    );
-  }
-
-  searchMedicos(event): void {
-    this.filteredMedicos = this.medicosArray.filter(
-      medicos => medicos.pessoa.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
 
@@ -69,7 +62,7 @@ export class CreateHospitalComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.message}` });
                 return;
               }
             );
@@ -111,7 +104,7 @@ export class CreateHospitalComponent implements OnInit {
       razao_social: this.razaoSocial,
       cnpj: this.cnpj,
       pessoa: pessoaHospital,
-      medicos: [this.medico]
+      medicos: this.medicosSelecionados
     } as Hospitais;
 
     this.insereHospital(hospital);
