@@ -32,9 +32,9 @@ public class PessoaController {
 	@GetMapping
 	public ResponseEntity<ArrayList<Pessoa>> getObject() {
 		var pessoas = pessoaDB.findAll();
+
 		if (pessoas.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-
 		}
 		return ResponseEntity.ok((ArrayList<Pessoa>) pessoas);
 	}
@@ -46,11 +46,19 @@ public class PessoaController {
 
 			if (pessoa.hasBody()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-
 			}
+		} else if (pessoaDB.verificaCpfExistente(object.getCpf()) != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+		} else if (pessoaDB.verificaRgExistente(object.getRg()) != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+		} else if (pessoaDB.verificaEmailExistente(object.getEmail()) != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
 		}
 
-		servicoDeEmailPaciente.enviaEmail(object);
+		// servicoDeEmailPaciente.enviaEmail(object);
 		pessoaDB.save(object);
 		return ResponseEntity.ok(object);
 
@@ -66,7 +74,11 @@ public class PessoaController {
 
 		if (!pessoa.hasBody()) {
 			return pessoa;
-		}
+
+		} // else if(pessoaDB.verificaCpfExistente(object.getCpf())) {
+			// return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+
+		// }
 
 		pessoaDB.save(object);
 
@@ -96,6 +108,28 @@ public class PessoaController {
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
 		}
+	}
+
+	@GetMapping("/pacientes")
+	public ResponseEntity<ArrayList<Pessoa>> getPacientes() {
+		var pessoas = pessoaDB.findAll();
+		if (pessoas.size() == 0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+
+		var pacientes = new ArrayList<Pessoa>();
+
+		for (Pessoa pessoa : pessoas) {
+			if (pessoa.isEhPaciente()) {
+				pacientes.add(pessoa);
+			}
+		}
+
+		if (pacientes.size() == 0) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+
+		return ResponseEntity.ok((ArrayList<Pessoa>) pacientes);
 	}
 
 }

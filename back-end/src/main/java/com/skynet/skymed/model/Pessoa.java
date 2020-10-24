@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 
 import com.skynet.skymed.util.Validadores;
 
-@Entity
+@Entity(name = "pessoa")
 public class Pessoa {
 
 	@Id
