@@ -1,3 +1,4 @@
+<p-messages [(value)]="msgs"></p-messages>
 <div class="card ">
     <p-table #dt [value]="pacientes" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
@@ -70,10 +71,13 @@
                         [routerLink]="['/paciente-editar',paciente.id]"></button>
                 </td>
                 <td style="text-align: center">
-
+                    <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+                    <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir"
+                        icon="pi pi-trash" (click)="deletaPaciente(paciente.id) "></button>
                 </td>
 
             </tr>
+            <tr></tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
