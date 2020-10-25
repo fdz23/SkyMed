@@ -38,12 +38,15 @@ export class PacienteListarComponent implements OnInit {
       icon: 'pi pi-info-circle',
 
       accept: () => {
-        this.pessoaService.deletaPaciente(id).subscribe(paciente => { }, err => { console.log('Erro ao deletar paciente') });
-        this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
-        this.confirmationService.close();
-        location.reload;
+        this.pessoaService.deletaPaciente(id).subscribe(paciente => { this.msgs = [];
+          this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
+          this.confirmationService.close();
+          location.reload; },
+           err => { console.log('Erro ao deletar paciente') });
+        
       },
       reject: () => {
+        this.msgs = [];
         this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
         this.confirmationService.close();
        }
