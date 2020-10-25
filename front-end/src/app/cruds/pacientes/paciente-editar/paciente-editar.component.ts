@@ -92,14 +92,14 @@ export class PacienteEditarComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao atualizar Paciente : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao atualizar Paciente : ${error.error}` });
                 return;
               }
             );
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
  

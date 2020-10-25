@@ -116,7 +116,7 @@ public class Pessoa {
 
 	public void setCpf(String cpf) throws Exception {
 		if (!Validadores.isValidCPF(cpf)) {
-			throw new Exception("Cpf/Cnpj não é valido.");
+			throw new Exception("CPF não é valido.");
 		}
 
 		this.cpf = cpf;
