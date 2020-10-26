@@ -31,11 +31,11 @@ public class PessoaController {
 
 	@Autowired
 	private PessoaRepository pessoaDB;
-	
+
 	@ExceptionHandler({ HttpMessageNotReadableException.class })
-    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
-    }
+	}
 
 	@GetMapping
 	public ResponseEntity<Object> getObject() {
@@ -44,7 +44,7 @@ public class PessoaController {
 		if (pessoas.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhuma pessoa encontrada.");
 		}
-		return ResponseEntity.ok((ArrayList<Pessoa>) pessoas);
+		return ResponseEntity.ok(pessoas);
 	}
 
 	@PostMapping
@@ -68,7 +68,7 @@ public class PessoaController {
 
 		// servicoDeEmailPaciente.enviaEmail(object);
 		pessoaDB.save(object);
-		return ResponseEntity.ok("Paciente cadastrado com sucesso");
+		return ResponseEntity.ok(object);
 
 	}
 
@@ -81,11 +81,11 @@ public class PessoaController {
 		var pessoa = getById(object.getId().intValue());
 
 		if (pessoa.getBody().equals("PACIENTE_INEXISTENTE")) {
-			
+
 			return pessoa;
 
-		} 
-		
+		}
+
 		pessoaDB.save(object);
 
 		return ResponseEntity.ok(object);
@@ -96,13 +96,13 @@ public class PessoaController {
 		var pessoa = getById(id);
 
 		if (pessoa.getBody().equals("PESSOA_INEXISTENTE")) {
-			
+
 			return pessoa;
 		}
 
 		pessoaDB.deleteById((long) id);
 
-		return pessoa;
+		return ResponseEntity.ok(null);
 	}
 
 	@GetMapping("/{id}")
@@ -124,19 +124,13 @@ public class PessoaController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente encontrado");
 		}
 
-		var pacientes = new ArrayList<Pessoa>();
+		var pacientes = pessoaDB.obtenhaPacientes();
 
-		for (Pessoa pessoa : pessoas) {
-			if (pessoa.isEhPaciente()) {
-				pacientes.add(pessoa);
-			}
-		}
-
-		if (pacientes.size() == 0) {
+		if (pacientes.equals(null)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente retornado");
 		}
 
-		return ResponseEntity.ok((ArrayList<Pessoa>) pacientes);
+		return ResponseEntity.ok(pacientes);
 	}
 
 }
