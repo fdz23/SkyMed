@@ -15,12 +15,12 @@
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" [disabled]="true" type="text" placeholder="{{rg}}" pInputText required>
         </div>
-
     </div>
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-6">
             <label for="endereco">Logradouro</label>
-            <input id="endereco" [(ngModel)]="logradouro" type="text"[disabled]="true" placeholder="{{logradouro}}" pInputText required>
+            <input id="endereco" [(ngModel)]="logradouro" type="text" [disabled]="true" placeholder="{{logradouro}}"
+                pInputText required>
         </div>
 
         <div class="p-field p-col-12 p-md-6 p-lg-3">
@@ -40,13 +40,12 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="estado">Estado</label>
-            <input id="estados"[(ngModel)]="uf" type="text" [disabled]="true" 
-                placeholder="{{uf}}" pInputText required>
-            </div>
+            <input id="estados" [(ngModel)]="uf" type="text" [disabled]="true" placeholder="{{uf}}" pInputText required>
+        </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cidade">Cidade</label>
-            <input id="cidade" [(ngModel)]="cidade"   [disabled]="true" placeholder="{{cidade}}"pInputText required>
-          </div>
+            <input id="cidade" [(ngModel)]="cidade" [disabled]="true" placeholder="{{cidade}}" pInputText required>
+        </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="celular">Celular</label>
             <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" placeholder="{{telefone}}" required>
@@ -63,17 +62,10 @@
                 (click)="salvar()"></button>
         </div>
         <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir" icon="pi pi-trash"
-                (click)="deletaPaciente()"></button>
-        </div>
+
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"
                 [routerLink]="['/paciente-listar']"></button>
         </div>
-
-
-
     </div>
-
 </p-fieldset>

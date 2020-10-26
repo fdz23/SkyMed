@@ -23,9 +23,46 @@ export class PacienteListarComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenhaPacientes();
+
   }
+
   obtenhaPacientes() {
     this.pessoaService.obtenhaPacientes().subscribe(pacientes => this.pacientes = pacientes);
   }
 
+  deletaPaciente(id) {
+
+    this.confirmationService.confirm({
+      message: 'Deseja realmente excluir o cadastro?',
+      header: 'Exclusão de cadastro',
+      icon: 'pi pi-info-circle',
+
+      accept: () => {
+        this.pessoaService.deletaPaciente(id).subscribe(paciente => {
+          this.msgs = [];
+          this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
+          location.reload;
+
+        },
+
+          error => {
+            this.msgs = [];
+            this.msgs.push({ severity: 'error', detail: `Erro ao deletar Paciente : ${error.error}` });
+          }
+
+        );
+
+        this.confirmationService.close();
+      },
+      reject: () => {
+        this.msgs = [];
+        this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
+        this.confirmationService.close();
+      }
+
+    });
+  }
 }
+
+
+
