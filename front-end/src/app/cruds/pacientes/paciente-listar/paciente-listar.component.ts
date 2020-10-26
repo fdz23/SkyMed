@@ -23,7 +23,7 @@ export class PacienteListarComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenhaPacientes();
-    this.table.responsive;
+
   }
 
   obtenhaPacientes() {
@@ -42,10 +42,17 @@ export class PacienteListarComponent implements OnInit {
           this.msgs = [];
           this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
           location.reload;
-        },
-          err => { console.log('Erro ao deletar paciente') });
-        this.confirmationService.close();
 
+        },
+
+          error => {
+            this.msgs = [];
+            this.msgs.push({ severity: 'error', detail: `Erro ao deletar Paciente : ${error.error}` });
+          }
+
+        );
+
+        this.confirmationService.close();
       },
       reject: () => {
         this.msgs = [];
@@ -54,9 +61,8 @@ export class PacienteListarComponent implements OnInit {
       }
 
     });
-
-
-
   }
-
 }
+
+
+

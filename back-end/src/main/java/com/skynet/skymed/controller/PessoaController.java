@@ -41,7 +41,7 @@ public class PessoaController {
 	public ResponseEntity<Object> getObject() {
 		var pessoas = pessoaDB.findAll();
 
-		if (pessoas.size() == 0) {
+		if (pessoas == null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhuma pessoa encontrada.");
 		}
 		return ResponseEntity.ok(pessoas);
