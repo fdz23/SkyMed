@@ -41,7 +41,7 @@ export class PacienteListarComponent implements OnInit {
         this.pessoaService.deletaPaciente(id).subscribe(paciente => {
           this.msgs = [];
           this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
-          location.reload;
+          window.location.reload;
 
         },
 
