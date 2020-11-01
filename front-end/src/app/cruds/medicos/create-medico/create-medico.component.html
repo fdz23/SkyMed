@@ -31,10 +31,9 @@
             </p-autoComplete>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-4">
-            <label for="especialidade">Especialidades</label>
-            <p-multiSelect [options]="especialidades" [(ngModel)]="especialidadesSelecionadas" optionLabel="nome" 
-                [filter]="true" filterBy="value.nome">
-            </p-multiSelect>
+            <label for="especialidade">Especialidade</label>
+            <p-dropdown [options]="especialidades" [(ngModel)]="especialidadeSelecionada" [filter]="true" optionLabel="nome" required>
+            </p-dropdown>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
