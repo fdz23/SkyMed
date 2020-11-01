@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
-import { Estados } from '../../../../assets/estados';
 import { Medicos } from '../../../../assets/medicos';
 import { CepService } from 'src/app/servicos/cep.service';
-import { Enderecos } from 'src/assets/enderecos';
 import { MedicoService } from 'src/app/servicos/medico.service';
-import { Pacientes } from 'src/assets/Pacientes';
+import { Pessoas } from 'src/assets/Pessoas';
+import { Especialidades } from 'src/assets/especialidades';
+import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 
 @Component({
   selector: 'app-create-medico',
@@ -17,16 +17,15 @@ export class CreateMedicoComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig,
               private http: HttpClient,
               private cepService: CepService,
-              private medicoService: MedicoService) { }
+              private medicoService: MedicoService,
+              private especialidadeService: EspecialidadeService) { }
 
   msgs: Message[] = [];
   tipoDeRegistrosArray: string[] = [
     'CRM', 'CRO', 'CRP'
   ];
-  especialidadesArray: string[] = [
-    'Psicologia', 'Podologia', 'Pediatria'
-  ];
-  filteredEspecialidades: string[];
+  especialidades: Especialidades[];
+  especialidadeSelecionada: Especialidades;
   filteredTipoDeRegistros: string[];
 
   nome: string;
@@ -42,16 +41,19 @@ export class CreateMedicoComponent implements OnInit {
   cidade: string;
   celular: string;
   email: string;
-  especialidade: string;
+  especialidade: Especialidades;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-  }
 
-  searchEspecialidades(event): void {
-    this.filteredEspecialidades = this.especialidadesArray.filter(
-      estado => estado.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
+    this.especialidadeService.obtenhaEspecialidades().subscribe(
+      especialidades => {
+        this.especialidades = especialidades;
+      },
+      erro => {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}`});
+      }
     );
   }
 
@@ -79,31 +81,27 @@ export class CreateMedicoComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
                 return;
               }
             );
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
   }
 
   salvar(): void {
-
     if (this.nome == null || this.nome === ''
       || this.cpf == null || this.cpf === ''
       || this.rg == null || this.rg === ''
       || this.tipoDeRegistro == null || this.tipoDeRegistro === ''
       || this.registro == null || this.rg === ''
-      || this.logradouro == null || this.logradouro === ''
       || this.complemento == null || this.complemento === ''
       || this.numero == null
       || this.cep == null || this.cep === ''
-      || this.uf == null || this.uf === ''
-      || this.cidade == null || this.cidade === ''
       || this.celular == null || this.celular === ''
       || this.email == null || this.email === '') {
       this.msgs = [];
@@ -117,11 +115,13 @@ export class CreateMedicoComponent implements OnInit {
       rg: this.rg,
       telefone: this.celular,
       email: this.email
-    } as Pacientes;
+    } as Pessoas;
 
     const medico = {
       id: 0,
       pessoa: pacientes,
+      registro: this.registro,
+      especialidade: this.especialidadeSelecionada
     } as Medicos;
 
     this.insereMedico(medico);

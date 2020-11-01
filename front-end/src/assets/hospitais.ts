@@ -1,10 +1,10 @@
 import { Medicos } from './medicos';
-import { Pacientes } from './Pacientes';
+import { Pessoas } from './Pessoas';
 
 export interface Hospitais {
     id: number;
     cnpj: string;
     razao_social: string;
     medicos: Medicos[];
-    pessoa: Pacientes;
+    pessoa: Pessoas;
 }

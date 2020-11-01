@@ -74,14 +74,14 @@ export class CreatePacienteComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar Paciente : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar Paciente : ${error.error}` });
                 return;
               }
             );
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
   }

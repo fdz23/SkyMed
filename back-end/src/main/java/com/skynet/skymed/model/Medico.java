@@ -9,8 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
@@ -24,16 +23,19 @@ public class Medico {
 	@Column(name = "med_registro")
 	private String registro;
 	
-	@ManyToMany()
-	@JoinTable(
-			  name = "medico_especialidades", 
-			  joinColumns = @JoinColumn(name = "med_iden"), 
-			  inverseJoinColumns = @JoinColumn(name = "esp_iden"))
-	private List<Especialidade> especialidades;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "med_esp_iden")
+	private Especialidade especialidade;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "med_pes_iden")
 	private Pessoa pessoa;
+	
+	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+	private List<Horario> horariosConsulta;
+	
+	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
+	private List<HorarioTrabalho> horariosTrabalho;
 
 	public Medico() {
 	}
@@ -60,15 +62,15 @@ public class Medico {
 		this.registro = registro;
 	}
 
-	public List<Especialidade> getEspecialidade() {
-		return especialidades;
+	public Especialidade getEspecialidade() {
+		return especialidade;
 	}
 
-	public void setEspecialidade(List<Especialidade> especialidades) throws Exception {
-		if (especialidades == null) {
-			throw new Exception("Especialidades inválidas.");
+	public void setEspecialidade(Especialidade especialidade) throws Exception {
+		if (especialidade == null) {
+			throw new Exception("Especialidade inválida.");
 		}
-		this.especialidades = especialidades;
+		this.especialidade = especialidade;
 	}
 
 	public Pessoa getPessoa() {
@@ -80,5 +82,29 @@ public class Medico {
 			throw new Exception("Pessoa inválido.");
 		}
 		this.pessoa = pessoa;
+	}
+
+	public List<Horario> getHorariosConsulta() {
+		return horariosConsulta;
+	}
+
+	public void setHorariosConsulta(List<Horario> horariosConsulta) throws Exception {
+		if (horariosConsulta == null) {
+			throw new Exception("Horários inválidos.");
+		}
+		
+		this.horariosConsulta = horariosConsulta;
+	}
+
+	public List<HorarioTrabalho> getHorariosTrabalho() {
+		return horariosTrabalho;
+	}
+
+	public void setHorariosTrabalho(List<HorarioTrabalho> horariosTrabalho) throws Exception {
+		if (horariosTrabalho == null) {
+			throw new Exception("Horários inválidos.");
+		}
+		
+		this.horariosTrabalho = horariosTrabalho;
 	}
 }

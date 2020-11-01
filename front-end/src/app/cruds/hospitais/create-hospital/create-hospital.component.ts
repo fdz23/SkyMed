@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { Hospitais } from '../../../../assets/hospitais';
-import { Pacientes } from 'src/assets/Pacientes';
+import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { Medicos } from 'src/assets/medicos';
@@ -16,9 +16,9 @@ export class CreateHospitalComponent implements OnInit {
   constructor(private primengConfig: PrimeNGConfig, private cepService: CepService, private hospitalService: HospitalService, private medicoService: MedicoService) { }
 
   msgs: Message[] = [];
-  medico: Medicos[];
-  filteredMedicos: Medicos[];
-  medicosArray: Medicos[];
+  medico: Medicos;
+  medicosSelecionados: Medicos[];
+  medicos: Medicos[];
 
   razaoSocial: string;
   nome: string;
@@ -36,19 +36,12 @@ export class CreateHospitalComponent implements OnInit {
 
     this.medicoService.obtenhaMedicos().subscribe(
       medicos => {
-        this.medicosArray = medicos;
+        this.medicos = medicos;
       },
       erro => {
         this.msgs = [];
         this.msgs.push({severity: 'error', detail: 'Erro ao encontrar médicos disponíveis'});
       }
-    );
-  }
-
-  searchMedicos(event): void {
-    this.filteredMedicos = this.medicosArray.filter(
-      medicos => medicos.pessoa.nome.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-        .includes(event.query.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''))
     );
   }
 
@@ -69,7 +62,7 @@ export class CreateHospitalComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.message}` });
                 return;
               }
             );
@@ -82,8 +75,6 @@ export class CreateHospitalComponent implements OnInit {
   }
 
   salvar(): void {
-
-    debugger;
 
     if (this.nome == null || this.nome === ''
      || this.cnpj == null || this.cnpj === ''
@@ -107,13 +98,13 @@ export class CreateHospitalComponent implements OnInit {
       email: this.email,
       cpf: this.cpf,
       rg: this.rg
-     } as Pacientes;
+     } as Pessoas;
 
     const hospital = {
       razao_social: this.razaoSocial,
       cnpj: this.cnpj,
       pessoa: pessoaHospital,
-      medicos: this.medico
+      medicos: this.medicosSelecionados
     } as Hospitais;
 
     this.insereHospital(hospital);

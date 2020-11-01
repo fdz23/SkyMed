@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Especialidade {
@@ -21,10 +22,6 @@ public class Especialidade {
 	
 	@Column(name = "esp_nome")
 	private String nome;
-	
-	@ManyToMany(mappedBy = "especialidades")
-    @JsonBackReference
-    private List<Medico> medicos;
 	
 	public Especialidade() {
 	}

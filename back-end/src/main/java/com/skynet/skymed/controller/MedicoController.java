@@ -6,7 +6,9 @@ import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,28 +24,34 @@ import com.skynet.skymed.repository.MedicoRepository;
 
 @RequestMapping("/medico")
 public class MedicoController {
+	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
 
 	@Autowired
 	private MedicoRepository medicoDB;
+	
+	@ExceptionHandler({ HttpMessageNotReadableException.class })
+    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
+    }
 
 	@GetMapping
-	public ResponseEntity<ArrayList<Medico>> getObject() {
+	public ResponseEntity<Object> getObject() {
 		var medicos = medicoDB.findAll();
 
 		if (medicos.size() == 0) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum médico.");
 		}
 
 		return ResponseEntity.ok((ArrayList<Medico>) medicos);
 	}
 
 	@PostMapping
-	public ResponseEntity<Medico> postMedico(@RequestBody Medico object) {
+	public ResponseEntity<Object> postMedico(@RequestBody Medico object) {
 		if (object.getId() != null) {
 			var medico = getById(object.getId().intValue());
 
-			if (medico.hasBody()) {
-				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			if (!medico.getBody().equals(MEDICO_INEXISTENTE)) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Médico existente.");
 			}
 		}
 
@@ -53,15 +61,15 @@ public class MedicoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Medico> putMedico(@RequestBody Medico object) {
+	public ResponseEntity<Object> putMedico(@RequestBody Medico object) {
 		if (object.getId() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id inválido.");
 		}
 
 		var medico = getById(object.getId().intValue());
 
-		if (!medico.hasBody()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		if (medico.getBody().equals(MEDICO_INEXISTENTE)) {
+			return medico;
 		}
 
 		medicoDB.save(object);
@@ -70,26 +78,26 @@ public class MedicoController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Medico> deleteMedico(@PathVariable("id") Integer id) {
+	public ResponseEntity<Object> deleteMedico(@PathVariable("id") Integer id) {
 		var medico = getById(id);
 
-		if (!medico.hasBody()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		if (medico.getBody().equals(MEDICO_INEXISTENTE)) {
+			return medico;
 		}
 
 		medicoDB.deleteById((long) id);
 
-		return medico;
+		return ResponseEntity.ok(null);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Medico> getById(@PathVariable("id") Integer id) {
+	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var medico = medicoDB.findById((long) id);
 
 			return ResponseEntity.ok(medico.get());
 		} catch (NoSuchElementException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MEDICO_INEXISTENTE);
 		}
 	}
 }
