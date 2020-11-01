@@ -87,7 +87,7 @@ public class MedicoController {
 
 		medicoDB.deleteById((long) id);
 
-		return medico;
+		return ResponseEntity.ok(null);
 	}
 
 	@GetMapping("/{id}")
