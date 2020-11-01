@@ -25,7 +25,7 @@ export class CreateMedicoComponent implements OnInit {
     'CRM', 'CRO', 'CRP'
   ];
   especialidades: Especialidades[];
-  especialidadesSelecionadas: Especialidades[];
+  especialidadeSelecionada: Especialidades;
   filteredTipoDeRegistros: string[];
 
   nome: string;
@@ -52,7 +52,7 @@ export class CreateMedicoComponent implements OnInit {
       },
       erro => {
         this.msgs = [];
-        this.msgs.push({severity: 'error', detail: 'Erro ao encontrar especialidades disponíveis'});
+        this.msgs.push({severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}`});
       }
     );
   }
@@ -88,7 +88,7 @@ export class CreateMedicoComponent implements OnInit {
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
   }
@@ -121,7 +121,7 @@ export class CreateMedicoComponent implements OnInit {
       id: 0,
       pessoa: pacientes,
       registro: this.registro,
-      especialidade: this.especialidadesSelecionadas
+      especialidade: this.especialidadeSelecionada
     } as Medicos;
 
     this.insereMedico(medico);

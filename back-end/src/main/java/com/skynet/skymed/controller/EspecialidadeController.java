@@ -27,14 +27,14 @@ public class EspecialidadeController {
 	private EspecialidadeRepository especialidadeDB;
 
 	@GetMapping
-	public ResponseEntity<ArrayList<Especialidade>> getObject() {
+	public ResponseEntity<Object> getObject() {
 		var especialidades = especialidadeDB.findAll();
 
 		if (especialidades.size() == 0) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrada nenhuma especialidade.");
 		}
 
-		return ResponseEntity.ok((ArrayList<Especialidade>) especialidades);
+		return ResponseEntity.ok(especialidades);
 	}
 
 	@PostMapping
