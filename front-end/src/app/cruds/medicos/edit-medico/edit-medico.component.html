@@ -25,7 +25,8 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="especialidade">Especialidade</label>
-            <input id="especialidade" [(ngModel)]="especialidade" type="text" placeholder="{{especialidade}}" pInputText required>
+            <p-dropdown [options]="especialidades" [(ngModel)]="especialidade" [filter]="true" optionLabel="nome" required>
+            </p-dropdown>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
