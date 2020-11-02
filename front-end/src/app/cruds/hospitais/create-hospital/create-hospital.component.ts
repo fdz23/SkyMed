@@ -4,7 +4,6 @@ import { Hospitais } from '../../../../assets/hospitais';
 import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
-import { Medicos } from 'src/assets/medicos';
 import { MedicoService } from 'src/app/servicos/medico.service';
 
 @Component({
@@ -13,12 +12,14 @@ import { MedicoService } from 'src/app/servicos/medico.service';
 })
 export class CreateHospitalComponent implements OnInit {
 
-  constructor(private primengConfig: PrimeNGConfig, private cepService: CepService, private hospitalService: HospitalService, private medicoService: MedicoService) { }
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private cepService: CepService,
+    private hospitalService: HospitalService,
+    private medicoService: MedicoService)
+    { }
 
   msgs: Message[] = [];
-  medico: Medicos;
-  medicosSelecionados: Medicos[];
-  medicos: Medicos[];
 
   razaoSocial: string;
   nome: string;
@@ -33,16 +34,6 @@ export class CreateHospitalComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-
-    this.medicoService.obtenhaMedicos().subscribe(
-      medicos => {
-        this.medicos = medicos;
-      },
-      erro => {
-        this.msgs = [];
-        this.msgs.push({severity: 'error', detail: 'Erro ao encontrar médicos disponíveis'});
-      }
-    );
   }
 
   insereHospital(hospital: Hospitais): void {
@@ -103,8 +94,7 @@ export class CreateHospitalComponent implements OnInit {
     const hospital = {
       razao_social: this.razaoSocial,
       cnpj: this.cnpj,
-      pessoa: pessoaHospital,
-      medicos: this.medicosSelecionados
+      pessoa: pessoaHospital
     } as Hospitais;
 
     this.insereHospital(hospital);
