@@ -55,13 +55,13 @@ public class PessoaController {
 			if (pessoa.getBody().equals("Paciente_INEXISTENTE")) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Paciente existente.");
 			}
-		} else if (pessoaDB.verificaCpfExistente(object.getCpf()) != null) {
+		} else if (pessoaDB.findByCpf(object.getCpf()) != null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cpf existente.");
 
-		} else if (pessoaDB.verificaRgExistente(object.getRg()) != null) {
+		} else if (pessoaDB.findByRg(object.getRg()) != null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RG existente.");
 
-		} else if (pessoaDB.verificaEmailExistente(object.getEmail()) != null) {
+		} else if (pessoaDB.findByEmail(object.getEmail()) != null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
 
 		}
@@ -84,11 +84,14 @@ public class PessoaController {
 
 			return pessoa;
 
-		}
-
+		} else if (pessoaDB.verificaEmailExistente(object.getCpf(),object.getEmail()) == null) {
+			if(pessoaDB.findByEmail(object.getEmail()) != null) {
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
+			}
+		 }
+		
 		pessoaDB.save(object);
-
-		return ResponseEntity.ok(object);
+        return ResponseEntity.ok(object);
 	}
 
 	@DeleteMapping("/{id}")
