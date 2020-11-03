@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Medicos } from 'src/assets/medicos';
 import { MedicoService } from 'src/app/servicos/medico.service';
 import { Pessoas } from 'src/assets/Pessoas';
+import { Especialidades } from 'src/assets/especialidades';
+import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 
 @Component({
   selector: 'app-edit-medico',
@@ -17,6 +19,7 @@ import { Pessoas } from 'src/assets/Pessoas';
 export class EditMedicoComponent implements OnInit {
   medico: Medicos;
   msgs: Message[] = [];
+  especialidades: Especialidades[];
 
   public medicoid;
   nome: string;
@@ -24,7 +27,7 @@ export class EditMedicoComponent implements OnInit {
   rg: string;
   tipoDeRegistro: string;
   registro: string;
-  especialidade: string;
+  especialidade: Especialidades;
   endereco: Enderecos;
   complemento: string;
   numero: string;
@@ -36,17 +39,30 @@ export class EditMedicoComponent implements OnInit {
   logradouro: string;
   ehPaciente: boolean;
 
-  constructor(private primengConfig: PrimeNGConfig,
-    private http: HttpClient, private cepService: CepService,
-    private medicoService: MedicoService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+  constructor(
+    private primengConfig: PrimeNGConfig,
+    private http: HttpClient,
+    private cepService: CepService,
+    private medicoService: MedicoService,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private especialidadeService: EspecialidadeService) {
     this.route.params.subscribe(params => this.medicoid = params['id']);
 
   }
 
   ngOnInit(): void {
-
     this.obtenhaMedicoPorId(this.medicoid);
 
+    this.especialidadeService.obtenhaEspecialidades().subscribe(
+      especialidades => {
+        this.especialidades = especialidades;
+      },
+      erro => {
+        this.msgs = [];
+        this.msgs.push({severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}`});
+      }
+    );
   }
 
   public obtenhaMedicoPorId(id: any): void {
@@ -67,6 +83,7 @@ export class EditMedicoComponent implements OnInit {
       this.telefone = medico.pessoa.telefone;
       this.email = medico.pessoa.email;
       this.registro = medico.registro;
+      this.especialidade = medico.especialidade;
     }, () => { });
 
 
@@ -134,7 +151,7 @@ export class EditMedicoComponent implements OnInit {
       || this.rg == null || this.rg === ''
       || this.tipoDeRegistro == null || this.tipoDeRegistro === ''
       || this.registro == null || this.rg === ''
-      || this.especialidade == null || this.especialidade === ''
+      || this.especialidade == null
       || this.complemento == null || this.complemento === ''
       || this.numero == null
       || this.cep == null || this.cep === ''
@@ -156,7 +173,8 @@ export class EditMedicoComponent implements OnInit {
     } as Pessoas;
 
     const medico = {
-      pessoa: paciente
+      pessoa: paciente,
+      especialidade: this.especialidade
     } as Medicos;
 
     this.atualizaMedico(medico);

@@ -5,23 +5,17 @@
             <label for="nome">Nome</label>
             <input id="nome" [(ngModel)]="nome" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="cnpj">CNPJ</label>
             <input id="cnpj" [(ngModel)]="cnpj" pKeyFilter="pint" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="cpf">CPF</label>
             <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-1">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" pKeyFilter="pint" type="text" pInputText required>
-        </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
-            <label for="medicos">Medicos</label>
-            <p-multiSelect [options]="medicos" [(ngModel)]="medicosSelecionados" optionLabel="pessoa.nome" 
-                [filter]="true" filterBy="value.pessoa.nome">
-            </p-multiSelect>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
