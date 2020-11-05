@@ -1,6 +1,8 @@
 import { Especialidades } from './especialidades';
-import { Pessoas } from './Pessoas';
-import { Horarios } from './Horarios';
+import { Pessoas } from './pessoas';
+import { Horarios } from './horarios';
+import { HorariosTrabalho } from './horariosTrabalho';
+import { Hospitais } from './hospitais';
 
 export interface Medicos {
   id: number;
@@ -8,4 +10,6 @@ export interface Medicos {
   especialidade: Especialidades;
   pessoa: Pessoas;
   horarios: Horarios[];
+  horariosTrabalho: HorariosTrabalho;
+  hospital: Hospitais;
 }
