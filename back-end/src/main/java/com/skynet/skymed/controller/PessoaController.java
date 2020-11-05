@@ -1,6 +1,5 @@
 package com.skynet.skymed.controller;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +15,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
 
 @RestController
-
-@RequestMapping("/pessoa")
+@RequestMapping("skymed")
 public class PessoaController {
 
 	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
@@ -37,17 +36,8 @@ public class PessoaController {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
 	}
 
-	@GetMapping
-	public ResponseEntity<Object> getObject() {
-		var pessoas = pessoaDB.findAll();
-
-		if (pessoas == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhuma pessoa encontrada.");
-		}
-		return ResponseEntity.ok(pessoas);
-	}
-
-	@PostMapping
+	@PostMapping(path = "admin/paciente")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
 		if (object.getId() != null) {
 			var pessoa = getById(object.getId().intValue());
@@ -72,7 +62,8 @@ public class PessoaController {
 
 	}
 
-	@PutMapping
+	@PutMapping(path = "admin/paciente")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> putPessoa(@RequestBody Pessoa object) {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID Inválido");
@@ -80,25 +71,26 @@ public class PessoaController {
 
 		var pessoa = getById(object.getId().intValue());
 
-		if (pessoa.getBody().equals("PACIENTE_INEXISTENTE")) {
+		if (pessoa.getBody().equals(PACIENTE_INEXISTENTE)) {
 
 			return pessoa;
 
-		} else if (pessoaDB.verificaEmailExistente(object.getCpf(),object.getEmail()) == null) {
-			if(pessoaDB.findByEmail(object.getEmail()) != null) {
+		} else if (pessoaDB.verificaEmailExistente(object.getCpf(), object.getEmail()) == null) {
+			if (pessoaDB.findByEmail(object.getEmail()) != null) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
 			}
-		 }
-		
+		}
+
 		pessoaDB.save(object);
-        return ResponseEntity.ok(object);
+		return ResponseEntity.ok(object);
 	}
 
-	@DeleteMapping("/{id}")
+	@DeleteMapping(path = "admin/paciente/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteObject(@PathVariable("id") Integer id) {
 		var pessoa = getById(id);
 
-		if (pessoa.getBody().equals("PESSOA_INEXISTENTE")) {
+		if (pessoa.getBody().equals(PACIENTE_INEXISTENTE)) {
 
 			return pessoa;
 		}
@@ -108,7 +100,8 @@ public class PessoaController {
 		return ResponseEntity.ok(null);
 	}
 
-	@GetMapping("/{id}")
+	@GetMapping(path = "protected/paciente/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
@@ -116,11 +109,12 @@ public class PessoaController {
 			return ResponseEntity.ok(pessoa.get());
 
 		} catch (NoSuchElementException e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("PACIENTE_INEXISTENTE");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(PACIENTE_INEXISTENTE);
 		}
 	}
 
-	@GetMapping("/pacientes")
+	@GetMapping(path = "admin/paciente")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
 		if (pessoas.size() == 0) {

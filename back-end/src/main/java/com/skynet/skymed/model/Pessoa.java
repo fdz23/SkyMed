@@ -146,9 +146,7 @@ public class Pessoa {
 	}
 
 	public void setTokenDeAutenticacao(String tokenDeAutenticacao) throws Exception {
-		if (!(tokenDeAutenticacao.length() == 4)) {
-			throw new Exception("Token de Auntenticação Inválido");
-		}
+		 
 		this.tokenDeAutenticacao = tokenDeAutenticacao;
 	}
 
@@ -157,9 +155,7 @@ public class Pessoa {
 	}
 
 	public void setTokenDeRedefinicao(String tokenDeRedefinicao) throws Exception {
-		if (!(tokenDeRedefinicao.length() == 4)) {
-			throw new Exception("Token de Redefinição Inválido");
-		}
+		 
 		this.tokenDeRedefinicao = tokenDeRedefinicao;
 	}
 
