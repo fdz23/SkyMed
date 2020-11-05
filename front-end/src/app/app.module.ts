@@ -48,6 +48,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
+import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 
 
 
@@ -67,7 +69,8 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     PacienteEditarComponent,
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
-    EditEspecialidadeComponent
+    EditEspecialidadeComponent,
+    AgendamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +104,8 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     ProgressBarModule,
     ConfirmDialogModule,
     NgxMaskModule.forRoot(),
-    TableModule
+    TableModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
