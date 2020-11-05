@@ -23,7 +23,7 @@ public class Medico {
 	@Column(name = "med_registro")
 	private String registro;
 	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.MERGE)
 	@JoinColumn(name = "med_esp_iden")
 	private Especialidade especialidade;
 	
