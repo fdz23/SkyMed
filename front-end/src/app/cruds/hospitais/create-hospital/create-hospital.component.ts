@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { Hospitais } from '../../../../assets/hospitais';
+import { Usuarios } from '../../../../assets/usuarios';
 import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
@@ -31,9 +32,21 @@ export class CreateHospitalComponent implements OnInit {
   email: string;
   rg: string;
   cpf: string;
+  ehMedico: boolean;
+  ehAdmin: boolean;
+  senha : string;
+  usuario: Usuarios;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+  }
+
+  criaUsuario(paciente: Pessoas): void{
+
+    paciente.usuario.ehAdmin = false;
+    paciente.usuario.ehMedico = false;
+    paciente.usuario.email = this.email;
+    paciente.usuario.senha = "1234";
   }
 
   insereHospital(hospital: Hospitais): void {
@@ -44,6 +57,7 @@ export class CreateHospitalComponent implements OnInit {
           endereco.numero = this.numero;
 
           hospital.pessoa.endereco = endereco;
+          this.criaUsuario(hospital.pessoa);
 
           this.hospitalService.insereHospital(hospital)
             .subscribe(
@@ -82,13 +96,21 @@ export class CreateHospitalComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
+     const usuarios = {
+
+      ehAdmin: true,
+      ehMedico:false,
+      email: this.email,
+      senha: this.senha
+
+    } as Usuarios;
 
     const pessoaHospital = {
       nome: this.nome,
       telefone: this.telefone,
-      email: this.email,
       cpf: this.cpf,
-      rg: this.rg
+      rg: this.rg,
+      usuario: usuarios,
      } as Pessoas;
 
     const hospital = {
