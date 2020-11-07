@@ -21,7 +21,7 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 
 		Mail mail = new Mail();
 
-		objetoPessoa.setTokenDeAutenticacao(getToken.geraToken());
+		objetoPessoa.getUsuario().setToken_autenticacao(getToken.geraToken());
 
 		Email from = new Email();
 		from.setName("Skymed");
@@ -34,14 +34,14 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 		Personalization personalization = new Personalization();
 
 		Email to = new Email();
-		to.setEmail(objetoPessoa.getEmail());
+		to.setEmail(objetoPessoa.getUsuario().getEmail());
 		to.setName(objetoPessoa.getNome());
 		personalization.addTo(to);
 
 		personalization.setSubject(subject);
 
 		personalization.addDynamicTemplateData("Customer_Name", objetoPessoa.getNome());
-		personalization.addDynamicTemplateData("Token", objetoPessoa.getTokenDeAutenticacao());
+		personalization.addDynamicTemplateData("Token", objetoPessoa.getUsuario().getToken_autenticacao());
 
 		mail.addPersonalization(personalization);
 
