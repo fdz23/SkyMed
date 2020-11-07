@@ -23,6 +23,7 @@ public class PessoaTest {
 
 		var pessoa = new Pessoa();
 		var endereco = new Endereco();
+		var usuario = new Usuario();
 
 		endereco.setCep("74922-740");
 		endereco.setComplemento("Qd 127 Lt. 9");
@@ -32,16 +33,22 @@ public class PessoaTest {
 		endereco.setNumero("23");
 		endereco.setUf("GO");
 
+		usuario.setAdmin(false);
+		usuario.setEmail("raphael.mota14@hotmail.com");
+		usuario.setMedico(false);
+		usuario.setSenha("1234");
+
 		pessoa.setNome("Raphael Mota");
-		pessoa.setEmail("raphael.mota14@hotmail.com");
+		pessoa.getUsuario().setEmail("raphael.mota14@hotmail.com");
 		pessoa.setEhPaciente(true);
-		pessoa.setSenha("1234");
+		pessoa.getUsuario().setSenha("1234");
 		pessoa.setTelefone("(62) 9272-5598");
 		pessoa.setRg("5946186");
 		pessoa.setEndereco(endereco);
+		pessoa.setUsuario(usuario);
 		pessoa.setCpf("707.772.711-41");
-		pessoa.setTokenDeAutenticacao("1234");
-		pessoa.setTokenDeRedefinicao("1244");
+		pessoa.getUsuario().setToken_autenticacao("1234");
+		pessoa.getUsuario().setToken_redefinicao("1244");
 
 		return pessoa;
 	}
@@ -182,50 +189,9 @@ public class PessoaTest {
 			assertNotNull(e);
 		}
 
-		try {
-			pessoa.setTelefone("62) 998540164");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setTelefone("(62)99854-0164");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setEmail("");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setEmail(null);
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setEmail("aaaaaaa@aaaaa");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setEmail("@sfaer.com");
-			Assert.fail();
-		} catch (Exception e) {
-			assertNotNull(e);
-		}
-
-		try {
-			pessoa.setEmail("      ");
+		 
+ try {
+			pessoa.setUsuario(null);
 			Assert.fail();
 		} catch (Exception e) {
 			assertNotNull(e);
