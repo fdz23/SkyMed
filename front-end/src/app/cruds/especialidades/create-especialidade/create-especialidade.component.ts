@@ -1,4 +1,5 @@
 import { HttpClient } from '@angular/common/http';
+import { TemplateDefinitionBuilder } from '@angular/compiler/src/render3/view/template';
 import { Component, OnInit } from '@angular/core';
 import { Message, PrimeNGConfig } from 'primeng/api';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
@@ -14,11 +15,17 @@ export class CreateEspecialidadeComponent implements OnInit {
     private http: HttpClient,
     private especialidadeService: EspecialidadeService) { }
 
+    
+    
+ 
 msgs: Message[] = [];
 nome: string;
+value: number;
+preco: string;
+duracaoConsulta: string;
 
 ngOnInit(): void {
-this.primengConfig.ripple = true;
+//this.primengConfig.ripple = true;
 }
 
 insereEspecialidade(especialidade: Especialidades): void {
@@ -38,7 +45,9 @@ this.especialidadeService.insereEspecialidade(especialidade)
 
 salvar(): void {
 
-if (this.nome == null || this.nome === '') {
+if (this.nome == null || this.nome == ''
+|| this.preco == null || this.preco == ''
+|| this.duracaoConsulta == null ) {
   this.msgs = [];
   this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
   return;
@@ -46,7 +55,9 @@ if (this.nome == null || this.nome === '') {
 
 const especialidade = {
   id: 0,
-  nome: this.nome
+  nome: this.nome,
+  preco: this.preco,
+  duracaoConsulta: this.duracaoConsulta
 } as Especialidades;
 
 this.insereEspecialidade(especialidade);
