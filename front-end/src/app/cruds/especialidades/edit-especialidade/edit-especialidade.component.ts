@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { Especialidades } from '../../../../assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-especialidade-editar',
@@ -17,8 +18,11 @@ export class EditEspecialidadeComponent implements OnInit {
 
   public especialidadeid;
   nome: string;
+  preco: string;
+  duracaoConsulta: string;
+  
 
-  constructor(private primengConfig: PrimeNGConfig,
+  constructor(private router: Router, private primengConfig: PrimeNGConfig,
     private http: HttpClient,
     private especialidadeService: EspecialidadeService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
     this.route.params.subscribe(params => this.especialidadeid = params['id']);
@@ -38,6 +42,8 @@ export class EditEspecialidadeComponent implements OnInit {
       this.especialidade = especialidade;
 
       this.nome = especialidade.nome;
+      this.preco = especialidade.preco;
+      this.duracaoConsulta = especialidade.duracaoConsulta;
       
     }, () => { });
 

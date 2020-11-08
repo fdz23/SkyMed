@@ -48,7 +48,10 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
-
+import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
+import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
+import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
+import {InputNumberModule} from 'primeng/inputnumber';
 
 
 @NgModule({
@@ -67,7 +70,10 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     PacienteEditarComponent,
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
-    EditEspecialidadeComponent
+    EditEspecialidadeComponent,
+    AdmComponent,
+    RelatorioComponent,
+    EstatisticaComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +107,8 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
     ProgressBarModule,
     ConfirmDialogModule,
     NgxMaskModule.forRoot(),
-    TableModule
+    TableModule,
+    InputNumberModule
   ],
   providers: [],
   bootstrap: [AppComponent]
