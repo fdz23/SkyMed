@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Medicos } from 'src/assets/medicos';
 import { MedicoService } from 'src/app/servicos/medico.service';
 import { Pessoas } from 'src/assets/Pessoas';
+import { Usuarios } from '../../../../assets/usuarios';
 import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 
@@ -38,6 +39,10 @@ export class EditMedicoComponent implements OnInit {
   email: string;
   logradouro: string;
   ehPaciente: boolean;
+  ehMedico: boolean;
+  ehAdmin: boolean;
+  senha : string;
+  usuario: Usuarios;
 
   constructor(
     private primengConfig: PrimeNGConfig,
@@ -49,6 +54,14 @@ export class EditMedicoComponent implements OnInit {
     private especialidadeService: EspecialidadeService) {
     this.route.params.subscribe(params => this.medicoid = params.id);
 
+  }
+
+  criaUsuario(paciente: Pessoas): void{
+
+    paciente.usuario.ehAdmin = false;
+    paciente.usuario.ehMedico = false;
+    paciente.usuario.email = this.email;
+    paciente.usuario.senha = "1234";
   }
 
   ngOnInit(): void {
@@ -80,7 +93,7 @@ export class EditMedicoComponent implements OnInit {
       this.uf = medico.pessoa.endereco.uf;
       this.cidade = medico.pessoa.endereco.localidade;
       this.telefone = medico.pessoa.telefone;
-      this.email = medico.pessoa.email;
+      this.email = medico.pessoa.usuario.email;
       this.registro = medico.registro;
       this.especialidade = medico.especialidade;
     }, () => { });
@@ -94,6 +107,7 @@ export class EditMedicoComponent implements OnInit {
           endereco.numero = this.numero;
 
           medico.pessoa.endereco = endereco;
+          this.criaUsuario(medico.pessoa);
 
           this.medicoService.atualizaMedico(medico)
             .subscribe(
@@ -139,6 +153,15 @@ export class EditMedicoComponent implements OnInit {
     medico.especialidade = this.especialidade;
     medico.pessoa.email = this.email;
     medico.pessoa.telefone = this.telefone;
+    
+    const usuarios = {
+      ehAdmin: false,
+      ehMedico:true,
+      email: this.email,
+      senha: this.senha
+    } as Usuarios;
+    
+    medico.pessoa.usuario = usuarios;
 
     this.atualizaMedico(medico);
   }

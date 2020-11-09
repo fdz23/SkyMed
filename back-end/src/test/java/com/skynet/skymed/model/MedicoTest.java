@@ -33,7 +33,7 @@ class MedicoTest {
 		
 		pessoa.setCpf("064.240.911-06");
 		pessoa.setEhPaciente(false);
-		pessoa.setEmail("ferdavid_9@hotmail.com");
+		pessoa.getUsuario().setEmail("ferdavid_9@hotmail.com");
 		pessoa.setNome("Fernando David");
 		pessoa.setRg("6349-622");
 		pessoa.setTelefone("(62) 99854-0164");

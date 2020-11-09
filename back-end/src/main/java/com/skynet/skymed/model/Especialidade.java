@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.JoinColumn;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -22,6 +23,10 @@ public class Especialidade {
 	
 	@Column(name = "esp_nome")
 	private String nome;
+	@Column(name = "esp_preco")
+	private double preco;
+	@Column(name = "esp_duracaoConsulta")
+	private String duracaoConsulta;
 	
 	public Especialidade() {
 	}
@@ -47,4 +52,32 @@ public class Especialidade {
 	public String getNome() {
 		return nome;
 	}
+
+	public double getPreco() {
+		return preco;
+	}
+
+	public void setPreco(double preco) throws Exception{
+		
+		if(preco >= 50000.00 || preco <= 0.00) {
+			throw new Exception("Preço de consulta ínvalido");
+		}
+		this.preco = preco;
+	}
+
+	public String getDuracaoConsulta() {
+		return duracaoConsulta;
+	}
+
+	public void setDuracaoConsulta(String duracaoConsulta)throws Exception{
+		if(duracaoConsulta == null) {
+			throw new Exception("Tempo de duração de consulta ínvalido");
+		}
+		if(duracaoConsulta.isEmpty() || duracaoConsulta.length() < 5) {
+			throw new Exception("Tempo de duração de consulta ínvalido");
+		}
+		this.duracaoConsulta = duracaoConsulta;
+	}
+	
+	
 }

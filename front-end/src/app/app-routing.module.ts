@@ -12,6 +12,9 @@ import { PacienteListarComponent } from './cruds/pacientes/paciente-listar/pacie
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
+import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
+import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
+import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
@@ -23,7 +26,7 @@ const routes: Routes = [
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
   { path: 'especialidade-criar', component: CreateEspecialidadeComponent },
-  { path: 'especialidade-editar', component: EditEspecialidadeComponent },
+  { path: 'especialidade-editar/:id', component: EditEspecialidadeComponent },
   { path: 'especialidade-listar', component: ListEspecialidadeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'medico-listar', component: ListMedicoComponent },
@@ -33,6 +36,10 @@ const routes: Routes = [
   { path: 'agendamento/:id', component: AgendamentoComponent },
   { path: 'medico-listar-agendamento', component: ListMedicoAgendamentoComponent },
   { path: 'agendar-consulta', component: AgendarConsultaComponent },
+  { path: 'adm', component: AdmComponent},
+  { path: 'relatorio', component: RelatorioComponent},
+  { path: 'estatistica', component: EstatisticaComponent},
+  { path: 'agendamento', component: AgendamentoComponent },
 
 
   { path: '**', redirectTo: '' }
