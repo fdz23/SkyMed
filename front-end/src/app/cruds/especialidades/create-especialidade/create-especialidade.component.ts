@@ -15,9 +15,9 @@ export class CreateEspecialidadeComponent implements OnInit {
     private http: HttpClient,
     private especialidadeService: EspecialidadeService) { }
 
-    
-    
- 
+
+
+
 msgs: Message[] = [];
 nome: string;
 value: number;
@@ -25,7 +25,7 @@ preco: string;
 duracaoConsulta: string;
 
 ngOnInit(): void {
-//this.primengConfig.ripple = true;
+this.primengConfig.ripple = true;
 }
 
 insereEspecialidade(especialidade: Especialidades): void {

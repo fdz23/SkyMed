@@ -27,7 +27,7 @@ export class ListEspecialidadeComponent implements OnInit {
   ngOnInit(): void {
     this.obtenhaEspecialidades();
   }
-  // tslint:disable-next-line: typedef
+  
   obtenhaEspecialidades() {
     this.especialidadeService.obtenhaEspecialidades()
     .subscribe(

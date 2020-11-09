@@ -20,7 +20,7 @@ export class EditEspecialidadeComponent implements OnInit {
   nome: string;
   preco: string;
   duracaoConsulta: string;
-  
+
 
   constructor(private router: Router, private primengConfig: PrimeNGConfig,
     private http: HttpClient,
@@ -44,7 +44,7 @@ export class EditEspecialidadeComponent implements OnInit {
       this.nome = especialidade.nome;
       this.preco = especialidade.preco;
       this.duracaoConsulta = especialidade.duracaoConsulta;
-      
+
     }, () => { });
 
 
@@ -63,12 +63,12 @@ export class EditEspecialidadeComponent implements OnInit {
                 return;
               }
             );
-            
-        
-      
+
+
+
 
   }
-  
+
   deletaEspecialidade() {
 
     this.confirmationService.confirm({
@@ -97,6 +97,8 @@ export class EditEspecialidadeComponent implements OnInit {
 
     const especialidade = {
       nome: this.nome,
+      preco: this.preco,
+      duracaoConsulta: this.duracaoConsulta
     } as Especialidades;
 
     this.atualizaEspecialidade(especialidade);

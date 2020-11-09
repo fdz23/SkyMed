@@ -1,5 +1,5 @@
 <p-messages [(value)]="msgs"></p-messages>
-<p-fieldset legend=" Editar Informações">
+<p-fieldset legend="Editar Informações">
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-12">
             <label for="nome">Nome</label>
@@ -12,7 +12,7 @@
             </div>
         <div class="p-field p-col-12 p-md-6 p-lg-12">
             <label for="duracaoConsulta">Duração de Consulta</label>
-            <input id="duracaoConsulta" [(ngModel)]="duracaoConsulta" type="text" placeholder="{{duracaoConsulta}}" pInputText required>
+            <p-calendar [(ngModel)]="duracaoConsulta" placeholder = {{duracaoConsulta}} [timeOnly]="true" inputId="timeonly"></p-calendar>
         </div>
     </div>
     <div class="p-grid">
