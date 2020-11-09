@@ -7,6 +7,8 @@ import { MedicoService } from 'src/app/servicos/medico.service';
 import { Pessoas } from 'src/assets/Pessoas';
 import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
+import { HorariosTrabalho } from 'src/assets/horariosTrabalho';
+import { Timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-create-medico',
@@ -42,6 +44,18 @@ export class CreateMedicoComponent implements OnInit {
   celular: string;
   email: string;
   especialidade: Especialidades;
+  horarioInicio: string;
+  horarioFim: string;
+  diasDaSemana: any[] = [
+    {name: 'Domingo'},
+    {name: 'Segunda-feira'},
+    {name: 'Terça-feira'},
+    {name: 'Quarta-feira'},
+    {name: 'Quinta-feira'},
+    {name: 'Sexta-feira'},
+    {name: 'Sábado'}
+  ];
+  diasDaSemanaSelecionados: any[] = [];
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -109,7 +123,7 @@ export class CreateMedicoComponent implements OnInit {
       return;
     }
 
-    const pacientes = {
+    const pessoa = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
@@ -117,11 +131,95 @@ export class CreateMedicoComponent implements OnInit {
       email: this.email
     } as Pessoas;
 
+    const horariosTrabalho: HorariosTrabalho[] = [];
+
+    debugger;
+
+    let inicio: Date;
+    let fim: Date;
+
+    const teste = '2020/01/01 ' + this.horarioInicio.substring(0, 2).concat(':', this.horarioInicio.substring(2));
+    const teste2 = '2020/01/01 ' + this.horarioFim.substring(0, 2).concat(':', this.horarioFim.substring(2));
+
+    inicio = new Date(teste);
+    fim = new Date(teste2);
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Domingo')) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 0
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Segunda-feira', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 1
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Terça-feira', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 2
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Quarta-feira', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 3
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Quinta-feira', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 4
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Sexta-feira', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 5
+        } as HorariosTrabalho
+      );
+    }
+
+    if (this.diasDaSemanaSelecionados.find(dia => dia.name === 'Sábado', 0)) {
+      horariosTrabalho.push(
+        {
+          inicio,
+          fim,
+          diaDaSemana: 6
+        } as HorariosTrabalho
+      );
+    }
+
     const medico = {
       id: 0,
-      pessoa: pacientes,
+      pessoa,
       registro: this.registro,
-      especialidade: this.especialidadeSelecionada
+      especialidade: this.especialidadeSelecionada,
+      horariosTrabalho
     } as Medicos;
 
     this.insereMedico(medico);

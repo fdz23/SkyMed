@@ -30,10 +30,15 @@
                 </ng-template>
             </p-autoComplete>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="especialidade">Especialidade</label>
             <p-dropdown [options]="especialidades" [(ngModel)]="especialidadeSelecionada" [filter]="true" optionLabel="nome" required>
             </p-dropdown>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
+            <label for="diasDaSemana">Dias da semana</label>
+            <p-multiSelect [options]="diasDaSemana" [(ngModel)]="diasDaSemanaSelecionados" optionLabel="name">
+            </p-multiSelect>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -53,9 +58,17 @@
             <label for="celular">Celular</label>
             <p-inputMask [(ngModel)]="celular" mask="(99) 99999-9999" required></p-inputMask>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-4">
+        <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="email">E-mail</label>
             <input id="email" [(ngModel)]="email" pKeyFilter="email" type="text" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="horarioInicio">Horário inicial</label>
+            <input id="horarioInicio" [(ngModel)]="horarioInicio" type="datetime" mask="99:99" pInputText required>
+        </div>
+        <div class="p-field p-col-12 p-md-6 p-lg-1">
+            <label for="horarioFim">Horário final</label>
+            <input id="horarioFim" [(ngModel)]="horarioFim" type="datetime" mask="99:99" pInputText required>
         </div>
     </div>
     <div class="p-grid">
