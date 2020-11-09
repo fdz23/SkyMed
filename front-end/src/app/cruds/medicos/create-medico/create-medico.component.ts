@@ -133,8 +133,6 @@ export class CreateMedicoComponent implements OnInit {
 
     const horariosTrabalho: HorariosTrabalho[] = [];
 
-    debugger;
-
     let inicio: Date;
     let fim: Date;
 

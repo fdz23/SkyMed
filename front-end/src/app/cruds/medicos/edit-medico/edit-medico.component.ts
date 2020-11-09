@@ -47,7 +47,7 @@ export class EditMedicoComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private especialidadeService: EspecialidadeService) {
-    this.route.params.subscribe(params => this.medicoid = params['id']);
+    this.route.params.subscribe(params => this.medicoid = params.id);
 
   }
 
