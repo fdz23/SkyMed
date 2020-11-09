@@ -3,6 +3,7 @@ import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Estados } from '../../../../assets/estados';
 import { Pessoas } from '../../../../assets/pessoas';
+import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
@@ -37,6 +38,10 @@ export class CreatePacienteComponent implements OnInit {
   email: string;
   logradouro: string;
   ehPaciente: boolean;
+  ehMedico: false;
+  ehAdmin: false;
+  senha : string;
+  usuario: Usuarios;
 
 
 
@@ -57,16 +62,18 @@ export class CreatePacienteComponent implements OnInit {
       });
   }
 
+   
+
   inserePaciente(paciente: Pessoas): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
-
           paciente.endereco = endereco;
+        
 
-          this.pessoaService.inserePaciente(paciente)
+           this.pessoaService.inserePaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
@@ -100,15 +107,27 @@ export class CreatePacienteComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
+    const usuarios = {
+
+      ehAdmin: false,
+      ehMedico:false,
+      email: this.email,
+      senha: this.senha
+
+    } as Usuarios;
+     
 
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
+      usuario: usuarios,
       telefone: this.telefone,
-      email: this.email,
-      ehPaciente: true,
+      ehPaciente: true
+     
     } as Pessoas;
+
+    
 
     this.inserePaciente(paciente);
 

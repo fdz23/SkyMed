@@ -1,4 +1,5 @@
 import { Enderecos } from './enderecos';
+import { Usuarios } from './usuarios';
 
 export interface Pessoas {
     id?: number,
@@ -7,7 +8,6 @@ export interface Pessoas {
     rg: string;
     endereco: Enderecos;
     telefone: string;
-    email: string;
-    senha: string;
+    usuario: Usuarios;
     ehPaciente: boolean;
 }

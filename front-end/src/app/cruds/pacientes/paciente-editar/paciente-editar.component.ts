@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message, ConfirmationService } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Pessoas } from '../../../../assets/pessoas';
+import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
@@ -34,6 +35,11 @@ export class PacienteEditarComponent implements OnInit {
   logradouro: string;
   ehPaciente: boolean;
 
+  ehMedico: false;
+  ehAdmin: false;
+  senha : string;
+  usuario: Usuarios;
+
   constructor(private router: Router, private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
     private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
@@ -64,7 +70,7 @@ export class PacienteEditarComponent implements OnInit {
       this.uf = paciente.endereco.uf;
       this.cidade = paciente.endereco.localidade;
       this.telefone = paciente.telefone;
-      this.email = paciente.email;
+      this.email = paciente.usuario.email;
       this.id = paciente.id;
     }, () => { });
 
@@ -76,8 +82,8 @@ export class PacienteEditarComponent implements OnInit {
         endereco => {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
-
           paciente.endereco = endereco;
+          
 
           this.pessoaService.atualizaPaciente(paciente)
             .subscribe(
@@ -123,16 +129,27 @@ export class PacienteEditarComponent implements OnInit {
       return;
     }
 
+    const usuarios = {
+
+      ehAdmin: false,
+      ehMedico:false,
+      email: this.email,
+      senha: this.senha
+
+    } as Usuarios;
+
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
+      usuario: usuarios,
       telefone: this.telefone,
-      email: this.email,
       ehPaciente: true,
       id: this.id,
 
     } as Pessoas;
+
+    
 
     this.atualizaPaciente(paciente);
 
