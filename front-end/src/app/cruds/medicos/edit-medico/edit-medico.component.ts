@@ -66,7 +66,6 @@ export class EditMedicoComponent implements OnInit {
   }
 
   public obtenhaMedicoPorId(id: any): void {
-
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
 
       this.medico = medico;
@@ -85,9 +84,8 @@ export class EditMedicoComponent implements OnInit {
       this.registro = medico.registro;
       this.especialidade = medico.especialidade;
     }, () => { });
-
-
   }
+
   atualizaMedico(medico: Medicos): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
@@ -115,33 +113,6 @@ export class EditMedicoComponent implements OnInit {
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
         }
       );
-
-  }
-
-  deletaMedico(): void {
-
-    this.confirmationService.confirm({
-      message: 'Deseja realmente excluir o cadastro?',
-      header: 'Exclusão de cadastro',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.medicoService.deletaMedico(this.medico.id).subscribe(
-          () => {
-            this.msgs = [];
-            this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
-          },
-          err => {
-            this.msgs = [];
-            this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Erro ao excluir registro' }];
-            }
-          );
-      },
-      reject: () => {
-        this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
-      }
-    });
-
-
   }
 
   salvar(): void {
@@ -164,20 +135,11 @@ export class EditMedicoComponent implements OnInit {
       return;
     }
 
-    const paciente = {
-      nome: this.nome,
-      cpf: this.cpf,
-      rg: this.rg,
-      telefone: this.telefone,
-      email: this.email
-    } as Pessoas;
-
-    const medico = {
-      pessoa: paciente,
-      especialidade: this.especialidade
-    } as Medicos;
+    const medico = this.medico;
+    medico.especialidade = this.especialidade;
+    medico.pessoa.email = this.email;
+    medico.pessoa.telefone = this.telefone;
 
     this.atualizaMedico(medico);
-
   }
 }
