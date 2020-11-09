@@ -54,6 +54,8 @@ import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/e
 import { InputNumberModule } from 'primeng/inputnumber';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { FullCalendarModule } from 'primeng/fullcalendar';
+import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
+import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 
 
 @NgModule({
@@ -73,6 +75,9 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
     EditEspecialidadeComponent,
+    AgendamentoComponent,
+    ListMedicoAgendamentoComponent,
+    AgendarConsultaComponent,
     AdmComponent,
     RelatorioComponent,
     EstatisticaComponent,

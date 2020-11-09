@@ -16,6 +16,8 @@ import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
 import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
 import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
+import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
+import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -31,6 +33,9 @@ const routes: Routes = [
   { path: 'medico-editar/:id', component: EditMedicoComponent },
   { path: 'paciente-editar/:id', component: PacienteEditarComponent },
   { path: 'paciente-listar', component: PacienteListarComponent },
+  { path: 'agendamento/:id', component: AgendamentoComponent },
+  { path: 'medico-listar-agendamento', component: ListMedicoAgendamentoComponent },
+  { path: 'agendar-consulta', component: AgendarConsultaComponent },
   { path: 'adm', component: AdmComponent},
   { path: 'relatorio', component: RelatorioComponent},
   { path: 'estatistica', component: EstatisticaComponent},

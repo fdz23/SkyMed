@@ -3,7 +3,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-12">
             <label for="nome">Nome</label>
-            <input id="nome" [(ngModel)]="nome" type="text" placeholder="{{nome}}" pInputText required>
+            <input id="nome" [(ngModel)]="nome" type="text" placeholder="{{nome}}" [disabled]="true" pInputText required>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -21,11 +21,11 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="tipoDeRegistro">Tipo de registro</label>
-            <input id="tipoDeRegistro" [(ngModel)]="tipoDeRegistro" type="text" placeholder="{{tipoDeRegistro}}" pInputText required>
+            <input id="tipoDeRegistro" [(ngModel)]="tipoDeRegistro" type="text" placeholder="{{tipoDeRegistro}}" [disabled]="true" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="especialidade">Especialidade</label>
-            <p-dropdown [options]="especialidades" [(ngModel)]="especialidade" [filter]="true" optionLabel="nome" required>
+            <p-dropdown [options]="especialidades" [(ngModel)]="especialidade" [filter]="true" optionLabel="nome" [disabled]="true" required>
             </p-dropdown>
         </div>
     </div>
@@ -74,11 +74,6 @@
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
                 (click)="salvar()"></button>
-        </div>
-        <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir" icon="pi pi-trash"
-                (click)="deletaMedico()"></button>
         </div>
         <div class="p-col-12 p-md-2 p-lg-1">
             <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"

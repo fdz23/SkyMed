@@ -52,7 +52,7 @@ export class EditMedicoComponent implements OnInit {
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
     private especialidadeService: EspecialidadeService) {
-    this.route.params.subscribe(params => this.medicoid = params['id']);
+    this.route.params.subscribe(params => this.medicoid = params.id);
 
   }
 
@@ -79,7 +79,6 @@ export class EditMedicoComponent implements OnInit {
   }
 
   public obtenhaMedicoPorId(id: any): void {
-
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
 
       this.medico = medico;
@@ -98,9 +97,8 @@ export class EditMedicoComponent implements OnInit {
       this.registro = medico.registro;
       this.especialidade = medico.especialidade;
     }, () => { });
-
-
   }
+
   atualizaMedico(medico: Medicos): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
@@ -129,33 +127,6 @@ export class EditMedicoComponent implements OnInit {
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
         }
       );
-
-  }
-
-  deletaMedico(): void {
-
-    this.confirmationService.confirm({
-      message: 'Deseja realmente excluir o cadastro?',
-      header: 'Exclusão de cadastro',
-      icon: 'pi pi-info-circle',
-      accept: () => {
-        this.medicoService.deletaMedico(this.medico.id).subscribe(
-          () => {
-            this.msgs = [];
-            this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
-          },
-          err => {
-            this.msgs = [];
-            this.msgs = [{ severity: 'error', summary: 'Erro', detail: 'Erro ao excluir registro' }];
-            }
-          );
-      },
-      reject: () => {
-        this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
-      }
-    });
-
-
   }
 
   salvar(): void {
@@ -178,30 +149,20 @@ export class EditMedicoComponent implements OnInit {
       return;
     }
 
+    const medico = this.medico;
+    medico.especialidade = this.especialidade;
+    medico.pessoa.email = this.email;
+    medico.pessoa.telefone = this.telefone;
+    
     const usuarios = {
-
       ehAdmin: false,
       ehMedico:true,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
-
-    const paciente = {
-      nome: this.nome,
-      cpf: this.cpf,
-      rg: this.rg,
-      usuario: usuarios,
-      telefone: this.telefone
-      
-    } as Pessoas;
-
-    const medico = {
-      pessoa: paciente,
-      especialidade: this.especialidade
-    } as Medicos;
+    
+    medico.pessoa.usuario = usuarios;
 
     this.atualizaMedico(medico);
-
   }
 }

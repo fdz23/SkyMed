@@ -9,12 +9,12 @@ import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 
 @Component({
-  selector: 'app-list-medico',
-  templateUrl: './list-medico.component.html',
+  selector: 'app-list-medico-agendamento',
+  templateUrl: './list-medico-agendamento.component.html',
   providers: [ConfirmationService]
 
 })
-export class ListMedicoComponent implements OnInit {
+export class ListMedicoAgendamentoComponent implements OnInit {
 
   medicos: Medicos[];
   msgs: Message[] = [];
@@ -23,8 +23,7 @@ export class ListMedicoComponent implements OnInit {
 
   constructor(
     private medicoService: MedicoService,
-    private especialidadeService: EspecialidadeService,
-    private confirmationService: ConfirmationService) { }
+    private especialidadeService: EspecialidadeService) { }
 
   ngOnInit(): void {
     this.obtenhaMedicos();
@@ -45,34 +44,6 @@ export class ListMedicoComponent implements OnInit {
       especialidades => {
         this.especialidades = especialidades;
       });
-  }
-
-  deleteMedico(id): void {
-
-    this.confirmationService.confirm({
-      message: 'Deseja realmente excluir o médico?',
-      header: 'Exclusão de médico',
-      icon: 'pi pi-info-circle',
-
-    accept: () => {
-        this.medicoService.deletaMedico(id)
-          .subscribe(
-            () => {
-              location.reload();
-            },
-            err => {
-              this.msgs = [];
-              this.msgs = [{ severity: 'error', summary: 'Erro:', detail: err.error }];
-            });
-
-        this.confirmationService.close();
-      },
-      reject: () => {
-        this.msgs = [];
-        this.msgs = [{ severity: 'error', summary: 'Cancelado', detail: 'Operação Cancelada' }];
-        this.confirmationService.close();
-      }
-    });
   }
 
   aoSelecionarEspecialidade(event): void {
