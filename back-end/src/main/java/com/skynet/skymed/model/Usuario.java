@@ -32,7 +32,7 @@ public class Usuario extends AbstractEntity {
 
 	@Column(name = "usu_eh_admin")
 	private boolean ehAdmin;
-	
+
 	@Column(name = "usu_eh_medico")
 	private boolean ehMedico;
 
@@ -43,8 +43,6 @@ public class Usuario extends AbstractEntity {
 	public void setToken_redefinicao(String token_redefinicao) {
 		this.token_redefinicao = token_redefinicao;
 	}
-
-	 
 
 	public boolean isEhAdmin() {
 		return ehAdmin;
