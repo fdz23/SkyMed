@@ -46,12 +46,18 @@ public class MedicoController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Object> postMedico(@RequestBody Medico object) {
+	public ResponseEntity<Object> postMedico(@RequestBody Medico object) throws Exception {
 		if (object.getId() != null) {
 			var medico = getById(object.getId().intValue());
 
 			if (!medico.getBody().equals(MEDICO_INEXISTENTE)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Médico existente.");
+			}
+		}
+		
+		if (!object.getHorariosTrabalho().isEmpty()) {
+			for (var horario : object.getHorariosTrabalho()) {
+				horario.setMedico(object);
 			}
 		}
 

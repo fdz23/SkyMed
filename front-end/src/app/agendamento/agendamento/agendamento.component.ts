@@ -14,6 +14,7 @@ import { MedicoService } from 'src/app/servicos/medico.service';
 export class AgendamentoComponent implements OnInit {
 
   public medicoid;
+  medico: Medicos;
   events: any[] = [];
 
   options: any;
@@ -31,20 +32,11 @@ export class AgendamentoComponent implements OnInit {
   ngOnInit(): void {
     this.obtenhaMedicoPorId();
 
-    this.events = [{
-      id: 1,
-      title: 'Consulta Fernando',
-      start: '2020-11-05T10:00:00',
-      end: '20120-11-05T11:00:00'
-    }];
-
     this.options = {
       plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
       initialView: 'timeGridDay',
       slotEventOverlap: false,
       allDaySlot: false,
-      slotMinTime: this.horarioEntrada,
-      slotMaxTime: this.horarioSaida,
       slotDuration: '00:30:00',
       slotLabelInterval: '01:00:00',
       expandRows: true,
@@ -56,11 +48,38 @@ export class AgendamentoComponent implements OnInit {
       },
       navLinks: true
     };
+
+    this.events = [{
+      id: 1,
+      title: 'Consulta Fernando',
+      start: '2020-11-09T13:00:00',
+      end: '2020-11-09T14:00:00'
+    }];
   }
 
 
   public obtenhaMedicoPorId(): void {
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
+      this.medico = medico;
+
+      this.options = {
+        plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
+        initialView: 'timeGridDay',
+        slotMinTime: new Date(this.medico.horariosTrabalho[0].inicio).toTimeString().split(' ')[0],
+        slotMaxTime: new Date(this.medico.horariosTrabalho[0].fim).toTimeString().split(' ')[0],
+        slotEventOverlap: false,
+        allDaySlot: false,
+        slotDuration: '00:30:00',
+        slotLabelInterval: '01:00:00',
+        expandRows: true,
+        contentHeight: 575,
+        headerToolbar: {
+          right: 'prev,next',
+          center: 'title',
+          left: 'dayGridMonth,timeGridWeek,timeGridDay'
+        },
+        navLinks: true
+      };
     }, () => { });
   }
 }

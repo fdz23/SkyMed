@@ -215,7 +215,6 @@ export class CreateMedicoComponent implements OnInit {
     }
 
     const medico = {
-      id: 0,
       pessoa,
       registro: this.registro,
       especialidade: this.especialidadeSelecionada,

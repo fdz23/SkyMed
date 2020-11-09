@@ -32,7 +32,7 @@ public class HorarioTrabalho {
 	@Column(name = "hot_dia_da_semana")
 	private EnumeradorDiaDaSemana diaDaSemana;
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne
 	@JoinColumn(name = "hot_med_iden")
     @JsonBackReference
 	private Medico medico;
