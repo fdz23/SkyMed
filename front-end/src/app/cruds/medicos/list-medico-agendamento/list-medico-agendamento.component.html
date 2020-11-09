@@ -1,0 +1,65 @@
+<p-messages [(value)]="msgs"></p-messages>
+<div class="card">
+    <p-table #dt [value]="medicos" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
+        [globalFilterFields]="['pessoa.nome','pessoa.endereco.localidade','especialidade.nome']">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de médicos
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Pesquisa Global" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="cidade">Cidade<p-sortIcon field="cidade"></p-sortIcon>
+                </th>
+                <th pSortableColumn="especialidade">Especialidade<p-sortIcon field="especialidade"></p-sortIcon>
+                </th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'pessoa.nome', 'contains')"
+                        placeholder="Pesquisa por Nome" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'pessoa.endereco.localidade', 'contains')"
+                        placeholder="Pesquisa por Cidade" class="p-column-filter">
+                </th>
+                <th>
+                    <p-dropdown [options]="especialidades" (onChange)="aoSelecionarEspecialidade($event)" optionLabel="nome">
+                    </p-dropdown>
+                </th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-medico>
+            <tr class="p-selectable-row">
+                <td>
+                    {{medico.pessoa.nome}}
+                </td>
+                <td>
+                    {{medico.pessoa.endereco.localidade}}
+                </td>
+                <td>
+                    {{medico.especialidade.nome}}
+                </td>
+                <td>
+                    <button pButton type="button" class="p-button-secondary" label="Agendar" icon="pi pi-user-edit"
+                        [routerLink]="['/agendamento',medico.id]"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="4">Nenhum médico encontrado.</td>
+            </tr>
+        </ng-template>
