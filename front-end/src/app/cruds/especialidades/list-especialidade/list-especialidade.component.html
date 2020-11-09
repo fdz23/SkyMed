@@ -2,7 +2,7 @@
     <p-table #dt [value]="especialidades" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
         currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
-        [globalFilterFields]="['nome']" [resizableColumns]="true" [autoLayout]="true">
+        [globalFilterFields]="['nome']" >
         <ng-template pTemplate="caption">
             <div class="table-header">
                 Lista de Especialidades
@@ -15,12 +15,17 @@
         </ng-template>
         <ng-template pTemplate="header">
             <tr>
-                <th style="width: 3rem"></th>
-                <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon>
-                <th style="width: 8rem"></th>
+                <th style="width: 12rem"></th>
+                <th pSortableColumn="nome">Nome<p-sortIcon field="nome"></p-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Preço<pi-sortIcon field="preco"></pi-sortIcon>
+                </th>
+                <th pSortableColumn="nome">Duração da Consulta <p-clock field="duracaoConsulta"></p-clock>
+                </th>
+
             </tr>
-            <tr>
-                <th> </th>
+             <tr>
+
                 <th>
                     <input pInputText type="text" (input)="dt.filter($event.target.value, 'nome', 'contains')"
                         placeholder="Pesquisa por Nome" class="p-column-filter">
@@ -29,25 +34,31 @@
                 <th></th>
             </tr>
         </ng-template>
-
-        <ng-template pTemplate="body" let-paciente>
+        <th></th>
+        <ng-template pTemplate="body" let-especialidade>
             <tr class="p-selectable-row">
-                <td></td>
-                <td>
+               <td>
                     {{especialidade.nome}}
+                </td>
+                <td>
+                    {{especialidade.preco}}
+                </td>
+                <td>
+                    {{especialidade.duracaoConsulta}}
                 </td>
                 <td style="text-align: center">
                     <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
                         [routerLink]="['/especialidade-editar',especialidade.id]"></button>
                 </td>
-                <td style="text-align: center">
-
+                <td>
+                    <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+                    <button pButton type="button" class="p-button-raised p-button-danger" label="Excluir"
+                        icon="pi pi-trash" (click)="deleteEspecialidade(especialidade.id)"></button>
                 </td>
-
             </tr>
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="8">Nenhuma especialidade encontrada.</td>
+                <td colspan="5">Nenhuma especialidade encontrada.</td>
             </tr>
         </ng-template>

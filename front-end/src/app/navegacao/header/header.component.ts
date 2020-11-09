@@ -33,7 +33,8 @@ export class HeaderComponent implements OnInit {
           { label: 'Médicos', icon: 'pi pi-fw pi-user', routerLink: 'medico-listar' }
 
         ]
-      }
+      },
+      { label: 'Painel Administrativo', icon: 'pi pi-fw pi-th-large' , routerLink: 'adm'}
     ];
   }
 
