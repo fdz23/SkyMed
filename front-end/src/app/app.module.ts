@@ -50,6 +50,8 @@ import { ListEspecialidadeComponent } from './cruds/especialidades/list-especial
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { FullCalendarModule } from 'primeng/fullcalendar';
+import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
+import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 
 
 
@@ -70,7 +72,9 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
     EditEspecialidadeComponent,
-    AgendamentoComponent
+    AgendamentoComponent,
+    ListMedicoAgendamentoComponent,
+    AgendarConsultaComponent
   ],
   imports: [
     BrowserModule,
