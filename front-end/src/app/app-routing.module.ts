@@ -13,6 +13,8 @@ import { CreateEspecialidadeComponent } from './cruds/especialidades/create-espe
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
+import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
+import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -28,7 +30,9 @@ const routes: Routes = [
   { path: 'medico-editar/:id', component: EditMedicoComponent },
   { path: 'paciente-editar/:id', component: PacienteEditarComponent },
   { path: 'paciente-listar', component: PacienteListarComponent },
-  { path: 'agendamento', component: AgendamentoComponent },
+  { path: 'agendamento/:id', component: AgendamentoComponent },
+  { path: 'medico-listar-agendamento', component: ListMedicoAgendamentoComponent },
+  { path: 'agendar-consulta', component: AgendarConsultaComponent },
 
 
   { path: '**', redirectTo: '' }
