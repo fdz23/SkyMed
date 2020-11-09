@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { HttpClient } from '@angular/common/http';
 import { Medicos } from '../../../../assets/medicos';
+import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { MedicoService } from 'src/app/servicos/medico.service';
 import { Pessoas } from 'src/assets/Pessoas';
@@ -42,6 +43,10 @@ export class CreateMedicoComponent implements OnInit {
   celular: string;
   email: string;
   especialidade: Especialidades;
+  ehMedico: false;
+  ehAdmin: false;
+  senha : string;
+  usuario: Usuarios;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
@@ -108,14 +113,23 @@ export class CreateMedicoComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
+    const usuarios = {
+
+      ehAdmin: false,
+      ehMedico:true,
+      email: this.email,
+      senha: this.senha
+
+    } as Usuarios;
 
     const pacientes = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
+      usuario: usuarios,
       telefone: this.celular,
-      email: this.email
-    } as Pessoas;
+   
+     } as Pessoas;
 
     const medico = {
       id: 0,

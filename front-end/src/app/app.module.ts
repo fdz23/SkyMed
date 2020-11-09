@@ -52,6 +52,8 @@ import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
 import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
 import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
+import { FullCalendarModule } from 'primeng/fullcalendar';
 
 
 @NgModule({
@@ -73,7 +75,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     EditEspecialidadeComponent,
     AdmComponent,
     RelatorioComponent,
-    EstatisticaComponent
+    EstatisticaComponent,
+    AgendamentoComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,8 @@ import {InputNumberModule} from 'primeng/inputnumber';
     ConfirmDialogModule,
     NgxMaskModule.forRoot(),
     TableModule,
-    InputNumberModule
+    InputNumberModule,
+    FullCalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

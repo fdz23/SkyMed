@@ -15,6 +15,7 @@ import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especial
 import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
 import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
 import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
+import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'adm', component: AdmComponent},
   { path: 'relatorio', component: RelatorioComponent},
   { path: 'estatistica', component: EstatisticaComponent},
+  { path: 'agendamento', component: AgendamentoComponent },
 
 
   { path: '**', redirectTo: '' }

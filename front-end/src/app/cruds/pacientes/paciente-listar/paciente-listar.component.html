@@ -65,10 +65,10 @@
                     {{paciente.telefone}}
                 </td>
                 <td>
-                    {{paciente.email}}
+                    {{paciente.usuario.email}}
                 </td>
                 <td style="text-align: center">
-                    <button pButton type="button" class="p-button-primary" label="Editar" icon="pi pi-user-edit"
+                    <button pButton type="button" class="p-button-raised p-button-primary" label="Editar" icon="pi pi-user-edit"
                         [routerLink]="['/paciente-editar',paciente.id]"></button>
                 </td>
                 <td style="text-align: center">

@@ -26,19 +26,15 @@ public class Pessoa {
 	private String rg;
 	@Column(name = "pes_telefone")
 	private String telefone;
-	@Column(name = "pes_email")
-	private String email;
-	@Column(name = "pes_senha")
-	private String senha;
-	@Column(name = "pes_eh_paciente")
+    @Column(name = "pes_eh_paciente")
 	private boolean ehPaciente;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pes_end_iden")
 	private Endereco endereco;
-	@JoinColumn(name = "pes_token_autenticacao")
-	private String tokenDeAutenticacao;
-	@JoinColumn(name = "pes_token_redefinicao")
-	private String tokenDeRedefinicao;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "pes_usu_iden")
+	private Usuario usuario;
+ 
 
 	public Pessoa() {
 	}
@@ -89,25 +85,14 @@ public class Pessoa {
 		}
 		this.telefone = telefone;
 	}
+ 
 
-	public String getEmail() {
-		return email;
+	public Usuario getUsuario() {
+		return usuario;
 	}
 
-	public void setEmail(String email) throws Exception {
-		if (!Validadores.emailEhValido(email)) {
-			throw new Exception("E-mail não é valido.");
-		}
-
-		this.email = email;
-	}
-
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 	public String getCpf() {
@@ -141,26 +126,5 @@ public class Pessoa {
 		this.endereco = endereco;
 	}
 
-	public String getTokenDeAutenticacao() {
-		return tokenDeAutenticacao;
-	}
-
-	public void setTokenDeAutenticacao(String tokenDeAutenticacao) throws Exception {
-		if (!(tokenDeAutenticacao.length() == 4)) {
-			throw new Exception("Token de Auntenticação Inválido");
-		}
-		this.tokenDeAutenticacao = tokenDeAutenticacao;
-	}
-
-	public String getTokenDeRedefinicao() {
-		return tokenDeRedefinicao;
-	}
-
-	public void setTokenDeRedefinicao(String tokenDeRedefinicao) throws Exception {
-		if (!(tokenDeRedefinicao.length() == 4)) {
-			throw new Exception("Token de Redefinição Inválido");
-		}
-		this.tokenDeRedefinicao = tokenDeRedefinicao;
-	}
-
+ 
 }
