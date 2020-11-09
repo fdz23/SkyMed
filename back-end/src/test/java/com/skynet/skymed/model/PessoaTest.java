@@ -33,9 +33,9 @@ public class PessoaTest {
 		endereco.setNumero("23");
 		endereco.setUf("GO");
 
-		usuario.setisEhAdmin(false);
+		usuario.setEhAdmin(false);
 		usuario.setEmail("raphael.mota14@hotmail.com");
-		usuario.setisEhMedico(false);
+		usuario.setEhMedico(false);
 		usuario.setSenha("1234");
 
 		pessoa.setNome("Raphael Mota");

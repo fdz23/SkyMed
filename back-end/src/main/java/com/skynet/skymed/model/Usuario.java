@@ -44,19 +44,19 @@ public class Usuario extends AbstractEntity {
 		this.token_redefinicao = token_redefinicao;
 	}
 
-	public boolean isEhAdmin() {
+	public boolean EhAdmin() {
 		return ehAdmin;
 	}
 
-	public boolean isEhMedico() {
+	public boolean EhMedico() {
 		return ehMedico;
 	}
 
-	public void setisEhMedico(boolean medico) {
+	public void setEhMedico(boolean medico) {
 		this.ehMedico = medico;
 	}
 
-	public void setisEhAdmin(boolean admin) {
+	public void setEhAdmin(boolean admin) {
 		this.ehAdmin = admin;
 	}
 

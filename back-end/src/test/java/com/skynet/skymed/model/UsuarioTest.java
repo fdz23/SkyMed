@@ -23,9 +23,9 @@ class UsuarioTest {
 
 		var usuario = new Usuario();
 
-		usuario.setisEhAdmin(false);
+		usuario.setEhAdmin(false);
 		usuario.setEmail("raphael.mota14@hotmail.com");
-		usuario.setisEhMedico(false);
+		usuario.setEhMedico(false);
 		usuario.setSenha("1234");
 
 		return usuario;
