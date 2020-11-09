@@ -2,8 +2,10 @@ package com.skynet.skymed.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,8 +27,8 @@ public class Horario {
 
 	@Column(name = "hor_fim")
 	private Date fim;
-	
-	@ManyToOne()
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "hor_med_iden")
     @JsonBackReference
 	private Medico medico;
