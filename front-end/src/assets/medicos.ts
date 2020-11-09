@@ -10,6 +10,6 @@ export interface Medicos {
   especialidade: Especialidades;
   pessoa: Pessoas;
   horarios: Horarios[];
-  horariosTrabalho: HorariosTrabalho;
+  horariosTrabalho: HorariosTrabalho[];
   hospital: Hospitais;
 }
