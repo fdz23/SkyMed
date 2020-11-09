@@ -3,7 +3,7 @@ package com.skynet.skymed.model;
 import org.junit.Before;
 
 import org.junit.jupiter.api.Test;
- 
+
 import org.junit.Assert;
 
 import static org.junit.Assert.*;
@@ -23,9 +23,9 @@ class UsuarioTest {
 
 		var usuario = new Usuario();
 
-		usuario.setAdmin(false);
+		usuario.setisEhAdmin(false);
 		usuario.setEmail("raphael.mota14@hotmail.com");
-		usuario.setMedico(false);
+		usuario.setisEhMedico(false);
 		usuario.setSenha("1234");
 
 		return usuario;
@@ -34,50 +34,49 @@ class UsuarioTest {
 
 	@Test
 	void insereCamposInvalidos() {
-		
-		
+
 		try {
-			
-		 usuario.setEmail("");
-		 Assert.fail();
-			
-		}catch (Exception e) {
+
+			usuario.setEmail("");
+			Assert.fail();
+
+		} catch (Exception e) {
 			assertNotNull(e);
 		}
-		
+
 		try {
-			
-			 usuario.setEmail("aaaaa");
-			 Assert.fail();
-				
-			}catch (Exception e) {
-				assertNotNull(e);
-			}
+
+			usuario.setEmail("aaaaa");
+			Assert.fail();
+
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
 		try {
-			
-			 usuario.setEmail("");
-			 Assert.fail();
-				
-			}catch (Exception e) {
-				assertNotNull(e);
-			}
+
+			usuario.setEmail("");
+			Assert.fail();
+
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
 		try {
-			
-			 usuario.setSenha("");
-			 Assert.fail();
-				
-			}catch (Exception e) {
-				assertNotNull(e);
-			}
+
+			usuario.setSenha("");
+			Assert.fail();
+
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
 		try {
-			
-			 usuario.setEmail(null);
-			 Assert.fail();
-				
-			}catch (Exception e) {
-				assertNotNull(e);
-			}
-			
-	 }
+
+			usuario.setEmail(null);
+			Assert.fail();
+
+		} catch (Exception e) {
+			assertNotNull(e);
+		}
+
+	}
 
 }

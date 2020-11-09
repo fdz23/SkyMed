@@ -33,9 +33,9 @@ public class PessoaTest {
 		endereco.setNumero("23");
 		endereco.setUf("GO");
 
-		usuario.setAdmin(false);
+		usuario.setisEhAdmin(false);
 		usuario.setEmail("raphael.mota14@hotmail.com");
-		usuario.setMedico(false);
+		usuario.setisEhMedico(false);
 		usuario.setSenha("1234");
 
 		pessoa.setNome("Raphael Mota");
@@ -189,8 +189,7 @@ public class PessoaTest {
 			assertNotNull(e);
 		}
 
-		 
- try {
+		try {
 			pessoa.setUsuario(null);
 			Assert.fail();
 		} catch (Exception e) {
