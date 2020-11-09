@@ -22,7 +22,8 @@ import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
 
 @RestController
-@RequestMapping("skymed")
+//@RequestMapping("skymed")
+@RequestMapping("pessoa")
 public class PessoaController {
 
 	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
@@ -36,8 +37,8 @@ public class PessoaController {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
 	}
 
-	 @PostMapping(path = "admin/paciente")
-	 @PreAuthorize("hasRole('ADMIN')")
+	 @PostMapping//(path = "admin/paciente")
+	 //@PreAuthorize("hasRole('ADMIN')")
 	 public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
 		if (object.getId() != null) {
 			var pessoa = getById(object.getId().intValue());
@@ -62,8 +63,8 @@ public class PessoaController {
 
 	}
 
-	@PutMapping(path = "admin/paciente")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping//(path = "admin/paciente")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> putPessoa(@RequestBody Pessoa object) {
 		
 		Pessoa pacienteDB = pessoaDB.findByUsuarioEmail(object.getUsuario().getEmail());
@@ -79,7 +80,7 @@ public class PessoaController {
 			return pessoa;
 
 		} else if (pacienteDB != null) {
-			 if (pacienteDB.getCpf() != object.getCpf()) {
+			 if (!pacienteDB.getCpf().contains(object.getCpf())) {
 			
 				 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
 			 }
@@ -89,8 +90,9 @@ public class PessoaController {
 		return ResponseEntity.ok(object);
 	}
 
-	@DeleteMapping(path = "admin/paciente/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	//@DeleteMapping(path = "admin/paciente/{id}")
+	@DeleteMapping("{id}")
+	//@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteObject(@PathVariable("id") Integer id) {
 		var pessoa = getById(id);
 
@@ -104,8 +106,9 @@ public class PessoaController {
 		return ResponseEntity.ok(null);
 	}
 
-	 @GetMapping(path = "protected/paciente/{id}")
-	 @PreAuthorize("hasRole('USER')")
+	 //@GetMapping(path = "protected/paciente/{id}")
+	 @GetMapping("{id}")
+	 //@PreAuthorize("hasRole('USER')")
 	 public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
@@ -117,8 +120,9 @@ public class PessoaController {
 		}
 	}
 
-	 @GetMapping(path = "admin/paciente")
-	 @PreAuthorize("hasRole('ADMIN')")
+	 //@GetMapping(path = "admin/paciente")
+	 //@PreAuthorize("hasRole('ADMIN')")
+	 @GetMapping("pacientes")
 	 public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
 		if (pessoas.size() == 0) {
