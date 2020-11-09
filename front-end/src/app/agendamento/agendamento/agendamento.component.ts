@@ -3,6 +3,9 @@ import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
+import { ActivatedRoute } from '@angular/router';
+import { Medicos } from 'src/assets/medicos';
+import { MedicoService } from 'src/app/servicos/medico.service';
 
 @Component({
   selector: 'app-agendamento',
@@ -10,18 +13,23 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 })
 export class AgendamentoComponent implements OnInit {
 
+  public medicoid;
   events: any[] = [];
 
   options: any;
 
-  constructor() {
-    const name = Calendar.name;
+  constructor(
+    private route: ActivatedRoute,
+    private medicoService: MedicoService) {
+      this.route.params.subscribe(params => this.medicoid = params.id);
+      const name = Calendar.name;
   }
 
   horarioEntrada: any = '08:00:00';
-  horarioSaida: any = '19:00:00';
+  horarioSaida: any = '18:00:00';
 
   ngOnInit(): void {
+    this.obtenhaMedicoPorId();
 
     this.events = [{
       id: 1,
@@ -50,4 +58,9 @@ export class AgendamentoComponent implements OnInit {
     };
   }
 
+
+  public obtenhaMedicoPorId(): void {
+    this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
+    }, () => { });
+  }
 }
