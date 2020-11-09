@@ -76,7 +76,6 @@ export class ListMedicoComponent implements OnInit {
   }
 
   aoSelecionarEspecialidade(event): void {
-    debugger;
     this.table.filter(event.value.nome, 'especialidade.nome', 'equals');
   }
 
