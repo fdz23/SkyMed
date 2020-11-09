@@ -12,6 +12,9 @@ import { PacienteListarComponent } from './cruds/pacientes/paciente-listar/pacie
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
+import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
+import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
+import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 
 const routes: Routes = [
@@ -21,13 +24,16 @@ const routes: Routes = [
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
   { path: 'especialidade-criar', component: CreateEspecialidadeComponent },
-  { path: 'especialidade-editar', component: EditEspecialidadeComponent },
+  { path: 'especialidade-editar/:id', component: EditEspecialidadeComponent },
   { path: 'especialidade-listar', component: ListEspecialidadeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'medico-listar', component: ListMedicoComponent },
   { path: 'medico-editar/:id', component: EditMedicoComponent },
   { path: 'paciente-editar/:id', component: PacienteEditarComponent },
   { path: 'paciente-listar', component: PacienteListarComponent },
+  { path: 'adm', component: AdmComponent},
+  { path: 'relatorio', component: RelatorioComponent},
+  { path: 'estatistica', component: EstatisticaComponent},
   { path: 'agendamento', component: AgendamentoComponent },
 
 

@@ -48,9 +48,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { CreateEspecialidadeComponent } from './cruds/especialidades/create-especialidade/create-especialidade.component';
 import { ListEspecialidadeComponent } from './cruds/especialidades/list-especialidade/list-especialidade.component';
 import { EditEspecialidadeComponent } from './cruds/especialidades/edit-especialidade/edit-especialidade.component';
+import { AdmComponent } from './navegacao/adm/adm-menu/adm.component';
+import { RelatorioComponent } from './navegacao/adm/relatorios/relatorio/relatorio.component';
+import { EstatisticaComponent } from './navegacao/adm/estatisticas/estatistica/estatistica.component';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { FullCalendarModule } from 'primeng/fullcalendar';
-
 
 
 @NgModule({
@@ -70,6 +73,9 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     CreateEspecialidadeComponent,
     ListEspecialidadeComponent,
     EditEspecialidadeComponent,
+    AdmComponent,
+    RelatorioComponent,
+    EstatisticaComponent,
     AgendamentoComponent
   ],
   imports: [
@@ -105,6 +111,7 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
     ConfirmDialogModule,
     NgxMaskModule.forRoot(),
     TableModule,
+    InputNumberModule,
     FullCalendarModule
   ],
   providers: [],
