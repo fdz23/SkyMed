@@ -30,8 +30,11 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "usu_token_redefinicao")
 	private String token_redefinicao;
 
-	@Column(name = "usu_admin")
-	private boolean admin;
+	@Column(name = "usu_eh_admin")
+	private boolean ehAdmin;
+	
+	@Column(name = "usu_eh_medico")
+	private boolean ehMedico;
 
 	public String getToken_redefinicao() {
 		return token_redefinicao;
@@ -41,23 +44,22 @@ public class Usuario extends AbstractEntity {
 		this.token_redefinicao = token_redefinicao;
 	}
 
-	@Column(name = "usu_medico")
-	private boolean medico;
+	 
 
-	public boolean isAdmin() {
-		return admin;
+	public boolean isEhAdmin() {
+		return ehAdmin;
 	}
 
-	public boolean isMedico() {
-		return medico;
+	public boolean isEhMedico() {
+		return ehMedico;
 	}
 
-	public void setMedico(boolean medico) {
-		this.medico = medico;
+	public void setisEhMedico(boolean medico) {
+		this.ehMedico = medico;
 	}
 
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
+	public void setisEhAdmin(boolean admin) {
+		this.ehAdmin = admin;
 	}
 
 	public String getEmail() {
