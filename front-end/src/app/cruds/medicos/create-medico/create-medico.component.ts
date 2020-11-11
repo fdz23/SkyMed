@@ -59,7 +59,7 @@ export class CreateMedicoComponent implements OnInit {
   diasDaSemanaSelecionados: any[] = [];
   ehMedico: false;
   ehAdmin: false;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
   ngOnInit(): void {
@@ -68,6 +68,7 @@ export class CreateMedicoComponent implements OnInit {
     this.especialidadeService.obtenhaEspecialidades().subscribe(
       especialidades => {
         this.especialidades = especialidades;
+        this.especialidadeSelecionada = especialidades[0];
       },
       erro => {
         this.msgs = [];
@@ -128,12 +129,10 @@ export class CreateMedicoComponent implements OnInit {
       return;
     }
     const usuarios = {
-
       ehAdmin: false,
-      ehMedico:true,
+      ehMedico: true,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
 
     const pessoa = {
@@ -141,8 +140,7 @@ export class CreateMedicoComponent implements OnInit {
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
-      telefone: this.celular,
-   
+      telefone: this.celular
      } as Pessoas;
 
     const horariosTrabalho: HorariosTrabalho[] = [];

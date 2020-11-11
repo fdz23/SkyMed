@@ -41,7 +41,7 @@ export class EditMedicoComponent implements OnInit {
   ehPaciente: boolean;
   ehMedico: boolean;
   ehAdmin: boolean;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
   constructor(
@@ -61,7 +61,7 @@ export class EditMedicoComponent implements OnInit {
     paciente.usuario.ehAdmin = false;
     paciente.usuario.ehMedico = false;
     paciente.usuario.email = this.email;
-    paciente.usuario.senha = "1234";
+    paciente.usuario.senha = '1234';
   }
 
   ngOnInit(): void {
@@ -151,16 +151,16 @@ export class EditMedicoComponent implements OnInit {
 
     const medico = this.medico;
     medico.especialidade = this.especialidade;
-    medico.pessoa.email = this.email;
+    medico.pessoa.usuario.email = this.email;
     medico.pessoa.telefone = this.telefone;
-    
+
     const usuarios = {
       ehAdmin: false,
-      ehMedico:true,
+      ehMedico: true,
       email: this.email,
       senha: this.senha
     } as Usuarios;
-    
+
     medico.pessoa.usuario = usuarios;
 
     this.atualizaMedico(medico);
