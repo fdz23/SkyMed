@@ -3,7 +3,7 @@
     <p-table #dt [value]="medicos" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
         currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
-        [globalFilterFields]="['pessoa.nome','pessoa.endereco.localidade','especialidade.nome']">
+        [globalFilterFields]="['pessoa.nome','pessoa.endereco.localidade','especialidade.nome','especialidade.preco']">
         <ng-template pTemplate="caption">
             <div class="table-header">
                 Lista de médicos
@@ -22,6 +22,7 @@
                 </th>
                 <th pSortableColumn="especialidade">Especialidade<p-sortIcon field="especialidade"></p-sortIcon>
                 </th>
+                <th>Preço</th>
                 <th></th>
             </tr>
             <tr>
@@ -38,6 +39,7 @@
                     </p-dropdown>
                 </th>
                 <th></th>
+                <th></th>
             </tr>
         </ng-template>
 
@@ -53,6 +55,9 @@
                     {{medico.especialidade.nome}}
                 </td>
                 <td>
+                    R$ {{medico.especialidade.preco}}
+                </td>
+                <td>
                     <button pButton type="button" class="p-button-secondary" label="Agendar" icon="pi pi-user-edit"
                         [routerLink]="['/agendamento',medico.id]"></button>
                 </td>
@@ -60,6 +65,6 @@
         </ng-template>
         <ng-template pTemplate="emptymessage">
             <tr>
-                <td colspan="4">Nenhum médico encontrado.</td>
+                <td colspan="5">Nenhum médico encontrado.</td>
             </tr>
         </ng-template>
