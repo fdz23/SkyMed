@@ -84,8 +84,8 @@ public class HorarioTrabalho {
 		this.medico = medico;
 	}
 
-	public EnumeradorDiaDaSemana getDiaDaSemana() {
-		return diaDaSemana;
+	public int getDiaDaSemana() {
+		return diaDaSemana.ordinal();
 	}
 
 	public void setDiaDaSemana(EnumeradorDiaDaSemana diaDaSemana) {
