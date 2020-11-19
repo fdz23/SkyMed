@@ -66,12 +66,6 @@ export class AgendamentoComponent implements OnInit {
         meridiem: false
       }
     };
-
-    this.events = [{
-      title: 'Consulta Fernando',
-      start: '2020-11-14T04:10:00',
-      end: '2020-11-14T04:20:00'
-    }];
   }
 
   public obtenhaMedicoPorId(): void {
@@ -126,17 +120,38 @@ export class AgendamentoComponent implements OnInit {
       accept: () => {
         const consulta = new Date(this.medico.especialidade.duracaoConsulta);
         const dataClicada = new Date(arg.date.getTime());
-        const final = new Date(dataClicada.setTime(dataClicada.getTime() + consulta.getHours() * 60 * 60 * 1000 + consulta.getMinutes() * 60 * 1000));
-        this.events = [...this.events, {
-          title: 'Consulta Fernando',
-          start: `${arg.date.toISOString()}`,
-          end: `${final.toISOString()}`
-        }];
+        const final = this.obtenhaDataFinal(consulta, dataClicada);
 
+        if (this.events.find(d => d.start === `${arg.date.toISOString()}` && d.end === `${final.toISOString()}`)) {
+          alert('Esse horário já possui um agendamento!');
+        } else {
+          this.events = [...this.events, {
+            title: 'Consulta',
+            start: `${arg.date.toISOString()}`,
+            end: `${final.toISOString()}`
+          }];
+        }
       },
       reject: () => {
-          console.log('deu ruim');
       }
-  });
+    });
+  }
+
+  obtenhaDataFinal(consulta: Date, dataClicada: Date): Date {
+    return new Date(
+      dataClicada.setTime(
+        dataClicada.getTime()
+        + this.obtenhaHorasEmMilisegundos(consulta.getHours())
+        + this.obtenhaMinutosEmMilisegundos(consulta.getMinutes())
+      )
+    );
+  }
+
+  obtenhaHorasEmMilisegundos(horas: number): number {
+    return horas * 60 * 60 * 1000;
+  }
+
+  obtenhaMinutosEmMilisegundos(minutos: number): number {
+    return minutos * 60 * 1000;
   }
 }
