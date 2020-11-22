@@ -20,25 +20,26 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
+import com.skynet.skymed.service.ValidacaoPessoaService;
 
 @RestController
 //@RequestMapping("skymed")
 @RequestMapping("pessoa")
 public class PessoaController {
+	
+	@Autowired
+	private PessoaRepository pessoaDB;
 
 	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
 	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
 
-	@Autowired
-	private PessoaRepository pessoaDB;
 
 	@ExceptionHandler({ HttpMessageNotReadableException.class })
 	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
 	}
 
-	 @PostMapping//(path = "admin/paciente")
-	 //@PreAuthorize("hasRole('ADMIN')")
+	 @PostMapping
 	 public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
 		if (object.getId() != null) {
 			var pessoa = getById(object.getId().intValue());
@@ -46,29 +47,23 @@ public class PessoaController {
 			if (pessoa.getBody().equals("Paciente_INEXISTENTE")) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Paciente existente.");
 			}
-		} else if (pessoaDB.findByCpf(object.getCpf()) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cpf existente.");
-
-		} else if (pessoaDB.findByRg(object.getRg()) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RG existente.");
-
-		 } else if (pessoaDB.findByUsuarioEmail(object.getUsuario().getEmail()) != null) {
-		 	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
-
 		}
-
-		 // servicoDeEmailPaciente.enviaEmail(object);
+		
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object);
+		
+		if (validacao != null) {
+			return validacao;
+		}
+		
+		 //servicoDeEmailPaciente.enviaEmail(object);
 		pessoaDB.save(object);
 		return ResponseEntity.ok(object);
 
 	}
 
-	@PutMapping//(path = "admin/paciente")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	@PreAuthorize("hasRole('PACIENTE')")
 	public ResponseEntity<Object> putPessoa(@RequestBody Pessoa object) {
-		
-		Pessoa pacienteDB = pessoaDB.findByUsuarioEmail(object.getUsuario().getEmail());
-		
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID Inválido");
 		}
@@ -79,20 +74,20 @@ public class PessoaController {
 
 			return pessoa;
 
-		} else if (pacienteDB != null) {
-			 if (!pacienteDB.getCpf().contains(object.getCpf())) {
-			
-				 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
-			 }
+		}
+		
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object);
+		
+		if (validacao != null) {
+			return validacao;
 		}
 
 		pessoaDB.save(object);
 		return ResponseEntity.ok(object);
 	}
 
-	//@DeleteMapping(path = "admin/paciente/{id}")
-	@DeleteMapping("{id}")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping(path = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteObject(@PathVariable("id") Integer id) {
 		var pessoa = getById(id);
 
@@ -106,9 +101,7 @@ public class PessoaController {
 		return ResponseEntity.ok(null);
 	}
 
-	 //@GetMapping(path = "protected/paciente/{id}")
-	 @GetMapping("{id}")
-	 //@PreAuthorize("hasRole('USER')")
+	 @GetMapping(path = "/{id}")
 	 public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
@@ -120,9 +113,8 @@ public class PessoaController {
 		}
 	}
 
-	 //@GetMapping(path = "admin/paciente")
-	 //@PreAuthorize("hasRole('ADMIN')")
-	 @GetMapping("pacientes")
+	 @GetMapping
+	 @PreAuthorize("hasRole('ADMIN')")
 	 public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
 		if (pessoas.size() == 0) {
