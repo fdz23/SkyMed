@@ -96,13 +96,11 @@ export class CreateHospitalComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
-     const usuarios = {
 
+    const usuarios = {
       ehAdmin: true,
-      ehMedico:false,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
 
     const pessoaHospital = {

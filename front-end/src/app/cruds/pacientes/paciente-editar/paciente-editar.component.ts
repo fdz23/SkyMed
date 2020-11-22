@@ -130,12 +130,9 @@ export class PacienteEditarComponent implements OnInit {
     }
 
     const usuarios = {
-
-      ehAdmin: false,
-      ehMedico:false,
+      ehPaciente: true,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
 
     const paciente = {
@@ -144,14 +141,9 @@ export class PacienteEditarComponent implements OnInit {
       rg: this.rg,
       usuario: usuarios,
       telefone: this.telefone,
-      ehPaciente: true,
       id: this.id,
-
     } as Pessoas;
 
-    
-
     this.atualizaPaciente(paciente);
-
   }
 }

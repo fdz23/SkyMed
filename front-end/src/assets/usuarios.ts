@@ -4,7 +4,10 @@ export interface Usuarios {
     id: number;
     email: string;
     senha: string;
-    pessoa: Pessoas;
     ehAdmin: boolean;
     ehMedico: boolean;
+    ehHospital: boolean;
+    ehPaciente: boolean;
+    token_autenticacao: string;
+    token_redefinicao: string;
 }
