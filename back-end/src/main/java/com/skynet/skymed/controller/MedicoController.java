@@ -1,6 +1,5 @@
 package com.skynet.skymed.controller;
 
-import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skynet.skymed.model.Medico;
 import com.skynet.skymed.repository.MedicoRepository;
+import com.skynet.skymed.service.ValidacaoPessoaService;
 
 @RestController
 
 @RequestMapping("/medico")
 public class MedicoController {
 	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
+	private final ValidacaoPessoaService validacaoPessoa = new ValidacaoPessoaService();
 
 	@Autowired
 	private MedicoRepository medicoDB;
@@ -42,7 +43,7 @@ public class MedicoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum médico.");
 		}
 
-		return ResponseEntity.ok((ArrayList<Medico>) medicos);
+		return ResponseEntity.ok(medicos);
 	}
 
 	@PostMapping
@@ -53,6 +54,12 @@ public class MedicoController {
 			if (!medico.getBody().equals(MEDICO_INEXISTENTE)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Médico existente.");
 			}
+		}
+		
+		var validacao = validacaoPessoa.valideInsercao(object.getPessoa());
+		
+		if (validacao != null) {
+			return validacao;
 		}
 		
 		if (!object.getHorariosTrabalho().isEmpty()) {
@@ -67,7 +74,7 @@ public class MedicoController {
 	}
 
 	@PutMapping
-	public ResponseEntity<Object> putMedico(@RequestBody Medico object) {
+	public ResponseEntity<Object> putMedico(@RequestBody Medico object) throws Exception {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id inválido.");
 		}
@@ -76,6 +83,18 @@ public class MedicoController {
 
 		if (medico.getBody().equals(MEDICO_INEXISTENTE)) {
 			return medico;
+		}
+		
+		var validacao = validacaoPessoa.valideAtualizacao(object.getPessoa());
+		
+		if (validacao != null) {
+			return validacao;
+		}
+		
+		if (!object.getHorariosTrabalho().isEmpty()) {
+			for (var horario : object.getHorariosTrabalho()) {
+				horario.setMedico(object);
+			}
 		}
 
 		medicoDB.save(object);
