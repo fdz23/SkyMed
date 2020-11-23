@@ -18,10 +18,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().csrf().disable().authorizeRequests().antMatchers(HttpMethod.GET, "/login").permitAll()
-				.antMatchers("/*/protected/**").hasRole("USER").antMatchers("/*/admin/**").hasRole("ADMIN").and()
-				.addFilter(new JWTAuthenticationFilter(authenticationManager()))
-				.addFilter(new JWTAuthorizationFilter(authenticationManager(), customUserDetailService));
+		http.cors()
+		.and().csrf().disable().authorizeRequests()
+		.antMatchers(HttpMethod.GET, "/login").permitAll()
+		.and()
+		.addFilter(new JWTAuthenticationFilter(authenticationManager()))
+		.addFilter(new JWTAuthorizationFilter(authenticationManager(), customUserDetailService));
 
 	}
 

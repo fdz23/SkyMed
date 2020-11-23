@@ -1,6 +1,5 @@
 package com.skynet.skymed.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -11,8 +10,11 @@ import com.skynet.skymed.repository.PessoaRepository;
 @Service
 public class ValidacaoPessoaService {
 
-	@Autowired
 	private PessoaRepository pessoaDB;
+	
+	public ValidacaoPessoaService(PessoaRepository pessoaDB) {
+		this.pessoaDB = pessoaDB;
+	}
 	
 	public ResponseEntity<Object> valideInsercao(Pessoa pessoa) {
 		if (pessoaDB.findByCpf(pessoa.getCpf()) != null) {

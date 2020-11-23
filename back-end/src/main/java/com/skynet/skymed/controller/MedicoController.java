@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,15 +18,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skynet.skymed.model.Medico;
+import com.skynet.skymed.repository.HorarioRepository;
 import com.skynet.skymed.repository.MedicoRepository;
+import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.ValidacaoPessoaService;
 
 @RestController
 
 @RequestMapping("/medico")
 public class MedicoController {
+	
+	@Autowired
+	private PessoaRepository pessoaDB;
+	
+	@Autowired
+	private HorarioRepository horarioDB;
+	
 	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
-	private final ValidacaoPessoaService validacaoPessoa = new ValidacaoPessoaService();
 
 	@Autowired
 	private MedicoRepository medicoDB;
@@ -47,6 +56,7 @@ public class MedicoController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('HOSPITAL')")
 	public ResponseEntity<Object> postMedico(@RequestBody Medico object) throws Exception {
 		if (object.getId() != null) {
 			var medico = getById(object.getId().intValue());
@@ -56,14 +66,24 @@ public class MedicoController {
 			}
 		}
 		
-		var validacao = validacaoPessoa.valideInsercao(object.getPessoa());
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object.getPessoa());
 		
 		if (validacao != null) {
 			return validacao;
 		}
 		
-		if (!object.getHorariosTrabalho().isEmpty()) {
-			for (var horario : object.getHorariosTrabalho()) {
+		var horariosTrabalho = object.getHorariosTrabalho();
+		
+		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
+			for (var horario : horariosTrabalho) {
+				horario.setMedico(object);
+			}
+		}
+		
+		var horariosConsulta = object.getHorariosConsulta();
+		
+		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
+			for (var horario : horariosConsulta) {
 				horario.setMedico(object);
 			}
 		}
@@ -74,6 +94,7 @@ public class MedicoController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('MEDICO')")
 	public ResponseEntity<Object> putMedico(@RequestBody Medico object) throws Exception {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id inválido.");
@@ -85,14 +106,24 @@ public class MedicoController {
 			return medico;
 		}
 		
-		var validacao = validacaoPessoa.valideAtualizacao(object.getPessoa());
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object.getPessoa());
 		
 		if (validacao != null) {
 			return validacao;
 		}
 		
-		if (!object.getHorariosTrabalho().isEmpty()) {
-			for (var horario : object.getHorariosTrabalho()) {
+		var horariosTrabalho = object.getHorariosTrabalho();
+		
+		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
+			for (var horario : horariosTrabalho) {
+				horario.setMedico(object);
+			}
+		}
+		
+		var horariosConsulta = object.getHorariosConsulta();
+		
+		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
+			for (var horario : horariosConsulta) {
 				horario.setMedico(object);
 			}
 		}
@@ -103,6 +134,7 @@ public class MedicoController {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteMedico(@PathVariable("id") Integer id) {
 		var medico = getById(id);
 

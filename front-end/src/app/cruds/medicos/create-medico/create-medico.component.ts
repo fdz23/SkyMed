@@ -129,7 +129,6 @@ export class CreateMedicoComponent implements OnInit {
       return;
     }
     const usuarios = {
-      ehAdmin: false,
       ehMedico: true,
       email: this.email,
       senha: this.senha

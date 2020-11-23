@@ -46,7 +46,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cep">CEP</label>
-            <p-inputMask [(ngModel)]="cep" mask="99999-999" placeholder="{{cep}}" required></p-inputMask>
+            <input [(ngModel)]="cep" mask="99999-999" placeholder="{{cep}}" pInputText pKeyFilter="pint" required>
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
@@ -62,8 +62,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="celular">Celular</label>
-            <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" placeholder="{{telefone}}" required>
-            </p-inputMask>
+            <input [(ngModel)]="telefone" mask="(00) 00000-0000" pInputText pKeyFilter="pint" placeholder="{{telefone}}" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-5">
             <label for="email">E-mail</label>

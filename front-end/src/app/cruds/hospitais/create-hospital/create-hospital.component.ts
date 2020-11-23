@@ -42,11 +42,8 @@ export class CreateHospitalComponent implements OnInit {
   }
 
   criaUsuario(paciente: Pessoas): void{
-
-    paciente.usuario.ehAdmin = false;
-    paciente.usuario.ehMedico = false;
+    paciente.usuario.ehHospital = true;
     paciente.usuario.email = this.email;
-    paciente.usuario.senha = "1234";
   }
 
   insereHospital(hospital: Hospitais): void {
@@ -67,14 +64,14 @@ export class CreateHospitalComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.message}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.error}` });
                 return;
               }
             );
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
   }
@@ -92,17 +89,13 @@ export class CreateHospitalComponent implements OnInit {
      || this.rg == null || this.rg === ''
      || this.email == null || this.email === '')
      {
-      this.msgs = [];
-      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
-     const usuarios = {
 
+    const usuarios = {
       ehAdmin: true,
-      ehMedico:false,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
 
     const pessoaHospital = {
@@ -120,9 +113,6 @@ export class CreateHospitalComponent implements OnInit {
     } as Hospitais;
 
     this.insereHospital(hospital);
-
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
   }
 
 }

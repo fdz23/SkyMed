@@ -40,7 +40,6 @@ public class PessoaTest {
 
 		pessoa.setNome("Raphael Mota");
 		pessoa.getUsuario().setEmail("raphael.mota14@hotmail.com");
-		pessoa.setEhPaciente(true);
 		pessoa.getUsuario().setSenha("1234");
 		pessoa.setTelefone("(62) 9272-5598");
 		pessoa.setRg("5946186");

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
+import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-header',
@@ -8,9 +10,8 @@ import { MenuItem } from 'primeng/api';
 export class HeaderComponent implements OnInit {
 
   items: MenuItem[];
-  logado = false;
 
-  constructor() { }
+  constructor(private autenticacaoService: AutenticacaoService) { }
 
   ngOnInit(): void {
     this.items = [
@@ -41,6 +42,14 @@ export class HeaderComponent implements OnInit {
         ]
       }
     ];
+  }
+
+  logout(): void {
+    this.autenticacaoService.logout();
+  }
+
+  public verificaLogado(): boolean {
+    return localStorage.length > 0;
   }
 
 }

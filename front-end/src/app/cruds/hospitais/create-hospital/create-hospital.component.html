@@ -7,11 +7,11 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="cnpj">CNPJ</label>
-            <input id="cnpj" [(ngModel)]="cnpj" pKeyFilter="pint" type="text" pInputText mask="99.999.999/999-99" required>
+            <input id="cnpj" [(ngModel)]="cnpj" pKeyFilter="pint" type="text" pInputText mask="00.000.000/0000-00" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="cpf">CPF</label>
-            <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText mask="999.999.999-99" required>
+            <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText mask="000.000.000-00" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
@@ -25,7 +25,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cep">CEP</label>
-            <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
+            <input [(ngModel)]="cep" mask="00000-000" pInputText pKeyFilter="pint" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="complemento">Complemento</label>
@@ -37,7 +37,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="telefone">Telefone</label>
-            <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" required></p-inputMask>
+            <input [(ngModel)]="telefone" mask="(00) 00000-0000" pInputText pKeyFilter="pint" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="email">E-mail</label>

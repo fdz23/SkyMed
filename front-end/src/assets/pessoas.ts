@@ -9,5 +9,4 @@ export interface Pessoas {
     endereco: Enderecos;
     telefone: string;
     usuario: Usuarios;
-    ehPaciente: boolean;
 }
