@@ -9,7 +9,7 @@ export interface Medicos {
   registro: string;
   especialidade: Especialidades;
   pessoa: Pessoas;
-  horarios: Horarios[];
+  horariosConsulta: Horarios[];
   horariosTrabalho: HorariosTrabalho[];
   hospital: Hospitais;
 }
