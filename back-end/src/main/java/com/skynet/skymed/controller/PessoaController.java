@@ -113,7 +113,7 @@ public class PessoaController {
 		}
 	}
 
-	 @GetMapping
+	 @GetMapping(path = "pacientes")
 	 @PreAuthorize("hasRole('ADMIN')")
 	 public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
