@@ -11,7 +11,7 @@ import org.dom4j.tree.AbstractEntity;
 import com.sun.istack.NotNull;
 
 @Entity(name = "usuario")
-public class Usuario extends AbstractEntity {
+public class Usuario {
 
 	@Id
 	@Column(name = "usu_iden")
