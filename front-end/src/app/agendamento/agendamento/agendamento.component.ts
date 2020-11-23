@@ -118,7 +118,10 @@ export class AgendamentoComponent implements OnInit {
         dateClick: this.handleDateClick.bind(this),
         hiddenDays: todosDias.filter(d => !diasTrabalho.includes(d))
       };
-    }, () => { });
+    }, (error) => { 
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: `${error.error}` })
+    });
   }
 
   handleDateClick(arg): void {
@@ -171,7 +174,7 @@ export class AgendamentoComponent implements OnInit {
       },
       erro => {
         this.msgs = [];
-        this.msgs.push({ severity: 'error', detail: 'Erro ao salvar horários!' });
+        this.msgs.push({ severity: 'error', detail: erro.error });
       }
     )
   }
