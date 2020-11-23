@@ -37,13 +37,13 @@ export class LoginComponent implements OnInit {
           },
           erro => {
             this.msgs = [];
-            this.msgs.push({ severity: 'error', detail: `${erro.message}` });
+            this.msgs.push({ severity: 'error', detail: `${erro.error}` });
           }
         );
       },
       erro => {
         this.msgs = [];
-        this.msgs.push({ severity: 'error', detail: `${erro.message}` });
+        this.msgs.push({ severity: 'error', detail: `${erro.error}` });
       }
     );
   }
