@@ -22,7 +22,7 @@ msgs: Message[] = [];
 nome: string;
 value: number;
 preco: string;
-duracaoConsulta: string;
+duracaoConsulta: Date;
 
 ngOnInit(): void {
 this.primengConfig.ripple = true;

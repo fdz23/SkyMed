@@ -19,7 +19,7 @@ export class EditEspecialidadeComponent implements OnInit {
   public especialidadeid;
   nome: string;
   preco: string;
-  duracaoConsulta: string;
+  duracaoConsulta: Date;
 
 
   constructor(private router: Router, private primengConfig: PrimeNGConfig,
