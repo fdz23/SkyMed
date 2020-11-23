@@ -3,6 +3,8 @@
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
+    "rootDir": "./src",
+    "experimentalDecorators": true,
     "types": []
   },
   "files": [

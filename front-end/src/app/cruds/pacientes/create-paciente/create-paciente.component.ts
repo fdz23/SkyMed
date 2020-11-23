@@ -107,31 +107,22 @@ export class CreatePacienteComponent implements OnInit {
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
-    const usuarios = {
 
-      ehAdmin: false,
-      ehMedico:false,
+    const usuarios = {
+      ehPaciente: true,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
-     
 
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
-      telefone: this.telefone,
-      ehPaciente: true
-     
+      telefone: this.telefone
     } as Pessoas;
 
-    
-
     this.inserePaciente(paciente);
-
-
   }
 
 }

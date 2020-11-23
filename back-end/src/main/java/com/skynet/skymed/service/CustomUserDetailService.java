@@ -33,12 +33,32 @@ public class CustomUserDetailService implements UserDetailsService {
 
 		Usuario user = Optional.ofNullable(usuarioRepository.findByEmail(email))
 				.orElseThrow(() -> new UsernameNotFoundException("Usuario não encontrado"));
-		List<GrantedAuthority> authorityListAdmin = AuthorityUtils.createAuthorityList("ROLE_USER", "ROLE_ADMIN");
-		List<GrantedAuthority> authorityListUsuer = AuthorityUtils.createAuthorityList("ROLE_USER");
+		List<GrantedAuthority> authorityListPaciente = AuthorityUtils.createAuthorityList("ROLE_PACIENTE", "ROLE_USUARIO");
+		List<GrantedAuthority> authorityListMedico = AuthorityUtils.createAuthorityList("ROLE_MEDICO", "ROLE_PACIENTE", "ROLE_USUARIO");
+		List<GrantedAuthority> authorityListHospital = AuthorityUtils.createAuthorityList("ROLE_HOSPITAL", "ROLE_PACIENTE", "ROLE_USUARIO");
+		List<GrantedAuthority> authorityListAdmin = AuthorityUtils.createAuthorityList("ROLE_MEDICO", "ROLE_HOSPITAL", "ROLE_PACIENTE", "ROLE_ADMIN", "ROLE_USUARIO");
 
-		return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getSenha()),
-				user.EhAdmin()? authorityListAdmin : authorityListUsuer);
+		if (user.getEhAdmin()) {
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getSenha()),
+					authorityListAdmin);
+		}
 
+		if (user.getEhMedico()) {
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getSenha()),
+					authorityListMedico);
+		}
+
+		if (user.getEhHospital()) {
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getSenha()),
+					authorityListHospital);
+		}
+
+		if (user.getEhPaciente()) {
+			return new org.springframework.security.core.userdetails.User(user.getEmail(), encoder.encode(user.getSenha()),
+					authorityListPaciente);
+		}
+		
+		return null;
 	}
 
 	@Bean

@@ -155,7 +155,6 @@ export class EditMedicoComponent implements OnInit {
     medico.pessoa.telefone = this.telefone;
 
     const usuarios = {
-      ehAdmin: false,
       ehMedico: true,
       email: this.email,
       senha: this.senha

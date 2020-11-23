@@ -35,21 +35,19 @@ public class Usuario extends AbstractEntity {
 
 	@Column(name = "usu_eh_medico")
 	private boolean ehMedico;
-
+	
+	@Column(name = "usu_eh_hospital")
+	private boolean ehHospital;
+	
+	@Column(name = "usu_eh_paciente")
+	private boolean ehPaciente;
+	
 	public String getToken_redefinicao() {
 		return token_redefinicao;
 	}
 
 	public void setToken_redefinicao(String token_redefinicao) {
 		this.token_redefinicao = token_redefinicao;
-	}
-
-	public boolean EhAdmin() {
-		return ehAdmin;
-	}
-
-	public boolean EhMedico() {
-		return ehMedico;
 	}
 
 	public void setEhMedico(boolean medico) {
@@ -90,6 +88,30 @@ public class Usuario extends AbstractEntity {
 
 	public void setToken_autenticacao(String token_autenticacao) {
 		this.token_autenticacao = token_autenticacao;
+	}
+
+	public boolean getEhHospital() {
+		return ehHospital;
+	}
+
+	public void setEhHospital(boolean ehHospital) {
+		this.ehHospital = ehHospital;
+	}
+
+	public boolean getEhAdmin() {
+		return ehAdmin;
+	}
+
+	public boolean getEhMedico() {
+		return ehMedico;
+	}
+
+	public void setEhPaciente(boolean ehPaciente) {
+		this.ehPaciente = ehPaciente;
+	}
+
+	public boolean getEhPaciente() {
+		return ehPaciente;
 	}
 
 }

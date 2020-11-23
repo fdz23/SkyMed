@@ -26,8 +26,6 @@ public class Pessoa {
 	private String rg;
 	@Column(name = "pes_telefone")
 	private String telefone;
-    @Column(name = "pes_eh_paciente")
-	private boolean ehPaciente;
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pes_end_iden")
 	private Endereco endereco;
@@ -105,14 +103,6 @@ public class Pessoa {
 		}
 
 		this.cpf = cpf;
-	}
-
-	public boolean isEhPaciente() {
-		return ehPaciente;
-	}
-
-	public void setEhPaciente(boolean ehPaciente) {
-		this.ehPaciente = ehPaciente;
 	}
 
 	public Endereco getEndereco() {
