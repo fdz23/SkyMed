@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skynet.skymed.model.Medico;
+import com.skynet.skymed.repository.HorarioRepository;
 import com.skynet.skymed.repository.MedicoRepository;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.ValidacaoPessoaService;
@@ -29,6 +30,9 @@ public class MedicoController {
 	
 	@Autowired
 	private PessoaRepository pessoaDB;
+	
+	@Autowired
+	private HorarioRepository horarioDB;
 	
 	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
 
@@ -68,8 +72,18 @@ public class MedicoController {
 			return validacao;
 		}
 		
-		if (!object.getHorariosTrabalho().isEmpty()) {
-			for (var horario : object.getHorariosTrabalho()) {
+		var horariosTrabalho = object.getHorariosTrabalho();
+		
+		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
+			for (var horario : horariosTrabalho) {
+				horario.setMedico(object);
+			}
+		}
+		
+		var horariosConsulta = object.getHorariosConsulta();
+		
+		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
+			for (var horario : horariosConsulta) {
 				horario.setMedico(object);
 			}
 		}
@@ -98,8 +112,18 @@ public class MedicoController {
 			return validacao;
 		}
 		
-		if (!object.getHorariosTrabalho().isEmpty()) {
-			for (var horario : object.getHorariosTrabalho()) {
+		var horariosTrabalho = object.getHorariosTrabalho();
+		
+		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
+			for (var horario : horariosTrabalho) {
+				horario.setMedico(object);
+			}
+		}
+		
+		var horariosConsulta = object.getHorariosConsulta();
+		
+		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
+			for (var horario : horariosConsulta) {
 				horario.setMedico(object);
 			}
 		}
