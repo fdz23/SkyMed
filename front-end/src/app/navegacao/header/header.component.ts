@@ -34,7 +34,12 @@ export class HeaderComponent implements OnInit {
 
         ]
       },
-      { label: 'Painel Administrativo', icon: 'pi pi-fw pi-th-large' , routerLink: 'adm'}
+      { 
+        label: 'Painel Administrativo', icon: 'pi pi-fw pi-th-large' ,
+        items: [
+          { label: 'Estatísticas', icon: 'pi pi-fw pi-chart-line', routerLink: 'charts' }
+        ]
+      }
     ];
   }
 
