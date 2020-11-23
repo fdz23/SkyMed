@@ -1,5 +1,6 @@
 package com.skynet.skymed.model;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -25,8 +26,8 @@ public class Especialidade {
 	private String nome;
 	@Column(name = "esp_preco")
 	private double preco;
-	@Column(name = "esp_duracaoConsulta")
-	private String duracaoConsulta;
+	@Column(name = "esp_duracao_Consulta")
+	private Date duracaoConsulta;
 	
 	public Especialidade() {
 	}
@@ -65,15 +66,12 @@ public class Especialidade {
 		this.preco = preco;
 	}
 
-	public String getDuracaoConsulta() {
+	public Date getDuracaoConsulta() {
 		return duracaoConsulta;
 	}
 
-	public void setDuracaoConsulta(String duracaoConsulta)throws Exception{
+	public void setDuracaoConsulta(Date duracaoConsulta)throws Exception{
 		if(duracaoConsulta == null) {
-			throw new Exception("Tempo de duração de consulta ínvalido");
-		}
-		if(duracaoConsulta.isEmpty() || duracaoConsulta.length() < 5) {
 			throw new Exception("Tempo de duração de consulta ínvalido");
 		}
 		this.duracaoConsulta = duracaoConsulta;
