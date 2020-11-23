@@ -26,7 +26,7 @@ public class Especialidade {
 	private String nome;
 	@Column(name = "esp_preco")
 	private double preco;
-	@Column(name = "esp_duracaoConsulta")
+	@Column(name = "esp_duracao_Consulta")
 	private Date duracaoConsulta;
 	
 	public Especialidade() {
