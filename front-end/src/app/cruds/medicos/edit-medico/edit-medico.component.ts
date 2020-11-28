@@ -56,14 +56,6 @@ export class EditMedicoComponent implements OnInit {
 
   }
 
-  criaUsuario(paciente: Pessoas): void{
-
-    paciente.usuario.ehAdmin = false;
-    paciente.usuario.ehMedico = false;
-    paciente.usuario.email = this.email;
-    paciente.usuario.senha = '1234';
-  }
-
   ngOnInit(): void {
     this.obtenhaMedicoPorId(this.medicoid);
 
@@ -107,7 +99,6 @@ export class EditMedicoComponent implements OnInit {
           endereco.numero = this.numero;
 
           medico.pessoa.endereco = endereco;
-          this.criaUsuario(medico.pessoa);
 
           this.medicoService.atualizaMedico(medico)
             .subscribe(
@@ -153,14 +144,6 @@ export class EditMedicoComponent implements OnInit {
     medico.especialidade = this.especialidade;
     medico.pessoa.usuario.email = this.email;
     medico.pessoa.telefone = this.telefone;
-
-    const usuarios = {
-      ehMedico: true,
-      email: this.email,
-      senha: this.senha
-    } as Usuarios;
-
-    medico.pessoa.usuario = usuarios;
 
     this.atualizaMedico(medico);
   }
