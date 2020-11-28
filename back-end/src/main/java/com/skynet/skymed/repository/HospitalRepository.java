@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface HospitalRepository extends JpaRepository<Hospital, Long> {
-
+	Hospital findByPessoaUsuarioId(Long id);
 }
