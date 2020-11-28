@@ -28,8 +28,7 @@ public class Hospital {
 	@Column(name = "hos_cnpj")
 	private String cnpj;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "med_hos_iden")
+	@OneToMany(mappedBy = "hospital", cascade = CascadeType.ALL)
 	private List<Medico> medicos;
 
 	@OneToOne(cascade = CascadeType.ALL)

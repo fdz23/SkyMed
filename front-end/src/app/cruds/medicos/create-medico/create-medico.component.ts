@@ -10,6 +10,9 @@ import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 import { HorariosTrabalho } from 'src/assets/horariosTrabalho';
 import { Timestamp } from 'rxjs';
+import { HospitalService } from 'src/app/servicos/hospital.service';
+import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
+import { Hospitais } from 'src/assets/hospitais';
 
 @Component({
   selector: 'app-create-medico',
@@ -21,7 +24,9 @@ export class CreateMedicoComponent implements OnInit {
               private http: HttpClient,
               private cepService: CepService,
               private medicoService: MedicoService,
-              private especialidadeService: EspecialidadeService) { }
+              private especialidadeService: EspecialidadeService,
+              private hospitalService: HospitalService,
+              private autenticacaoService: AutenticacaoService) { }
 
   msgs: Message[] = [];
   tipoDeRegistrosArray: string[] = [
@@ -93,18 +98,32 @@ export class CreateMedicoComponent implements OnInit {
 
           medico.pessoa.endereco = endereco;
 
-          this.medicoService.insereMedico(medico)
+          if (localStorage.length > 0) {
+            this.hospitalService.obtenhaHospitalLogado(JSON.parse(localStorage.currentUser).id)
             .subscribe(
-              () => {
-                this.msgs = [];
-                this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+              hospital => {
+                medico.hospital = hospital;
+
+                this.medicoService.insereMedico(medico)
+                .subscribe(
+                  () => {
+                    this.msgs = [];
+                    this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+                  },
+                  error => {
+                    this.msgs = [];
+                    this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
+                    return;
+                  }
+                );
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao buscar hospital : ${error.error}` });
                 return;
               }
             );
+          }
         },
         error => {
           this.msgs = [];
@@ -130,6 +149,9 @@ export class CreateMedicoComponent implements OnInit {
     }
     const usuarios = {
       ehMedico: true,
+      ehAdmin: false,
+      ehHospital: false,
+      ehPaciente: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;
