@@ -41,11 +41,6 @@ export class CreateHospitalComponent implements OnInit {
     this.primengConfig.ripple = true;
   }
 
-  criaUsuario(paciente: Pessoas): void{
-    paciente.usuario.ehHospital = true;
-    paciente.usuario.email = this.email;
-  }
-
   insereHospital(hospital: Hospitais): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
@@ -54,7 +49,6 @@ export class CreateHospitalComponent implements OnInit {
           endereco.numero = this.numero;
 
           hospital.pessoa.endereco = endereco;
-          this.criaUsuario(hospital.pessoa);
 
           this.hospitalService.insereHospital(hospital)
             .subscribe(
@@ -93,7 +87,10 @@ export class CreateHospitalComponent implements OnInit {
      }
 
     const usuarios = {
-      ehAdmin: true,
+      ehAdmin: false,
+      ehHospital: true,
+      ehMedico: false,
+      ehPaciente: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;
@@ -107,7 +104,7 @@ export class CreateHospitalComponent implements OnInit {
      } as Pessoas;
 
     const hospital = {
-      razao_social: this.razaoSocial,
+      razaoSocial: this.razaoSocial,
       cnpj: this.cnpj,
       pessoa: pessoaHospital
     } as Hospitais;
