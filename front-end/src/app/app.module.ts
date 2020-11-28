@@ -55,6 +55,7 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 import { ChartModule } from 'primeng/chart';
+import { PainelComponent } from './acessos/painel/painel.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { ChartModule } from 'primeng/chart';
     ListMedicoAgendamentoComponent,
     AgendarConsultaComponent,
     EstatisticaComponent,
-    AgendamentoComponent
+    AgendamentoComponent,
+    PainelComponent
   ],
   imports: [
     BrowserModule,
