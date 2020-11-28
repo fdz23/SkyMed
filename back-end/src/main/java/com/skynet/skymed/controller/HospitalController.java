@@ -120,4 +120,16 @@ public class HospitalController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);
 		}
 	}
+	 
+	 @GetMapping(path = "usuario/{id}")
+	 @PreAuthorize("hasRole('USER')")
+	 public ResponseEntity<Object> getHospitalFromUsuarioId(@PathVariable("id") Integer id) {
+		 var hospital = hospitalDB.findByPessoaUsuarioId(id.longValue());
+		 
+		 if (hospital != null) {
+			 return ResponseEntity.ok(hospital);
+		 } else {
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);
+		 }
+	 }
 }
