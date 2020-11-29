@@ -20,10 +20,13 @@ import { AutenticacaoHospital } from './autenticacao/autenticacao.hospital';
 import { AutenticacaoMedico } from './autenticacao/autenticacao.medico';
 import { AutenticacaoPaciente } from './autenticacao/autenticacao.paciente';
 import { AutenticacaoAdmin } from './autenticacao/autenticacao.admin';
+import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
+ 
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'erro-autorizacao', component: AutorizacaoComponent},
   { path: 'medico-criar', component: CreateMedicoComponent, canActivate: [AutenticacaoHospital]},
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
@@ -48,7 +51,6 @@ const routes: Routes = [
   { path: 'agendamento', component: AgendamentoComponent, canActivate: [AutenticacaoPaciente,
                                                                         AutenticacaoMedico,
                                                                         AutenticacaoHospital] },
-
 
   { path: '**', redirectTo: '' }
 ];
