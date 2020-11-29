@@ -36,4 +36,9 @@ export class HospitalService {
     const url = `${environment.urlSkyMed}hospital/`;
     return this.http.delete(url.concat(id));
   }
+
+  obtenhaHospitalLogado(id: any): Observable<any> {
+    const url = `${environment.urlSkyMed}hospital/usuario/`;
+    return this.http.get(url.concat(id));
+  }
 }

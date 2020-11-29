@@ -64,7 +64,7 @@ public class Validadores {
 		boolean isCelularValid = false;
 
 		if (celular != null && celular.length() > 0) {
-			String expression = "^\\([1-9]{2}\\) 9[7-9]{1}[0-9]{3}-[0-9]{4}$";
+			String expression = "^[1-9]{2}9[7-9]{1}[0-9]{3}[0-9]{4}$";
 			Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 			Matcher matcher = pattern.matcher(celular);
 			isCelularValid = matcher.matches();

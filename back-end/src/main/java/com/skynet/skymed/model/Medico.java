@@ -9,8 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Medico {
@@ -36,6 +39,11 @@ public class Medico {
 	
 	@OneToMany(mappedBy = "medico", cascade = CascadeType.ALL)
 	private List<HorarioTrabalho> horariosTrabalho;
+	
+	@ManyToOne
+	@JoinColumn(name = "med_hos_iden")
+    @JsonBackReference
+	private Hospital hospital;
 
 	public Medico() {
 	}
@@ -107,4 +115,18 @@ public class Medico {
 		
 		this.horariosTrabalho = horariosTrabalho;
 	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) throws Exception {
+		if (hospital == null) {
+			throw new Exception("Hospital inválido.");
+		}
+		
+		this.hospital = hospital;
+	}
+	
+	
 }

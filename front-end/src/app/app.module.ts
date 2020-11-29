@@ -56,6 +56,7 @@ import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agen
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 import { ChartModule } from 'primeng/chart';
 import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
+import { PainelComponent } from './acessos/painel/painel.component';
 
 
 @NgModule({
@@ -80,7 +81,8 @@ import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.compon
     AgendarConsultaComponent,
     EstatisticaComponent,
     AgendamentoComponent,
-    AutorizacaoComponent
+    AutorizacaoComponent,
+    PainelComponent
   ],
   imports: [
     BrowserModule,

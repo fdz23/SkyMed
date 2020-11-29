@@ -4,7 +4,7 @@ import { Pessoas } from './Pessoas';
 export interface Hospitais {
     id: number;
     cnpj: string;
-    razao_social: string;
+    razaoSocial: string;
     medicos: Medicos[];
     pessoa: Pessoas;
 }

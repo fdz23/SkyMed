@@ -9,7 +9,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-6">
             <label for="cpfcnpj">CPF</label>
-            <input id="cpf" [(ngModel)]="cpf" type="text" mask="000.000.000-00" pInputText required>
+            <input id="cpf" [(ngModel)]="cpf" type="text" mask="000.000.000-00" pKeyFilter="pint" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-6">
             <label for="rg">RG</label>
@@ -32,7 +32,7 @@
         </div>
         <div class="p-field p-col-12 p-md-2 p-lg-2">
             <label for="celular">Celular</label>
-            <p-inputMask [(ngModel)]="telefone" mask="(99) 99999-9999" required></p-inputMask>
+            <input [(ngModel)]="telefone" mask="(00) 00000-0000" pKeyFilter="pint" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-4 p-lg-4">
             <label for="email">E-mail</label>

@@ -110,6 +110,9 @@ export class CreatePacienteComponent implements OnInit {
 
     const usuarios = {
       ehPaciente: true,
+      ehAdmin: false,
+      ehHospital: false,
+      ehMedico: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;

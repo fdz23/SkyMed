@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
             user.token_autenticacao = resposta.token;
             localStorage.setItem('currentUser', JSON.stringify(user));
             this.autenticacaoService.currentUserSubject.next(user);
-            this.router.navigate(['/home']);
+            window.location.reload();
             this.msgs = [];
           },
           erro => {

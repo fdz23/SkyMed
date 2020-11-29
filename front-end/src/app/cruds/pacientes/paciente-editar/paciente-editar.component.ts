@@ -129,17 +129,10 @@ export class PacienteEditarComponent implements OnInit {
       return;
     }
 
-    const usuarios = {
-      ehPaciente: true,
-      email: this.email,
-      senha: this.senha
-    } as Usuarios;
-
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
-      usuario: usuarios,
       telefone: this.telefone,
       id: this.id,
     } as Pessoas;

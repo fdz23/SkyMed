@@ -6,8 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.dom4j.tree.AbstractEntity;
-
 import com.sun.istack.NotNull;
 
 @Entity(name = "usuario")

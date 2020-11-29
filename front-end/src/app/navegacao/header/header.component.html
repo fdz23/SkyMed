@@ -1,5 +1,6 @@
 <p-menubar [model]="items">
+    <button pButton label="Painel" icon="pi pi-user-edit" *ngIf="verificaLogado()" [routerLink]="['/painel-usuario']" style="margin-right: 12px;"></button>
     <button pButton label="Logout" icon="pi pi-power-off" *ngIf="verificaLogado()" (click)="logout()"></button>
-    <button pButton label="Login" icon="pi pi-sign-in" *ngIf="!verificaLogado()"  [routerLink]="['/login']"></button>
+    <button pButton label="Login" icon="pi pi-sign-in" *ngIf="!verificaLogado()" [routerLink]="['/login']"></button>
 </p-menubar>
-<br><br>
+<br>

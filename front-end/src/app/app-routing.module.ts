@@ -16,12 +16,14 @@ import { EstatisticaComponent } from './navegacao/painel administrativo/estatist
 import { AgendamentoComponent } from './agendamento/agendamento/agendamento.component';
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
+import { PainelComponent } from './acessos/painel/painel.component';
 import { AutenticacaoHospital } from './autenticacao/autenticacao.hospital';
 import { AutenticacaoMedico } from './autenticacao/autenticacao.medico';
 import { AutenticacaoPaciente } from './autenticacao/autenticacao.paciente';
 import { AutenticacaoAdmin } from './autenticacao/autenticacao.admin';
 import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
- 
+import { AutenticacaoDeslogado } from './autenticacao/autenticacao.deslogado';
+import { AutenticacaoLogado } from './autenticacao/autenticacao.logado';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -33,24 +35,18 @@ const routes: Routes = [
   { path: 'especialidade-criar', component: CreateEspecialidadeComponent, canActivate: [AutenticacaoHospital] },
   { path: 'especialidade-editar/:id', component: EditEspecialidadeComponent, canActivate: [AutenticacaoHospital] },
   { path: 'especialidade-listar', component: ListEspecialidadeComponent, canActivate: [AutenticacaoHospital] },
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AutenticacaoDeslogado] },
   { path: 'charts', component: EstatisticaComponent, canActivate: [AutenticacaoHospital] },
   { path: 'medico-listar', component: ListMedicoComponent, canActivate: [AutenticacaoHospital] },
   { path: 'medico-editar/:id', component: EditMedicoComponent, canActivate: [AutenticacaoMedico, AutenticacaoHospital] },
-  { path: 'paciente-editar/:id', component: PacienteEditarComponent, canActivate: [AutenticacaoPaciente] },
-  { path: 'paciente-listar', component: PacienteListarComponent, canActivate: [AutenticacaoAdmin] },
-  { path: 'agendamento/:id', component: AgendamentoComponent, canActivate: [AutenticacaoPaciente,
-                                                                            AutenticacaoMedico,
-                                                                            AutenticacaoAdmin,
-                                                                            AutenticacaoHospital] },
   { path: 'medico-listar-agendamento', component: ListMedicoAgendamentoComponent, canActivate: [AutenticacaoPaciente] },
   { path: 'agendar-consulta', component: AgendarConsultaComponent, canActivate: [AutenticacaoPaciente] },
-  { path: 'adm', component: AdmComponent, canActivate: [AutenticacaoAdmin] },
-  { path: 'relatorio', component: RelatorioComponent, canActivate: [AutenticacaoHospital] },
   { path: 'estatistica', component: EstatisticaComponent, canActivate: [AutenticacaoHospital] },
-  { path: 'agendamento', component: AgendamentoComponent, canActivate: [AutenticacaoPaciente,
-                                                                        AutenticacaoMedico,
-                                                                        AutenticacaoHospital] },
+  { path: 'paciente-editar/:id', component: PacienteEditarComponent, canActivate: [AutenticacaoPaciente] },
+  { path: 'paciente-listar', component: PacienteListarComponent, canActivate: [AutenticacaoHospital] },
+  { path: 'agendamento/:id', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
+  { path: 'agendamento', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
+  { path: 'painel-usuario', component: PainelComponent, canActivate: [AutenticacaoLogado] },
 
   { path: '**', redirectTo: '' }
 ];
