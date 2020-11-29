@@ -16,7 +16,7 @@ export class AutenticacaoMedico implements CanActivate {
             return true;
         }
 
-        this.router.navigate(['/home'], { queryParams: { returnUrl: state.url }});
+        this.router.navigate(['/erro-autorizacao']); 
         return false;
     }
 }
