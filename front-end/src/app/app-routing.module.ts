@@ -20,12 +20,15 @@ import { PainelComponent } from './acessos/painel/painel.component';
 import { AutenticacaoHospital } from './autenticacao/autenticacao.hospital';
 import { AutenticacaoMedico } from './autenticacao/autenticacao.medico';
 import { AutenticacaoPaciente } from './autenticacao/autenticacao.paciente';
+import { AutenticacaoAdmin } from './autenticacao/autenticacao.admin';
+import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
 import { AutenticacaoDeslogado } from './autenticacao/autenticacao.deslogado';
 import { AutenticacaoLogado } from './autenticacao/autenticacao.logado';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
+  { path: 'erro-autorizacao', component: AutorizacaoComponent},
   { path: 'medico-criar', component: CreateMedicoComponent, canActivate: [AutenticacaoHospital]},
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
@@ -44,7 +47,6 @@ const routes: Routes = [
   { path: 'agendamento/:id', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
   { path: 'agendamento', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
   { path: 'painel-usuario', component: PainelComponent, canActivate: [AutenticacaoLogado] },
-
 
   { path: '**', redirectTo: '' }
 ];
