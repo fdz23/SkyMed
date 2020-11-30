@@ -7,7 +7,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -15,17 +14,13 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.skynet.skymed.controller.UsuarioController;
 import com.skynet.skymed.model.Usuario;
-import com.skynet.skymed.repository.UsuarioRepository;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilter {
-
-	@Autowired
-	private UsuarioRepository usuarioDB;
  
 	private AuthenticationManager authentiationManager;
 	
@@ -40,7 +35,8 @@ public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 		
 		try {
 			Usuario usuario =  new ObjectMapper().readValue(request.getInputStream(),Usuario.class);
-			 return this.authentiationManager.authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getSenha()));
+			 return this.authentiationManager
+					 .authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), GeradorDeSenha.geraSenhaSegura(usuario.getSenha(), usuario.getEmail())));
 		} catch (IOException e) {
 			
 			throw new RuntimeException(e);
