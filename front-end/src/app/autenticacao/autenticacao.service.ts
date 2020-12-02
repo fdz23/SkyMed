@@ -34,4 +34,9 @@ export class AutenticacaoService {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
+
+    trocarSenha(usuario: Usuarios): Observable<any> {
+        const url = `${environment.urlSkyMed}usuario/trocarSenha`;
+        return this.http.post<any>(url, usuario);
+    }
 }

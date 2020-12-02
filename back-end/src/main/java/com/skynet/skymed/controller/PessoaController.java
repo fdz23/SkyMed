@@ -1,6 +1,7 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
 import com.skynet.skymed.service.ValidacaoPessoaService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 //@RequestMapping("skymed")
@@ -55,8 +57,18 @@ public class PessoaController {
 			return validacao;
 		}
 		
+		UUID uuid = UUID.randomUUID();
+		String senhaAleatoria = uuid.toString();
+		
+		var usuario = object.getUsuario();
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+		
 		 //servicoDeEmailPaciente.enviaEmail(object);
 		pessoaDB.save(object);
+		
+		object.getUsuario().setSenha("");
+		
 		return ResponseEntity.ok(object);
 
 	}
@@ -83,6 +95,9 @@ public class PessoaController {
 		}
 
 		pessoaDB.save(object);
+		
+		object.getUsuario().setSenha("");
+		
 		return ResponseEntity.ok(object);
 	}
 
@@ -105,6 +120,8 @@ public class PessoaController {
 	 public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
+			
+			pessoa.get().getUsuario().setSenha("");
 
 			return ResponseEntity.ok(pessoa.get());
 
@@ -125,6 +142,10 @@ public class PessoaController {
 
 		if (pacientes.equals(null)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente retornado");
+		}
+		
+		for (var paciente : pacientes) {
+			paciente.getUsuario().setSenha("");
 		}
 
 		return ResponseEntity.ok(pacientes);

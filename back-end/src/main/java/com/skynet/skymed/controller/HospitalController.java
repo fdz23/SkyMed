@@ -1,6 +1,7 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,7 @@ import com.skynet.skymed.model.Hospital;
 import com.skynet.skymed.repository.HospitalRepository;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.ValidacaoPessoaService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 
@@ -48,6 +50,10 @@ public class HospitalController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum hospital.");
 		}
 		
+		for (var hospital : hospitais) {
+			hospital.getPessoa().getUsuario().setSenha("");
+		}
+		
 		return ResponseEntity.ok(hospitais);
 	}
 
@@ -67,7 +73,16 @@ public class HospitalController {
 			return validacao;
 		}
 		
+		UUID uuid = UUID.randomUUID();
+		String senhaAleatoria = uuid.toString();
+		
+		var usuario = object.getPessoa().getUsuario();
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+		
 		hospitalDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 			
 		return ResponseEntity.ok(object);
 	}
@@ -92,6 +107,8 @@ public class HospitalController {
 		}
 		
 		hospitalDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 			
 		return ResponseEntity.ok(object);
 	}
@@ -115,6 +132,8 @@ public class HospitalController {
 		try {
 			var hospital = hospitalDB.findById((long) id);
 			
+			hospital.get().getPessoa().getUsuario().setSenha("");
+			
 			return ResponseEntity.ok(hospital.get());
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);
@@ -127,6 +146,8 @@ public class HospitalController {
 		 var hospital = hospitalDB.findByPessoaUsuarioId(id.longValue());
 		 
 		 if (hospital != null) {
+			 hospital.getPessoa().getUsuario().setSenha("");
+			
 			 return ResponseEntity.ok(hospital);
 		 } else {
 			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);

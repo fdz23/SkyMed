@@ -1,6 +1,7 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,7 @@ import com.skynet.skymed.repository.HorarioRepository;
 import com.skynet.skymed.repository.MedicoRepository;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.ValidacaoPessoaService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 
@@ -50,6 +52,10 @@ public class MedicoController {
 
 		if (medicos.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum médico.");
+		}
+		
+		for (var medico : medicos) {
+			medico.getPessoa().getUsuario().setSenha("");
 		}
 
 		return ResponseEntity.ok(medicos);
@@ -87,8 +93,17 @@ public class MedicoController {
 				horario.setMedico(object);
 			}
 		}
+		
+		UUID uuid = UUID.randomUUID();
+		String senhaAleatoria = uuid.toString();
+		
+		var usuario = object.getPessoa().getUsuario();
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
 
 		medicoDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 
 		return ResponseEntity.ok(object);
 	}
@@ -129,6 +144,8 @@ public class MedicoController {
 		}
 
 		medicoDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 
 		return ResponseEntity.ok(object);
 	}
@@ -151,6 +168,8 @@ public class MedicoController {
 	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var medico = medicoDB.findById((long) id);
+			
+			medico.get().getPessoa().getUsuario().setSenha("");
 
 			return ResponseEntity.ok(medico.get());
 		} catch (NoSuchElementException e) {

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skynet.skymed.model.Usuario;
 
 import com.skynet.skymed.repository.UsuarioRepository;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 
@@ -30,24 +31,6 @@ public class UsuarioController {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
     }
 
-	@PostMapping(path = "login")
-	public ResponseEntity<Object> login(@RequestBody Usuario object) {
-		var usuario = usuarioDB.findByEmail(object.getEmail());
-		var mensagemErro = "E-mail ou senha incorreta.";
-
-		if (usuario == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
-		}
-		
-		if (!usuario.getSenha().equals(object.getSenha())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
-		}
-		
-		usuario.setSenha("");
-
-		return ResponseEntity.ok(usuario);
-	}
-
 	@PutMapping(path = "trocarSenha")
 	@PreAuthorize("hasRole('USUARIO')")
 	public ResponseEntity<Object> trocarSenha(@RequestBody Usuario object) {
@@ -58,11 +41,11 @@ public class UsuarioController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
 		}
 		
-		if (!usuario.getSenha().equals(object.getSenha())) {
+		if (!GeradorDeSenha.verificaSenha(usuario.getSenha(), object.getSenha(), object.getEmail())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
 		}
 		
-		usuario.setSenha(object.getSenha());
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(object.getSenha(), object.getEmail()));
 		
 		usuarioDB.save(usuario);
 		
