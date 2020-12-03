@@ -1,6 +1,7 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,36 +27,35 @@ import com.skynet.skymed.service.ValidacaoPessoaService;
 //@RequestMapping("skymed")
 @RequestMapping("pessoa")
 public class PessoaController {
-	
+
 	@Autowired
 	private PessoaRepository pessoaDB;
 
 	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
 	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
 
-
 	@ExceptionHandler({ HttpMessageNotReadableException.class })
 	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
 	}
 
-	 @PostMapping
-	 public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
+	@PostMapping
+	public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
 		if (object.getId() != null) {
 			var pessoa = getById(object.getId().intValue());
 
-			if (pessoa.getBody().equals("Paciente_INEXISTENTE")) {
+			if (pessoa.getBody().equals(PACIENTE_INEXISTENTE)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Paciente existente.");
 			}
 		}
-		
+
 		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object);
-		
+
 		if (validacao != null) {
 			return validacao;
 		}
-		
-		 //servicoDeEmailPaciente.enviaEmail(object);
+
+		servicoDeEmailPaciente.enviaEmail(object);
 		pessoaDB.save(object);
 		return ResponseEntity.ok(object);
 
@@ -75,9 +75,9 @@ public class PessoaController {
 			return pessoa;
 
 		}
-		
+
 		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object);
-		
+
 		if (validacao != null) {
 			return validacao;
 		}
@@ -101,8 +101,8 @@ public class PessoaController {
 		return ResponseEntity.ok(null);
 	}
 
-	 @GetMapping(path = "/{id}")
-	 public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
 
@@ -113,9 +113,9 @@ public class PessoaController {
 		}
 	}
 
-	 @GetMapping(path = "pacientes")
-	 @PreAuthorize("hasRole('ADMIN')")
-	 public ResponseEntity<Object> getPacientes() {
+	@GetMapping(path = "pacientes")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
 		if (pessoas.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente encontrado");
