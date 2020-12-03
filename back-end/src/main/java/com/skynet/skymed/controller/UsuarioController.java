@@ -20,6 +20,7 @@ import com.skynet.skymed.model.Usuario;
 
 import com.skynet.skymed.repository.UsuarioRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 
@@ -34,24 +35,6 @@ public class UsuarioController {
 	@ExceptionHandler({ HttpMessageNotReadableException.class })
 	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
-	}
-
-	@PostMapping(path = "login")
-	public ResponseEntity<Object> login(@RequestBody Usuario object) {
-		var usuario = usuarioDB.findByEmail(object.getEmail());
-		var mensagemErro = "E-mail ou senha incorreta.";
-
-		if (usuario == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
-		}
-
-		if (!usuario.getSenha().equals(object.getSenha())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
-		}
-
-		usuario.setSenha("");
-
-		return ResponseEntity.ok(usuario);
 	}
 
 	@PutMapping(path = "trocarSenha")
@@ -69,7 +52,13 @@ public class UsuarioController {
 		}
 
 		usuario.setSenha(object.getSenha());
-
+		
+		if (!GeradorDeSenha.verificaSenha(usuario.getSenha(), object.getSenha(), object.getEmail())) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
+		}
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(object.getSenha(), object.getEmail()));
+		
 		usuarioDB.save(usuario);
 
 		usuario.setSenha("");
