@@ -8,6 +8,8 @@ export interface Usuarios {
     ehMedico: boolean;
     ehHospital: boolean;
     ehPaciente: boolean;
-    token_autenticacao: string;
-    token_redefinicao: string;
+    ehAutenticado: boolean;
+    tokenAutenticacao: string;
+    tokenAutenticacaoEmail: string;
+    tokenRedefinicaoSenha: string;
 }

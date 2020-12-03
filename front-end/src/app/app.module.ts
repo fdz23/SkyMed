@@ -55,8 +55,9 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 import { ChartModule } from 'primeng/chart';
-import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
+import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
 import { PainelComponent } from './acessos/painel/painel.component';
+import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
 
 
 @NgModule({
@@ -82,7 +83,8 @@ import { PainelComponent } from './acessos/painel/painel.component';
     EstatisticaComponent,
     AgendamentoComponent,
     AutorizacaoComponent,
-    PainelComponent
+    PainelComponent,
+    VerificacaoEmailComponent
   ],
   imports: [
     BrowserModule,

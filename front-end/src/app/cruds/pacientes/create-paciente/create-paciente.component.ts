@@ -7,6 +7,9 @@ import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/servicos/usuario.service';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-create-paciente',
@@ -17,7 +20,7 @@ export class CreatePacienteComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
     private http: HttpClient, private cepService: CepService,
-    private pessoaService: PessoaService) { }
+    private pessoaService: PessoaService, private router: Router, private usuarioService: UsuarioService) { }
 
   msgs: Message[] = [];
   estadosArray: string[];
@@ -40,9 +43,9 @@ export class CreatePacienteComponent implements OnInit {
   ehPaciente: boolean;
   ehMedico: false;
   ehAdmin: false;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
-
+  token: String;
 
 
   ngOnInit(): void {
@@ -62,8 +65,6 @@ export class CreatePacienteComponent implements OnInit {
       });
   }
 
-   
-
   inserePaciente(paciente: Pessoas): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
@@ -71,13 +72,19 @@ export class CreatePacienteComponent implements OnInit {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
           paciente.endereco = endereco;
-        
 
-           this.pessoaService.inserePaciente(paciente)
+
+          this.pessoaService.inserePaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
+
+                if (localStorage.getItem('currentUser') == null) {
+
+                  this.router.navigateByUrl("/autenticacao-conta/".concat(paciente.usuario.email));
+
+                }
               },
               error => {
                 this.msgs = [];
@@ -127,5 +134,4 @@ export class CreatePacienteComponent implements OnInit {
 
     this.inserePaciente(paciente);
   }
-
 }
