@@ -46,7 +46,7 @@ public class Usuario {
 	@Column(name = "usu_eh_autenticado")
 	private boolean ehAutenticado;
 	
-	public boolean ehAutenticado() {
+	public boolean getEhAutenticado() {
 		return ehAutenticado;
 	}
 
@@ -62,7 +62,7 @@ public class Usuario {
 		this.tokenAutenticacaoEmail = tokeAutenticacaoEmail;
 	}
 
-	public String getToken_sendgrid_redefinicao() {
+	public String getTokenRedefinicaoSenha() {
 		return tokenRedefinicaoSenha;
 	}
 
