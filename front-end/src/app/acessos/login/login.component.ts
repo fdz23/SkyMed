@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
   email: string;
   msgs: Message[] = [];
   feedback = false;
-  ehAutenticado: boolean;
+  ehAutenticado = false;
 
   ngOnInit(): void { }
 
@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
 
         this.ehAutenticado = usuario.ehAutenticado;
 
-        if (!usuario.ehAutenticado) {
+        if (usuario.ehAutenticado == false) {
 
           this.router.navigateByUrl("autenticacao-conta/".concat(this.email));
 
