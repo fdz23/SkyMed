@@ -45,7 +45,6 @@ export class CreatePacienteComponent implements OnInit {
   ehAdmin: false;
   senha: string;
   usuario: Usuarios;
-  usuario1: Usuarios;
   token: String;
 
 
