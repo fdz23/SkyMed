@@ -9,5 +9,6 @@ export interface Usuarios {
     ehHospital: boolean;
     ehPaciente: boolean;
     token_autenticacao: string;
-    token_redefinicao: string;
+    token_sendgrid_autenticacao: string;
+    token_sendgrid_redefinicao: string;
 }
