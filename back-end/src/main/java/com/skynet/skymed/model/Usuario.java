@@ -23,13 +23,13 @@ public class Usuario {
 	private String senha;
 
 	@Column(name = "usu_token_autenticacao")
-	private String token_autenticacao;
+	private String tokenAutenticacao;
 
-	@Column(name = "usu_sendgrid_token_autenticacao")
-	private String token_sendgrid_autenticacao;
+	@Column(name = "usu_token_autenticacao_email")
+	private String tokenAutenticacaoEmail;
 	
-	@Column(name = "usu_sendgrid_token_redefinicao")
-	private String token_sendgrid_redefinicao;
+	@Column(name = "usu_token_redefinicao_senha")
+	private String tokenRedefinicaoSenha;
 
 	@Column(name = "usu_eh_admin")
 	private boolean ehAdmin;
@@ -46,28 +46,28 @@ public class Usuario {
 	@Column(name = "usu_autenticado")
 	private boolean ehAutenticado;
 	
-	public boolean isEhAutenticacdo() {
+	public boolean isEhAutenticado() {
 		return ehAutenticado;
 	}
 
-	public void setEhAutenticacdo(boolean ehAutenticacdo) {
-		this.ehAutenticado = ehAutenticacdo;
+	public void setEhAutenticado(boolean ehAutenticacado) {
+		this.ehAutenticado = ehAutenticacado;
 	}
 
-	public String getToken_sendgrid_autenticacao() {
-		return token_sendgrid_autenticacao;
+	public String getTokenAutenticacaoEmail() {
+		return tokenAutenticacaoEmail;
 	}
 
-	public void setToken_sendgrid_autenticacao(String token_sendgrid_autenticacao) {
-		this.token_sendgrid_autenticacao = token_sendgrid_autenticacao;
+	public void setTokenAutenticacaoEmail(String tokeAutenticacaoEmail) {
+		this.tokenAutenticacaoEmail = tokeAutenticacaoEmail;
 	}
 
 	public String getToken_sendgrid_redefinicao() {
-		return token_sendgrid_redefinicao;
+		return tokenRedefinicaoSenha;
 	}
 
-	public void setToken_sendgrid_redefinicao(String token_sendgrid_redefinicao) {
-		this.token_sendgrid_redefinicao = token_sendgrid_redefinicao;
+	public void setTokenRedefinicaoSenha(String tokenRedefinicaoSenha) {
+		this.tokenRedefinicaoSenha = tokenRedefinicaoSenha;
 	}
 	
 	 
@@ -103,12 +103,12 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	public String getToken_autenticacao() {
-		return token_autenticacao;
+	public String getTokenAutenticacao() {
+		return tokenAutenticacao;
 	}
 
-	public void setToken_autenticacao(String token_autenticacao) {
-		this.token_autenticacao = token_autenticacao;
+	public void setTokenAutenticacao(String tokenAutenticacao) {
+		this.tokenAutenticacao = tokenAutenticacao;
 	}
 
 	public boolean getEhHospital() {

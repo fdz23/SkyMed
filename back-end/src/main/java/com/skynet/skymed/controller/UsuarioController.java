@@ -91,7 +91,7 @@ public class UsuarioController {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
 		}
 
-		usuario.setToken_autenticacao("");
+		usuario.setTokenAutenticacao("");
 
 		usuarioDB.save(usuario);
 
@@ -110,9 +110,9 @@ public class UsuarioController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado");
 
 		}
-		if (object.getToken_sendgrid_autenticacao().equals(usuario.getToken_sendgrid_autenticacao())) {
+		if (object.getTokenAutenticacaoEmail().equals(usuario.getTokenAutenticacaoEmail())) {
 
-			usuario.setEhAutenticacdo(true);
+			usuario.setEhAutenticado(true);
 
 			usuarioDB.save(usuario);
 
@@ -122,7 +122,7 @@ public class UsuarioController {
 
 		} else {
 
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Token INválido");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Token Inválido");
 		}
 
 	}

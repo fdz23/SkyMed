@@ -46,8 +46,8 @@ public class PessoaTest {
 		pessoa.setEndereco(endereco);
 		pessoa.setUsuario(usuario);
 		pessoa.setCpf("707.772.711-41");
-		pessoa.getUsuario().setToken_autenticacao("1234");
-		pessoa.getUsuario().setToken_sendgrid_redefinicao("1244");
+		pessoa.getUsuario().setTokenAutenticacaoEmail("1234");
+		pessoa.getUsuario().setTokenRedefinicaoSenha("1244");
 
 		return pessoa;
 	}
