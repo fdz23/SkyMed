@@ -47,7 +47,7 @@ public class PessoaTest {
 		pessoa.setUsuario(usuario);
 		pessoa.setCpf("707.772.711-41");
 		pessoa.getUsuario().setToken_autenticacao("1234");
-		pessoa.getUsuario().setToken_redefinicao("1244");
+		pessoa.getUsuario().setToken_sendgrid_redefinicao("1244");
 
 		return pessoa;
 	}
