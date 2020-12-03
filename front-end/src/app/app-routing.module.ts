@@ -21,14 +21,16 @@ import { AutenticacaoHospital } from './autenticacao/autenticacao.hospital';
 import { AutenticacaoMedico } from './autenticacao/autenticacao.medico';
 import { AutenticacaoPaciente } from './autenticacao/autenticacao.paciente';
 import { AutenticacaoAdmin } from './autenticacao/autenticacao.admin';
-import { AutorizacaoComponent } from './navegacao/autorizacao/autorizacao.component';
+import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
 import { AutenticacaoDeslogado } from './autenticacao/autenticacao.deslogado';
 import { AutenticacaoLogado } from './autenticacao/autenticacao.logado';
+import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'erro-autorizacao', component: AutorizacaoComponent},
+  { path: 'autenticacao-conta/:email', component: VerificacaoEmailComponent},
   { path: 'medico-criar', component: CreateMedicoComponent, canActivate: [AutenticacaoHospital]},
   { path: 'paciente-criar', component: CreatePacienteComponent },
   { path: 'hospital-criar', component: CreateHospitalComponent },
