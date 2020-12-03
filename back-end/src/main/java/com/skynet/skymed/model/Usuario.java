@@ -43,10 +43,10 @@ public class Usuario {
 	@Column(name = "usu_eh_paciente")
 	private boolean ehPaciente;
 	
-	@Column(name = "usu_autenticado")
+	@Column(name = "usu_eh_autenticado")
 	private boolean ehAutenticado;
 	
-	public boolean isEhAutenticado() {
+	public boolean ehAutenticado() {
 		return ehAutenticado;
 	}
 
