@@ -25,8 +25,11 @@ public class Usuario {
 	@Column(name = "usu_token_autenticacao")
 	private String token_autenticacao;
 
-	@Column(name = "usu_token_redefinicao")
-	private String token_redefinicao;
+	@Column(name = "usu_sendgrid_token_autenticacao")
+	private String token_sendgrid_autenticacao;
+	
+	@Column(name = "usu_sendgrid_token_redefinicao")
+	private String token_sendgrid_redefinicao;
 
 	@Column(name = "usu_eh_admin")
 	private boolean ehAdmin;
@@ -40,14 +43,34 @@ public class Usuario {
 	@Column(name = "usu_eh_paciente")
 	private boolean ehPaciente;
 	
-	public String getToken_redefinicao() {
-		return token_redefinicao;
+	@Column(name = "usu_autenticado")
+	private boolean ehAutenticado;
+	
+	public boolean isEhAutenticacdo() {
+		return ehAutenticado;
 	}
 
-	public void setToken_redefinicao(String token_redefinicao) {
-		this.token_redefinicao = token_redefinicao;
+	public void setEhAutenticacdo(boolean ehAutenticacdo) {
+		this.ehAutenticado = ehAutenticacdo;
 	}
 
+	public String getToken_sendgrid_autenticacao() {
+		return token_sendgrid_autenticacao;
+	}
+
+	public void setToken_sendgrid_autenticacao(String token_sendgrid_autenticacao) {
+		this.token_sendgrid_autenticacao = token_sendgrid_autenticacao;
+	}
+
+	public String getToken_sendgrid_redefinicao() {
+		return token_sendgrid_redefinicao;
+	}
+
+	public void setToken_sendgrid_redefinicao(String token_sendgrid_redefinicao) {
+		this.token_sendgrid_redefinicao = token_sendgrid_redefinicao;
+	}
+	
+	 
 	public void setEhMedico(boolean medico) {
 		this.ehMedico = medico;
 	}
