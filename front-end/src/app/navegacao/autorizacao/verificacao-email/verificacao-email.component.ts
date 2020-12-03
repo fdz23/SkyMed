@@ -43,7 +43,7 @@ export class VerificacaoEmailComponent implements OnInit {
     this.usuarioService.obtemUsuarioPorEmail(this.email).subscribe((usuario: Usuarios) => {
 
       this.usuario = usuario;
-      this.token = usuario.token_sendgrid_autenticacao;
+      this.token = usuario.tokenAutenticacaoEmail;
 
     }, () => { });
 
@@ -65,7 +65,7 @@ export class VerificacaoEmailComponent implements OnInit {
         },
           error => {
             this.msgs = [];
-            this.msgs.push({ severity: 'error', detail: `Erro ao autentica usuário : ${error.error}` });
+            this.msgs.push({ severity: 'error', detail: `Erro ao autenticar usuário : ${error.error}` });
             return;
           }
         );
