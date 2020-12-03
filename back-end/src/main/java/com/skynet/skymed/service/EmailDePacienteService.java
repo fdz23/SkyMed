@@ -21,7 +21,7 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 
 		Mail mail = new Mail();
 
-		objetoPessoa.getUsuario().setToken_autenticacao(getToken.geraToken());
+		objetoPessoa.getUsuario().setToken_sendgrid_autenticacao(getToken.geraToken());
 
 		Email from = new Email();
 		from.setName("Skymed");
@@ -41,7 +41,7 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 		personalization.setSubject(subject);
 
 		personalization.addDynamicTemplateData("Customer_Name", objetoPessoa.getNome());
-		personalization.addDynamicTemplateData("Token", objetoPessoa.getUsuario().getToken_autenticacao());
+		personalization.addDynamicTemplateData("Token", objetoPessoa.getUsuario().getToken_sendgrid_autenticacao());
 
 		mail.addPersonalization(personalization);
 
@@ -52,6 +52,7 @@ public class EmailDePacienteService implements IEmailService<Pessoa> {
 
 		mail.setTemplateId("d-ebfcaa73faad4f30a56c4bcaf59ee4dd");
 
+	    String teste = System.getenv("SENDGRID_API_KEY");
 		SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 
 		Request request = new Request();
