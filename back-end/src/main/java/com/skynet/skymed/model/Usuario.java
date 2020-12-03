@@ -27,7 +27,7 @@ public class Usuario {
 
 	@Column(name = "usu_token_autenticacao_email")
 	private String tokenAutenticacaoEmail;
-	
+
 	@Column(name = "usu_token_redefinicao_senha")
 	private String tokenRedefinicaoSenha;
 
@@ -36,22 +36,30 @@ public class Usuario {
 
 	@Column(name = "usu_eh_medico")
 	private boolean ehMedico;
-	
+
 	@Column(name = "usu_eh_hospital")
 	private boolean ehHospital;
-	
+
 	@Column(name = "usu_eh_paciente")
 	private boolean ehPaciente;
-	
+
 	@Column(name = "usu_eh_autenticado")
 	private boolean ehAutenticado;
-	
+
 	public boolean getEhAutenticado() {
 		return ehAutenticado;
 	}
 
-	public void setEhAutenticado(boolean ehAutenticacado) {
-		this.ehAutenticado = ehAutenticacado;
+	public void setEhAutenticado(boolean ehAutenticado) {
+		this.ehAutenticado = ehAutenticado;
+	}
+
+	public String getTokenRedefinicaoSenha() {
+		return tokenRedefinicaoSenha;
+	}
+
+	public void setTokenRedefinicaoSenha(String tokenRedefinicaoSenha) {
+		this.tokenRedefinicaoSenha = tokenRedefinicaoSenha;
 	}
 
 	public String getTokenAutenticacaoEmail() {
@@ -62,15 +70,6 @@ public class Usuario {
 		this.tokenAutenticacaoEmail = tokeAutenticacaoEmail;
 	}
 
-	public String getTokenRedefinicaoSenha() {
-		return tokenRedefinicaoSenha;
-	}
-
-	public void setTokenRedefinicaoSenha(String tokenRedefinicaoSenha) {
-		this.tokenRedefinicaoSenha = tokenRedefinicaoSenha;
-	}
-	
-	 
 	public void setEhMedico(boolean medico) {
 		this.ehMedico = medico;
 	}
