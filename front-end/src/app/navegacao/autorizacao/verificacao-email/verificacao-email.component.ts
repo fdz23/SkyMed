@@ -29,7 +29,7 @@ export class VerificacaoEmailComponent implements OnInit {
   token: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private usuarioService: UsuarioService) {
-    this.route.params.subscribe(params => this.email = params['email']);
+    this.route.params.subscribe(params => this.email = params.email);
   }
 
   ngOnInit(): void {
@@ -53,7 +53,7 @@ export class VerificacaoEmailComponent implements OnInit {
 
     this.concatenaToken();
 
-    if (this.codigoVerificaoFinal == this.token) {
+    if (this.codigoVerificaoFinal === this.token) {
 
       this.usuarioService.autenticaUsuario(this.usuario)
         .subscribe(() => {

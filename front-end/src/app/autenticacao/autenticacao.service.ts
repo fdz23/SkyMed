@@ -14,7 +14,6 @@ import { HeaderComponent } from '../navegacao/header/header.component';
 export class AutenticacaoService {
     public currentUserSubject: BehaviorSubject<any>;
     public currentUser: Observable<any>;
-    private usuario: Usuarios;
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser')));
