@@ -3,6 +3,7 @@ package com.skynet.skymed.controller;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -31,10 +32,28 @@ public class UsuarioController {
 	private UsuarioRepository usuarioDB;
 
 	private EmailDePacienteService emailService = new EmailDePacienteService();
-
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
+    }
+	
+	@PostMapping(path = "obtemUsuario")	
+	public ResponseEntity<Object> login(@RequestBody Usuario object) {	
+		var usuario = usuarioDB.findByEmail(object.getEmail());	
+		var mensagemErro = "E-mail ou senha incorreta.";	
+
+		if (usuario == null) {	
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);	
+		}	
+
+		if (!GeradorDeSenha.verificaSenha(object.getSenha(), usuario.getSenha(), usuario.getEmail())) {	
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);	
+		}	
+
+		usuario.setSenha("");	
+
+		return ResponseEntity.ok(usuario);	
 	}
 
 	@PutMapping(path = "trocarSenha")
