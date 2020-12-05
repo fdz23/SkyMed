@@ -25,6 +25,7 @@ import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/a
 import { AutenticacaoDeslogado } from './autenticacao/autenticacao.deslogado';
 import { AutenticacaoLogado } from './autenticacao/autenticacao.logado';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
+import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: 'agendamento/:id', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
   { path: 'agendamento', component: AgendamentoComponent, canActivate: [AutenticacaoLogado] },
   { path: 'painel-usuario', component: PainelComponent, canActivate: [AutenticacaoLogado] },
+  { path: 'consultas-listar', component: ListConsultasComponent, canActivate: [AutenticacaoPaciente] },
 
   { path: '**', redirectTo: '' }
 ];

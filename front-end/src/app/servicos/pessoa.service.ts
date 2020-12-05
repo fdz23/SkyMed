@@ -43,5 +43,8 @@ export class PessoaService {
 
   }
 
-
+  obtemPacientePeloUsuarioId(id: any): Observable<any> {
+    const url = `${environment.urlSkyMed}pessoa/usuario/`;
+    return this.http.get(url.concat(id));
+  }
 }

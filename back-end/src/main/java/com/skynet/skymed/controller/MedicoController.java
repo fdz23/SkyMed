@@ -1,9 +1,11 @@
 package com.skynet.skymed.controller;
 
+import java.util.ArrayList;
 import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -33,16 +35,13 @@ public class MedicoController {
 	@Autowired
 	private PessoaRepository pessoaDB;
 	
-	@Autowired
-	private HorarioRepository horarioDB;
-	
 	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
 
 	@Autowired
 	private MedicoRepository medicoDB;
 	
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
     }
 
@@ -58,7 +57,7 @@ public class MedicoController {
 			medico.getPessoa().getUsuario().setSenha("");
 		}
 
-		return ResponseEntity.ok(medicos);
+		return ResponseEntity.ok((ArrayList<Medico>) medicos);
 	}
 
 	@PostMapping
@@ -139,6 +138,14 @@ public class MedicoController {
 		
 		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
 			for (var horario : horariosConsulta) {
+				if (horario.getPaciente() != null  && horario.getPaciente().getId() != null) {
+					var paciente = pessoaDB.findById(horario.getPaciente().getId());
+					
+					horario.setPaciente(paciente.get());
+				} else {
+					return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Paciente inexistente.");
+				}
+				
 				horario.setMedico(object);
 			}
 		}
@@ -174,6 +181,34 @@ public class MedicoController {
 			return ResponseEntity.ok(medico.get());
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MEDICO_INEXISTENTE);
+		}
+	}
+
+	@GetMapping("horarios/paciente/{id}")
+	public ResponseEntity<Object> getHorariosFromPacienteId(@PathVariable("id") Integer id) {
+		try {
+			var medicos = getObject();
+			
+			if (medicos.getBody().equals("Não foi encontrado nenhum médico.")) {
+				return medicos;
+			}
+			
+			var todosMedicos = (ArrayList<Medico>) medicos.getBody();
+			
+			for (var medico : todosMedicos) {
+				var horarios = medico.getHorariosConsulta();
+				
+				for (var horario : horarios) {
+					if (horario.getPaciente().getId() == id.longValue()) {
+						return ResponseEntity.ok(medico);
+					}
+				}
+			}
+
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum horário desse paciente.");
+			
+		} catch (NoSuchElementException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum horário desse paciente.");
 		}
 	}
 }

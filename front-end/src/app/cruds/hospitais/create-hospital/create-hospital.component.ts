@@ -34,7 +34,7 @@ export class CreateHospitalComponent implements OnInit {
   cpf: string;
   ehMedico: boolean;
   ehAdmin: boolean;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
   ngOnInit(): void {
@@ -91,6 +91,7 @@ export class CreateHospitalComponent implements OnInit {
       ehHospital: true,
       ehMedico: false,
       ehPaciente: false,
+      ehAutenticado: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;

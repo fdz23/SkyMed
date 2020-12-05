@@ -152,6 +152,7 @@ export class CreateMedicoComponent implements OnInit {
       ehAdmin: false,
       ehHospital: false,
       ehPaciente: false,
+      ehAutenticado: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;

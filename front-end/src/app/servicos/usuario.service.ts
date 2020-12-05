@@ -13,7 +13,7 @@ export class UsuarioService {
   constructor(private http: HttpClient) { }
 
   obtemUsuario(usuario: Usuarios): Observable<Usuarios> {
-    const url = `${environment.urlSkyMed}usuario/login`;
+    const url = `${environment.urlSkyMed}usuario/obtemUsuario`;
     return this.http.post<Usuarios>(url, usuario);
   }
 
@@ -25,7 +25,7 @@ export class UsuarioService {
   autenticaUsuario(usuario: Usuarios): Observable<Usuarios>{
 
     const url = `${environment.urlSkyMed}usuario/autenticaConta`;
-    return this.http.put<Usuarios>(url,usuario); 
+    return this.http.put<Usuarios>(url, usuario);
 
   }
 }

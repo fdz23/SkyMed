@@ -58,6 +58,8 @@ import { ChartModule } from 'primeng/chart';
 import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
 import { PainelComponent } from './acessos/painel/painel.component';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
+import { MenuModule } from 'primeng/menu';
+import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
 
 
 @NgModule({
@@ -84,7 +86,8 @@ import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-e
     AgendamentoComponent,
     AutorizacaoComponent,
     PainelComponent,
-    VerificacaoEmailComponent
+    VerificacaoEmailComponent,
+    ListConsultasComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +124,8 @@ import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-e
     TableModule,
     InputNumberModule,
     FullCalendarModule,
-    ChartModule
+    ChartModule,
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

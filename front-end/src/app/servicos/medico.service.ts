@@ -37,4 +37,9 @@ export class MedicoService {
     const url = `${environment.urlSkyMed}medico/`;
     return this.http.delete(url.concat(id));
   }
+
+  obtenhaHorariosPacienteId(id: any): Observable<any> {
+    const url = `${environment.urlSkyMed}medico/horarios/paciente/`;
+    return this.http.get(url.concat(id));
+  }
 }
