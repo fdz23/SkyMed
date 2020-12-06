@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA  } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -58,9 +58,9 @@ import { ChartModule } from 'primeng/chart';
 import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
 import { PainelComponent } from './acessos/painel/painel.component';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 import { MenuModule } from 'primeng/menu';
 import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
-
 
 @NgModule({
   declarations: [
@@ -125,9 +125,11 @@ import { ListConsultasComponent } from './agendamento/list-consultas/list-consul
     InputNumberModule,
     FullCalendarModule,
     ChartModule,
+    NgxSpinnerModule,
     MenuModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule { }

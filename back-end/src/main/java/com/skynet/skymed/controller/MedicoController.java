@@ -24,18 +24,26 @@ import com.skynet.skymed.model.Medico;
 import com.skynet.skymed.repository.HorarioRepository;
 import com.skynet.skymed.repository.MedicoRepository;
 import com.skynet.skymed.repository.PessoaRepository;
+import com.skynet.skymed.service.EmailService;
 import com.skynet.skymed.service.ValidacaoPessoaService;
 import com.skynet.skymed.util.GeradorDeSenha;
+import com.skynet.skymed.util.GeradorDeToken;
 
 @RestController
 
 @RequestMapping("/medico")
 public class MedicoController {
-	
+
 	@Autowired
 	private PessoaRepository pessoaDB;
+
+	@Autowired
+	private HorarioRepository horarioDB;
+	
+	private GeradorDeToken getToken = new GeradorDeToken();
 	
 	private final String MEDICO_INEXISTENTE = "Médico inexistente.";
+	private EmailService servicoDeEmailMedico = new EmailService();
 
 	@Autowired
 	private MedicoRepository medicoDB;
@@ -43,7 +51,7 @@ public class MedicoController {
 	@ExceptionHandler({ NestedRuntimeException.class })
     public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
-    }
+	}
 
 	@GetMapping
 	public ResponseEntity<Object> getObject() {
@@ -52,7 +60,7 @@ public class MedicoController {
 		if (medicos.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum médico.");
 		}
-		
+
 		for (var medico : medicos) {
 			medico.getPessoa().getUsuario().setSenha("");
 		}
@@ -70,38 +78,46 @@ public class MedicoController {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Médico existente.");
 			}
 		}
-		
-		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object.getPessoa());
-		
+
+		var validacao = new ValidacaoPessoaService(
+    ).valideInsercao(object.getPessoa());
+
 		if (validacao != null) {
 			return validacao;
 		}
-		
+
 		var horariosTrabalho = object.getHorariosTrabalho();
-		
+
 		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
 			for (var horario : horariosTrabalho) {
 				horario.setMedico(object);
 			}
 		}
-		
+
 		var horariosConsulta = object.getHorariosConsulta();
-		
+
 		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
 			for (var horario : horariosConsulta) {
 				horario.setMedico(object);
 			}
 		}
-		
+
 		UUID uuid = UUID.randomUUID();
-		String senhaAleatoria = uuid.toString();
-		
+		String senhaAleatoria = uuid.toString().substring(0, 8);
+
 		var usuario = object.getPessoa().getUsuario();
 		
-		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+		usuario.setTokenAutenticacaoEmail(getToken.geraToken());
+        usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+        
+        medicoDB.save(object);
 
-		medicoDB.save(object);
-		
+        servicoDeEmailMedico.enviaEmail(
+        		object.getPessoa().getNome(),
+        		usuario.getEmail(), 
+        		senhaAleatoria,
+        		usuario.getTokenAutenticacaoEmail());
+        
 		object.getPessoa().getUsuario().setSenha("");
 
 		return ResponseEntity.ok(object);
@@ -119,23 +135,23 @@ public class MedicoController {
 		if (medico.getBody().equals(MEDICO_INEXISTENTE)) {
 			return medico;
 		}
-		
+
 		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object.getPessoa());
-		
+
 		if (validacao != null) {
 			return validacao;
 		}
-		
+
 		var horariosTrabalho = object.getHorariosTrabalho();
-		
+
 		if (horariosTrabalho != null && !horariosTrabalho.isEmpty()) {
 			for (var horario : horariosTrabalho) {
 				horario.setMedico(object);
 			}
 		}
-		
+
 		var horariosConsulta = object.getHorariosConsulta();
-		
+
 		if (horariosConsulta != null && !horariosConsulta.isEmpty()) {
 			for (var horario : horariosConsulta) {
 				if (horario.getPaciente() != null  && horario.getPaciente().getId() != null) {
@@ -151,7 +167,7 @@ public class MedicoController {
 		}
 
 		medicoDB.save(object);
-		
+
 		object.getPessoa().getUsuario().setSenha("");
 
 		return ResponseEntity.ok(object);
@@ -175,7 +191,7 @@ public class MedicoController {
 	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var medico = medicoDB.findById((long) id);
-			
+
 			medico.get().getPessoa().getUsuario().setSenha("");
 
 			return ResponseEntity.ok(medico.get());

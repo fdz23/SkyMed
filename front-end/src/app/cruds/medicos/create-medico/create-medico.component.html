@@ -32,7 +32,8 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="especialidade">Especialidade</label>
-            <p-dropdown [options]="especialidades" [(ngModel)]="especialidadeSelecionada" [filter]="true" optionLabel="nome" required>
+            <p-dropdown [options]="especialidades" [(ngModel)]="especialidadeSelecionada" [filter]="true"
+                optionLabel="nome" required>
             </p-dropdown>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
@@ -64,11 +65,13 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="horarioInicio">Horário inicial</label>
-            <input id="horarioInicio" [(ngModel)]="horarioInicio" type="datetime" mask="00:00" pKeyFilter="pint" pInputText required>
+            <input id="horarioInicio" [(ngModel)]="horarioInicio" type="datetime" mask="00:00" pKeyFilter="pint"
+                pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="horarioFim">Horário final</label>
-            <input id="horarioFim" [(ngModel)]="horarioFim" type="datetime" mask="00:00" pKeyFilter="pint" pInputText required>
+            <input id="horarioFim" [(ngModel)]="horarioFim" type="datetime" mask="00:00" pKeyFilter="pint" pInputText
+                required>
         </div>
     </div>
     <div class="p-grid">
@@ -81,4 +84,8 @@
                 [routerLink]="['/home']"></button>
         </div>
     </div>
+    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
+        <p style="font-size: 20px; color: black">Carregando..</p>
+    </ngx-spinner>
+
 </p-fieldset>
