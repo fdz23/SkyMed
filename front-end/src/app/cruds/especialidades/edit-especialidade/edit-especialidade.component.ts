@@ -89,7 +89,8 @@ export class EditEspecialidadeComponent implements OnInit {
 
   salvar(): void {
 
-    if (this.nome == null || this.nome == '') {
+    if (this.nome == null || this.nome == ''
+      ||this.duracaoConsulta == null) {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;

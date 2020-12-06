@@ -17,6 +17,7 @@ import { AgendamentoComponent } from './agendamento/agendamento/agendamento.comp
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },

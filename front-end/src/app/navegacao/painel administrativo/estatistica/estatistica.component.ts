@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
 
+import {CardModule} from 'primeng/card';
+
+
+
 
 
 @Component({
