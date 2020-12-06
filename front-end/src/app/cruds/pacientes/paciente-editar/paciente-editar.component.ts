@@ -8,6 +8,7 @@ import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Router } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-paciente-editar',
@@ -37,28 +38,30 @@ export class PacienteEditarComponent implements OnInit {
 
   ehMedico: false;
   ehAdmin: false;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
-  constructor(private router: Router, private primengConfig: PrimeNGConfig,
-    private http: HttpClient, private cepService: CepService,
-    private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+  constructor(private router: Router,
+    private primengConfig: PrimeNGConfig,
+    private http: HttpClient,
+    private cepService: CepService,
+    private pessoaService: PessoaService,
+    private route: ActivatedRoute,
+    private confirmationService: ConfirmationService,
+    private spinner: NgxSpinnerService) {
     this.route.params.subscribe(params => this.pacienteid = params['id']);
 
   }
 
   ngOnInit(): void {
-
-    this.obtenhaPacientePorId(this.pacienteid);
-
+  this.obtenhaPacientePorId(this.pacienteid);
   }
 
   public obtenhaPacientePorId(id: any): void {
-
-    this.pessoaService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pessoas) => {
-
+    this.spinner.show();
+ this.pessoaService.obtenhaPacientePorId(this.pacienteid).subscribe((paciente: Pessoas) => {
+ 
       this.paciente = paciente;
-
       this.cep = paciente.endereco.cep;
       this.nome = paciente.nome;
       this.cpf = paciente.cpf;
@@ -74,29 +77,41 @@ export class PacienteEditarComponent implements OnInit {
       this.id = paciente.id;
     }, () => { });
 
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
 
   }
   atualizaPaciente(paciente: Pessoas): void {
+
+    this.spinner.show();
+
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
           paciente.endereco = endereco;
-          
+
 
           this.pessoaService.atualizaPaciente(paciente)
             .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Paciente Atualizado com sucesso' });
 
                 setTimeout(() => {
                   this.router.navigateByUrl('/paciente-listar');
-                }, 2000);
+                }, 500);
 
               },
               error => {
+                setTimeout(() => {
+                  this.router.navigateByUrl('/paciente-listar');
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao atualizar Paciente : ${error.error}` });
                 return;
@@ -104,11 +119,14 @@ export class PacienteEditarComponent implements OnInit {
             );
         },
         error => {
+          setTimeout(() => {
+            this.router.navigateByUrl('/paciente-listar');
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
- 
+
   }
 
   salvar(): void {
