@@ -13,6 +13,7 @@ import { Timestamp } from 'rxjs';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
 import { Hospitais } from 'src/assets/hospitais';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-create-medico',
@@ -21,12 +22,13 @@ import { Hospitais } from 'src/assets/hospitais';
 export class CreateMedicoComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
-              private http: HttpClient,
-              private cepService: CepService,
-              private medicoService: MedicoService,
-              private especialidadeService: EspecialidadeService,
-              private hospitalService: HospitalService,
-              private autenticacaoService: AutenticacaoService) { }
+    private http: HttpClient,
+    private cepService: CepService,
+    private medicoService: MedicoService,
+    private especialidadeService: EspecialidadeService,
+    private hospitalService: HospitalService,
+    private autenticacaoService: AutenticacaoService,
+    private spinner: NgxSpinnerService) { }
 
   msgs: Message[] = [];
   tipoDeRegistrosArray: string[] = [
@@ -53,13 +55,13 @@ export class CreateMedicoComponent implements OnInit {
   horarioInicio: string;
   horarioFim: string;
   diasDaSemana: any[] = [
-    {name: 'Domingo'},
-    {name: 'Segunda-feira'},
-    {name: 'Terça-feira'},
-    {name: 'Quarta-feira'},
-    {name: 'Quinta-feira'},
-    {name: 'Sexta-feira'},
-    {name: 'Sábado'}
+    { name: 'Domingo' },
+    { name: 'Segunda-feira' },
+    { name: 'Terça-feira' },
+    { name: 'Quarta-feira' },
+    { name: 'Quinta-feira' },
+    { name: 'Sexta-feira' },
+    { name: 'Sábado' }
   ];
   diasDaSemanaSelecionados: any[] = [];
   ehMedico: false;
@@ -77,7 +79,7 @@ export class CreateMedicoComponent implements OnInit {
       },
       erro => {
         this.msgs = [];
-        this.msgs.push({severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}`});
+        this.msgs.push({ severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}` });
       }
     );
   }
@@ -90,6 +92,7 @@ export class CreateMedicoComponent implements OnInit {
   }
 
   insereMedico(medico: Medicos): void {
+    this.spinner.show();
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -100,32 +103,44 @@ export class CreateMedicoComponent implements OnInit {
 
           if (localStorage.length > 0) {
             this.hospitalService.obtenhaHospitalLogado(JSON.parse(localStorage.currentUser).id)
-            .subscribe(
-              hospital => {
-                medico.hospital = hospital;
+              .subscribe(
+                hospital => {
+                  medico.hospital = hospital;
 
-                this.medicoService.insereMedico(medico)
-                .subscribe(
-                  () => {
-                    this.msgs = [];
-                    this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
-                  },
-                  error => {
-                    this.msgs = [];
-                    this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
-                    return;
-                  }
-                );
-              },
-              error => {
-                this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao buscar hospital : ${error.error}` });
-                return;
-              }
-            );
+                  this.medicoService.insereMedico(medico)
+                    .subscribe(
+                      () => {
+                        setTimeout(() => {
+                          this.spinner.hide();
+                        }, 500);
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'success', detail: 'Médico cadastrado com sucesso!' });
+                      },
+                      error => {
+                        setTimeout(() => {
+                          this.spinner.hide();
+                        }, 500);
+                        this.msgs = [];
+                        this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar médico : ${error.error}` });
+                        return;
+                      }
+                    );
+                },
+                error => {
+                     setTimeout(() => {
+                    this.spinner.hide();
+                  }, 500);
+                  this.msgs = [];
+                  this.msgs.push({ severity: 'error', detail: `Erro ao buscar hospital : ${error.error}` });
+                  return;
+                }
+              );
           }
         },
         error => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
@@ -162,7 +177,7 @@ export class CreateMedicoComponent implements OnInit {
       rg: this.rg,
       usuario: usuarios,
       telefone: this.celular
-     } as Pessoas;
+    } as Pessoas;
 
     const horariosTrabalho: HorariosTrabalho[] = [];
 
