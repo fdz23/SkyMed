@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -38,11 +39,11 @@ public class PessoaController {
 
 	private EmailService servicoDeEmailPaciente = new EmailService();
 	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
-
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
-	}
+    }
 
 	@PostMapping
 	public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
@@ -158,5 +159,19 @@ public class PessoaController {
 
 		return ResponseEntity.ok(pacientes);
 	}
+	 
+	 @GetMapping(path = "usuario/{id}")
+	 @PreAuthorize("hasRole('USER')")
+	 public ResponseEntity<Object> getPacienteFromUsuarioId(@PathVariable("id") Integer id) {
+		 var paciente = pessoaDB.findByUsuarioId(id.longValue());
+		 
+		 if (paciente != null) {
+			 paciente.getUsuario().setSenha("");
+			
+			 return ResponseEntity.ok(paciente);
+		 } else {
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(PACIENTE_INEXISTENTE);
+		 }
+	 }
 
 }

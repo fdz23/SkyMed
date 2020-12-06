@@ -6,8 +6,7 @@ import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
-import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Router } from "@angular/router";
+import { ActivatedRoute, RouterLink, Router } from '@angular/router';
 import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
@@ -50,7 +49,6 @@ export class PacienteEditarComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private spinner: NgxSpinnerService) {
     this.route.params.subscribe(params => this.pacienteid = params['id']);
-
   }
 
   ngOnInit(): void {
@@ -131,17 +129,17 @@ export class PacienteEditarComponent implements OnInit {
 
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-      || this.cpf == null || this.cpf == ''
-      || this.rg == null || this.rg == ''
-      || this.logradouro == null || this.logradouro == ''
-      || this.complemento == null || this.complemento == ''
+    if (this.nome == null || this.nome === ''
+      || this.cpf == null || this.cpf === ''
+      || this.rg == null || this.rg === ''
+      || this.logradouro == null || this.logradouro === ''
+      || this.complemento == null || this.complemento === ''
       || this.numero == null
-      || this.cep == null || this.cep == ''
-      || this.uf == null || this.uf == ''
-      || this.cidade == null || this.cidade == ''
-      || this.telefone == null || this.telefone == ''
-      || this.email == null || this.email == '') {
+      || this.cep == null || this.cep === ''
+      || this.uf == null || this.uf === ''
+      || this.cidade == null || this.cidade === ''
+      || this.telefone == null || this.telefone === ''
+      || this.email == null || this.email === '') {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;

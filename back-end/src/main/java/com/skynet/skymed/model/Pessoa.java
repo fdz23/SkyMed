@@ -1,5 +1,7 @@
 package com.skynet.skymed.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -7,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.skynet.skymed.util.Validadores;
@@ -32,6 +35,9 @@ public class Pessoa {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pes_usu_iden")
 	private Usuario usuario;
+	
+	@OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+	private List<Horario> horariosConsulta;
  
 
 	public Pessoa() {

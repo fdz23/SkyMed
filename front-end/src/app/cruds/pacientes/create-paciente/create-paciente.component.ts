@@ -50,7 +50,7 @@ export class CreatePacienteComponent implements OnInit {
   ehAdmin: false;
   senha: string;
   usuario: Usuarios;
-  token: String;
+  token: string;
 
 
   ngOnInit(): void {
@@ -98,7 +98,7 @@ export class CreatePacienteComponent implements OnInit {
 
                 if (localStorage.getItem('currentUser') == null) {
 
-                  this.router.navigateByUrl("/autenticacao-conta/".concat(paciente.usuario.email));
+                  this.router.navigateByUrl('/autenticacao-conta/'.concat(paciente.usuario.email));
 
                 }
               },
@@ -123,15 +123,15 @@ export class CreatePacienteComponent implements OnInit {
   }
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-      || this.cpf == null || this.cpf == ''
-      || this.rg == null || this.rg == ''
-      || this.rg == null || this.rg == ''
-      || this.complemento == null || this.complemento == ''
+    if (this.nome == null || this.nome === ''
+      || this.cpf == null || this.cpf === ''
+      || this.rg == null || this.rg === ''
+      || this.rg == null || this.rg === ''
+      || this.complemento == null || this.complemento === ''
       || this.numero == null
-      || this.cep == null || this.cep == ''
-      || this.telefone == null || this.telefone == ''
-      || this.email == null || this.email == '') {
+      || this.cep == null || this.cep === ''
+      || this.telefone == null || this.telefone === ''
+      || this.email == null || this.email === '') {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
@@ -142,6 +142,7 @@ export class CreatePacienteComponent implements OnInit {
       ehAdmin: false,
       ehHospital: false,
       ehMedico: false,
+      ehAutenticado: false,
       email: this.email,
       senha: this.senha
     } as Usuarios;

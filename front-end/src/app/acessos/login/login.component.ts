@@ -13,8 +13,8 @@ import { Usuarios } from '../../../assets/usuarios';
 export class LoginComponent implements OnInit {
 
   constructor(private autenticacaoService: AutenticacaoService,
-    private usuarioService: UsuarioService,
-    private router: Router) { }
+              private usuarioService: UsuarioService,
+              private router: Router) { }
 
   senha: string;
   email: string;
@@ -59,9 +59,9 @@ export class LoginComponent implements OnInit {
 
         this.ehAutenticado = usuario.ehAutenticado;
 
-        if (usuario.ehAutenticado == false) {
+        if (usuario.ehAutenticado === false) {
 
-          this.router.navigateByUrl("autenticacao-conta/".concat(this.email));
+          this.router.navigateByUrl('autenticacao-conta/'.concat(this.email));
 
           return false;
 

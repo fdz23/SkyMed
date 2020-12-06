@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -40,10 +41,10 @@ public class HospitalController {
 	private EmailService servicoDeEmailHospital = new EmailService();
 
 	@Autowired
-	private HospitalRepository hospitalDB;
-
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	private HospitalRepository hospitalDB
+	
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
 	}
 

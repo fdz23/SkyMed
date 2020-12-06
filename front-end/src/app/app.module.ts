@@ -59,7 +59,8 @@ import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/a
 import { PainelComponent } from './acessos/painel/painel.component';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-
+import { MenuModule } from 'primeng/menu';
+import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     AgendamentoComponent,
     AutorizacaoComponent,
     PainelComponent,
-    VerificacaoEmailComponent
+    VerificacaoEmailComponent,
+    ListConsultasComponent
   ],
   imports: [
     BrowserModule,
@@ -123,7 +125,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     InputNumberModule,
     FullCalendarModule,
     ChartModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent],
