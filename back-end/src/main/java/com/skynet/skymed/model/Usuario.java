@@ -6,12 +6,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.dom4j.tree.AbstractEntity;
-
 import com.sun.istack.NotNull;
 
 @Entity(name = "usuario")
-public class Usuario extends AbstractEntity {
+public class Usuario {
 
 	@Id
 	@Column(name = "usu_iden")
@@ -25,10 +23,13 @@ public class Usuario extends AbstractEntity {
 	private String senha;
 
 	@Column(name = "usu_token_autenticacao")
-	private String token_autenticacao;
+	private String tokenAutenticacao;
 
-	@Column(name = "usu_token_redefinicao")
-	private String token_redefinicao;
+	@Column(name = "usu_token_autenticacao_email")
+	private String tokenAutenticacaoEmail;
+
+	@Column(name = "usu_token_redefinicao_senha")
+	private String tokenRedefinicaoSenha;
 
 	@Column(name = "usu_eh_admin")
 	private boolean ehAdmin;
@@ -36,20 +37,37 @@ public class Usuario extends AbstractEntity {
 	@Column(name = "usu_eh_medico")
 	private boolean ehMedico;
 
-	public String getToken_redefinicao() {
-		return token_redefinicao;
+	@Column(name = "usu_eh_hospital")
+	private boolean ehHospital;
+
+	@Column(name = "usu_eh_paciente")
+	private boolean ehPaciente;
+
+	@Column(name = "usu_eh_autenticado")
+	private boolean ehAutenticado;
+
+	public boolean getEhAutenticado() {
+		return ehAutenticado;
 	}
 
-	public void setToken_redefinicao(String token_redefinicao) {
-		this.token_redefinicao = token_redefinicao;
+	public void setEhAutenticado(boolean ehAutenticado) {
+		this.ehAutenticado = ehAutenticado;
 	}
 
-	public boolean EhAdmin() {
-		return ehAdmin;
+	public String getTokenRedefinicaoSenha() {
+		return tokenRedefinicaoSenha;
 	}
 
-	public boolean EhMedico() {
-		return ehMedico;
+	public void setTokenRedefinicaoSenha(String tokenRedefinicaoSenha) {
+		this.tokenRedefinicaoSenha = tokenRedefinicaoSenha;
+	}
+
+	public String getTokenAutenticacaoEmail() {
+		return tokenAutenticacaoEmail;
+	}
+
+	public void setTokenAutenticacaoEmail(String tokeAutenticacaoEmail) {
+		this.tokenAutenticacaoEmail = tokeAutenticacaoEmail;
 	}
 
 	public void setEhMedico(boolean medico) {
@@ -84,12 +102,36 @@ public class Usuario extends AbstractEntity {
 		this.senha = senha;
 	}
 
-	public String getToken_autenticacao() {
-		return token_autenticacao;
+	public String getTokenAutenticacao() {
+		return tokenAutenticacao;
 	}
 
-	public void setToken_autenticacao(String token_autenticacao) {
-		this.token_autenticacao = token_autenticacao;
+	public void setTokenAutenticacao(String tokenAutenticacao) {
+		this.tokenAutenticacao = tokenAutenticacao;
+	}
+
+	public boolean getEhHospital() {
+		return ehHospital;
+	}
+
+	public void setEhHospital(boolean ehHospital) {
+		this.ehHospital = ehHospital;
+	}
+
+	public boolean getEhAdmin() {
+		return ehAdmin;
+	}
+
+	public boolean getEhMedico() {
+		return ehMedico;
+	}
+
+	public void setEhPaciente(boolean ehPaciente) {
+		this.ehPaciente = ehPaciente;
+	}
+
+	public boolean getEhPaciente() {
+		return ehPaciente;
 	}
 
 }

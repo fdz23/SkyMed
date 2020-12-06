@@ -9,7 +9,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cpf">CPF</label>
-            <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText mask="999.999.999-99" required>
+            <input id="cpf" [(ngModel)]="cpf" pKeyFilter="pint" type="text" pInputText mask="000.000.000-00" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="rg">RG</label>
@@ -44,7 +44,7 @@
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="cep">CEP</label>
-            <p-inputMask [(ngModel)]="cep" mask="99999-999" required></p-inputMask>
+            <input [(ngModel)]="cep" pKeyFilter="pint" pInputText mask="00000-000" required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="complemento">Complemento</label>
@@ -56,7 +56,7 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="celular">Celular</label>
-            <p-inputMask [(ngModel)]="celular" mask="(99) 99999-9999" required></p-inputMask>
+            <input [(ngModel)]="celular" mask="(00) 00000-0000" pKeyFilter="pint" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-2">
             <label for="email">E-mail</label>
@@ -64,11 +64,11 @@
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="horarioInicio">Horário inicial</label>
-            <input id="horarioInicio" [(ngModel)]="horarioInicio" type="datetime" mask="99:99" pInputText required>
+            <input id="horarioInicio" [(ngModel)]="horarioInicio" type="datetime" mask="00:00" pKeyFilter="pint" pInputText required>
         </div>
         <div class="p-field p-col-12 p-md-6 p-lg-1">
             <label for="horarioFim">Horário final</label>
-            <input id="horarioFim" [(ngModel)]="horarioFim" type="datetime" mask="99:99" pInputText required>
+            <input id="horarioFim" [(ngModel)]="horarioFim" type="datetime" mask="00:00" pKeyFilter="pint" pInputText required>
         </div>
     </div>
     <div class="p-grid">

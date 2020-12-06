@@ -40,15 +40,14 @@ public class PessoaTest {
 
 		pessoa.setNome("Raphael Mota");
 		pessoa.getUsuario().setEmail("raphael.mota14@hotmail.com");
-		pessoa.setEhPaciente(true);
 		pessoa.getUsuario().setSenha("1234");
 		pessoa.setTelefone("(62) 9272-5598");
 		pessoa.setRg("5946186");
 		pessoa.setEndereco(endereco);
 		pessoa.setUsuario(usuario);
 		pessoa.setCpf("707.772.711-41");
-		pessoa.getUsuario().setToken_autenticacao("1234");
-		pessoa.getUsuario().setToken_redefinicao("1244");
+		pessoa.getUsuario().setTokenAutenticacaoEmail("1234");
+		pessoa.getUsuario().setTokenRedefinicaoSenha("1244");
 
 		return pessoa;
 	}

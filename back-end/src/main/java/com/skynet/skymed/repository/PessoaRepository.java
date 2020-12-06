@@ -17,7 +17,9 @@ public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 	Pessoa findByRg(String rg);
 
 	Pessoa findByUsuarioEmail(String email);
+	
+	Pessoa findByUsuarioId(Long id);
 
-	@Query(value = "select p.pes_iden from pessoa p where p.pes_eh_paciente = true", nativeQuery = true)
+	@Query(value = "select p.pes_iden from pessoa p join usuario u on u.usu_iden = p.pes_usu_iden  where u.usu_eh_paciente = true", nativeQuery = true)
 	ArrayList<Pessoa> obtenhaPacientes();
 }

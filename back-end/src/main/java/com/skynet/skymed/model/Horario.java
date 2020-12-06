@@ -28,10 +28,14 @@ public class Horario {
 	@Column(name = "hor_fim")
 	private Date fim;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "hor_med_iden")
-    @JsonBackReference
+    @JsonBackReference(value = "medico")
 	private Medico medico;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "hor_pac_iden")
+	private Pessoa paciente;
 
 	public Horario() {
 	}
@@ -78,5 +82,17 @@ public class Horario {
 		}
 		
 		this.medico = medico;
+	}
+
+	public Pessoa getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Pessoa paciente) throws Exception {
+		if (paciente == null) {
+			throw new Exception("Paciente inválido.");
+		}
+		
+		this.paciente = paciente;
 	}
 }

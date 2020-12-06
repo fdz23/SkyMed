@@ -7,7 +7,7 @@ import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-paciente-editar',
@@ -37,13 +37,13 @@ export class PacienteEditarComponent implements OnInit {
 
   ehMedico: false;
   ehAdmin: false;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
   constructor(private router: Router, private primengConfig: PrimeNGConfig,
-    private http: HttpClient, private cepService: CepService,
-    private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
-    this.route.params.subscribe(params => this.pacienteid = params['id']);
+              private http: HttpClient, private cepService: CepService,
+              private pessoaService: PessoaService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+    this.route.params.subscribe(params => this.pacienteid = params.id);
 
   }
 
@@ -83,7 +83,7 @@ export class PacienteEditarComponent implements OnInit {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
           paciente.endereco = endereco;
-          
+
 
           this.pessoaService.atualizaPaciente(paciente)
             .subscribe(
@@ -108,50 +108,35 @@ export class PacienteEditarComponent implements OnInit {
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
- 
+
   }
 
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-      || this.cpf == null || this.cpf == ''
-      || this.rg == null || this.rg == ''
-      || this.logradouro == null || this.logradouro == ''
-      || this.complemento == null || this.complemento == ''
+    if (this.nome == null || this.nome === ''
+      || this.cpf == null || this.cpf === ''
+      || this.rg == null || this.rg === ''
+      || this.logradouro == null || this.logradouro === ''
+      || this.complemento == null || this.complemento === ''
       || this.numero == null
-      || this.cep == null || this.cep == ''
-      || this.uf == null || this.uf == ''
-      || this.cidade == null || this.cidade == ''
-      || this.telefone == null || this.telefone == ''
-      || this.email == null || this.email == '') {
+      || this.cep == null || this.cep === ''
+      || this.uf == null || this.uf === ''
+      || this.cidade == null || this.cidade === ''
+      || this.telefone == null || this.telefone === ''
+      || this.email == null || this.email === '') {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
 
-    const usuarios = {
-
-      ehAdmin: false,
-      ehMedico:false,
-      email: this.email,
-      senha: this.senha
-
-    } as Usuarios;
-
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
-      usuario: usuarios,
       telefone: this.telefone,
-      ehPaciente: true,
       id: this.id,
-
     } as Pessoas;
 
-    
-
     this.atualizaPaciente(paciente);
-
   }
 }

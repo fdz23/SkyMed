@@ -3,10 +3,13 @@ import { Calendar } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Medicos } from 'src/assets/medicos';
 import { MedicoService } from 'src/app/servicos/medico.service';
-import { ConfirmationService, PrimeNGConfig } from 'primeng/api';
+import { ConfirmationService, Message, PrimeNGConfig } from 'primeng/api';
+import { Horarios } from 'src/assets/horarios';
+import { PessoaService } from 'src/app/servicos/pessoa.service';
+import { Pessoas } from 'src/assets/pessoas';
 
 @Component({
   selector: 'app-agendamento',
@@ -18,14 +21,16 @@ export class AgendamentoComponent implements OnInit {
   public medicoid;
   medico: Medicos;
   events: any[] = [];
-
+  msgs: Message[] = [];
   options: any;
 
   constructor(
     private route: ActivatedRoute,
     private medicoService: MedicoService,
+    private pessoaService: PessoaService,
     private confirmationService: ConfirmationService,
-    private primengConfig: PrimeNGConfig) {
+    private primengConfig: PrimeNGConfig,
+    private router: Router) {
       this.route.params.subscribe(params => this.medicoid = params.id);
       const name = Calendar.name;
   }
@@ -71,11 +76,19 @@ export class AgendamentoComponent implements OnInit {
   public obtenhaMedicoPorId(): void {
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
       this.medico = medico;
-
+      this.events = [];
       const todosDias: any[] = [0, 1, 2, 3, 4, 5, 6];
       const diasTrabalho: any[] = [];
       medico.horariosTrabalho.forEach(d => diasTrabalho.push(d.diaDaSemana));
-
+      medico.horariosConsulta.forEach(h => {
+        this.events = [...this.events, {
+          id: h.id,
+          groupId: h.paciente.id,
+          title: 'Consulta',
+          start: `${new Date(h.inicio).toISOString()}`,
+          end: `${new Date(h.fim).toISOString()}`
+        }];
+      });
       this.options = {
         plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
         initialView: 'timeGridDay',
@@ -109,7 +122,10 @@ export class AgendamentoComponent implements OnInit {
         dateClick: this.handleDateClick.bind(this),
         hiddenDays: todosDias.filter(d => !diasTrabalho.includes(d))
       };
-    }, () => { });
+    }, (error) => {
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: `${error.error}` });
+    });
   }
 
   handleDateClick(arg): void {
@@ -125,16 +141,58 @@ export class AgendamentoComponent implements OnInit {
         if (this.events.find(d => d.start === `${arg.date.toISOString()}` && d.end === `${final.toISOString()}`)) {
           alert('Esse horário já possui um agendamento!');
         } else {
-          this.events = [...this.events, {
-            title: 'Consulta',
-            start: `${arg.date.toISOString()}`,
-            end: `${final.toISOString()}`
-          }];
+          const usuario = JSON.parse(localStorage.currentUser);
+
+          this.pessoaService.obtemPacientePeloUsuarioId(usuario.id).subscribe(
+            pessoa => {
+              this.events = [...this.events, {
+                groupId: pessoa.id,
+                title: 'Consulta',
+                start: `${arg.date.toISOString()}`,
+                end: `${final.toISOString()}`
+              }];
+            },
+            erro => {
+              this.msgs = [];
+              this.msgs.push({ severity: 'error', detail: erro.error });
+            }
+          );
         }
       },
       reject: () => {
       }
     });
+  }
+
+  salvar(): void {
+    const eventos = [];
+
+    this.events.forEach(event => {
+      const evento = {
+        id: event.id,
+        paciente: { id: event.groupId } as Pessoas,
+        inicio: new Date(event.start),
+        fim: new Date(event.end)
+      } as Horarios;
+
+      if (!this.medico.horariosConsulta) {
+        this.medico.horariosConsulta = [];
+      }
+
+      eventos.push(evento);
+    });
+
+    this.medico.horariosConsulta = eventos;
+
+    this.medicoService.atualizaMedico(this.medico).subscribe(
+      sucesso => {
+        this.router.navigate(['/medico-listar-agendamento']);
+      },
+      erro => {
+        this.msgs = [];
+        this.msgs.push({ severity: 'error', detail: erro.error });
+      }
+    );
   }
 
   obtenhaDataFinal(consulta: Date, dataClicada: Date): Date {

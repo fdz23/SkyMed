@@ -7,7 +7,6 @@ import javax.servlet.FilterChain;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
- 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,14 +15,12 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.skynet.skymed.model.Usuario;
- 
+import com.skynet.skymed.util.GeradorDeSenha;
 
- 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilter {
-
  
 	private AuthenticationManager authentiationManager;
 	
@@ -38,7 +35,8 @@ public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 		
 		try {
 			Usuario usuario =  new ObjectMapper().readValue(request.getInputStream(),Usuario.class);
-			 return this.authentiationManager.authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), usuario.getSenha()));
+			 return this.authentiationManager
+					 .authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), GeradorDeSenha.geraSenhaSegura(usuario.getSenha(), usuario.getEmail())));
 		} catch (IOException e) {
 			
 			throw new RuntimeException(e);
@@ -50,7 +48,7 @@ public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 	 protected void successfulAuthentication(HttpServletRequest request,
 			 HttpServletResponse response 
 			 , FilterChain chain, 
-			 Authentication authResult) {
+			 Authentication authResult) throws IOException {
 		
 		String username =  ((org.springframework.security.core.userdetails.User)authResult.getPrincipal()).getUsername();
 		 String token = Jwts
@@ -61,6 +59,8 @@ public class JWTAuthenticationFilter  extends UsernamePasswordAuthenticationFilt
 				 .compact();
 		 
 		 response.addHeader(SecurityConstants.HEADER_STRING,SecurityConstants.TOKEN_PREFIX + token);
+		 
+		 response.getWriter().write("{" + "\"token\": \"" + token + "\"}");
 		 
 	 }
 	

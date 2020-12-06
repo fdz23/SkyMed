@@ -1,8 +1,11 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,55 +23,61 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.EmailDePacienteService;
+import com.skynet.skymed.service.ValidacaoPessoaService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 //@RequestMapping("skymed")
 @RequestMapping("pessoa")
 public class PessoaController {
 
-	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
-	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
-
 	@Autowired
 	private PessoaRepository pessoaDB;
 
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-	public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
+	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
+	
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
-	}
+    }
 
-	 @PostMapping//(path = "admin/paciente")
-	 //@PreAuthorize("hasRole('ADMIN')")
-	 public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
+	@PostMapping
+	public ResponseEntity<Object> postPessoa(@RequestBody Pessoa object) throws Exception {
 		if (object.getId() != null) {
 			var pessoa = getById(object.getId().intValue());
 
-			if (pessoa.getBody().equals("Paciente_INEXISTENTE")) {
+			if (pessoa.getBody().equals(PACIENTE_INEXISTENTE)) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Paciente existente.");
 			}
-		} else if (pessoaDB.findByCpf(object.getCpf()) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Cpf existente.");
-
-		} else if (pessoaDB.findByRg(object.getRg()) != null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("RG existente.");
-
-		 } else if (pessoaDB.findByUsuarioEmail(object.getUsuario().getEmail()) != null) {
-		 	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
-
 		}
 
-		 // servicoDeEmailPaciente.enviaEmail(object);
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object);
+
+		if (validacao != null) {
+			return validacao;
+		}
+
+		servicoDeEmailPaciente.enviaEmail(object);
+		
+		UUID uuid = UUID.randomUUID();
+		String senhaAleatoria = uuid.toString();
+		
+		var usuario = object.getUsuario();
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+		
 		pessoaDB.save(object);
+		
+		object.getUsuario().setSenha("");
+		
 		return ResponseEntity.ok(object);
 
 	}
 
-	@PutMapping//(path = "admin/paciente")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@PutMapping
+	@PreAuthorize("hasRole('PACIENTE')")
 	public ResponseEntity<Object> putPessoa(@RequestBody Pessoa object) {
-		
-		Pessoa pacienteDB = pessoaDB.findByUsuarioEmail(object.getUsuario().getEmail());
-		
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("ID Inválido");
 		}
@@ -79,20 +88,23 @@ public class PessoaController {
 
 			return pessoa;
 
-		} else if (pacienteDB != null) {
-			 if (!pacienteDB.getCpf().contains(object.getCpf())) {
-			
-				 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("E-mail existente.");
-			 }
+		}
+
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object);
+
+		if (validacao != null) {
+			return validacao;
 		}
 
 		pessoaDB.save(object);
+		
+		object.getUsuario().setSenha("");
+		
 		return ResponseEntity.ok(object);
 	}
 
-	//@DeleteMapping(path = "admin/paciente/{id}")
-	@DeleteMapping("{id}")
-	//@PreAuthorize("hasRole('ADMIN')")
+	@DeleteMapping(path = "/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteObject(@PathVariable("id") Integer id) {
 		var pessoa = getById(id);
 
@@ -106,12 +118,12 @@ public class PessoaController {
 		return ResponseEntity.ok(null);
 	}
 
-	 //@GetMapping(path = "protected/paciente/{id}")
-	 @GetMapping("{id}")
-	 //@PreAuthorize("hasRole('USER')")
-	 public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
+	@GetMapping(path = "/{id}")
+	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
+			
+			pessoa.get().getUsuario().setSenha("");
 
 			return ResponseEntity.ok(pessoa.get());
 
@@ -120,10 +132,9 @@ public class PessoaController {
 		}
 	}
 
-	 //@GetMapping(path = "admin/paciente")
-	 //@PreAuthorize("hasRole('ADMIN')")
-	 @GetMapping("pacientes")
-	 public ResponseEntity<Object> getPacientes() {
+	@GetMapping(path = "pacientes")
+	@PreAuthorize("hasRole('ADMIN')")
+	public ResponseEntity<Object> getPacientes() {
 		var pessoas = pessoaDB.findAll();
 		if (pessoas.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente encontrado");
@@ -134,8 +145,26 @@ public class PessoaController {
 		if (pacientes.equals(null)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente retornado");
 		}
+		
+		for (var paciente : pacientes) {
+			paciente.getUsuario().setSenha("");
+		}
 
 		return ResponseEntity.ok(pacientes);
 	}
+	 
+	 @GetMapping(path = "usuario/{id}")
+	 @PreAuthorize("hasRole('USER')")
+	 public ResponseEntity<Object> getPacienteFromUsuarioId(@PathVariable("id") Integer id) {
+		 var paciente = pessoaDB.findByUsuarioId(id.longValue());
+		 
+		 if (paciente != null) {
+			 paciente.getUsuario().setSenha("");
+			
+			 return ResponseEntity.ok(paciente);
+		 } else {
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(PACIENTE_INEXISTENTE);
+		 }
+	 }
 
 }

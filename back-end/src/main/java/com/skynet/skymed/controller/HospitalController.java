@@ -1,11 +1,14 @@
 package com.skynet.skymed.controller;
 
 import java.util.NoSuchElementException;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,20 +21,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skynet.skymed.model.Hospital;
 import com.skynet.skymed.repository.HospitalRepository;
+import com.skynet.skymed.repository.PessoaRepository;
 import com.skynet.skymed.service.ValidacaoPessoaService;
+import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
 
 @RequestMapping("/hospital")
 public class HospitalController {
+	
+	@Autowired
+	private PessoaRepository pessoaDB;
+	
 	private final String HOSPITAL_INEXISTENTE = "Hospital inexistente.";
-	private final ValidacaoPessoaService validacaoPessoa = new ValidacaoPessoaService();
 
 	@Autowired
 	private HospitalRepository hospitalDB;
 	
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
     }
 
@@ -41,6 +49,10 @@ public class HospitalController {
 		
 		if (hospitais.size() == 0) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum hospital.");
+		}
+		
+		for (var hospital : hospitais) {
+			hospital.getPessoa().getUsuario().setSenha("");
 		}
 		
 		return ResponseEntity.ok(hospitais);
@@ -56,18 +68,28 @@ public class HospitalController {
 			}
 		}
 		
-		var validacao = validacaoPessoa.valideInsercao(object.getPessoa());
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object.getPessoa());
 		
 		if (validacao != null) {
 			return validacao;
 		}
 		
+		UUID uuid = UUID.randomUUID();
+		String senhaAleatoria = uuid.toString();
+		
+		var usuario = object.getPessoa().getUsuario();
+		
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
+		
 		hospitalDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 			
 		return ResponseEntity.ok(object);
 	}
 	
 	@PutMapping
+	@PreAuthorize("hasRole('HOSPITAL')")
 	public ResponseEntity<Object> putHospital(@RequestBody Hospital object) {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id inválido.");
@@ -79,18 +101,21 @@ public class HospitalController {
 			return hospital;
 		}
 		
-		var validacao = validacaoPessoa.valideAtualizacao(object.getPessoa());
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideAtualizacao(object.getPessoa());
 		
 		if (validacao != null) {
 			return validacao;
 		}
 		
 		hospitalDB.save(object);
+		
+		object.getPessoa().getUsuario().setSenha("");
 			
 		return ResponseEntity.ok(object);
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Object> deleteHospital(@PathVariable("id") Integer id) {
 		var hospital = getById(id);
 		
@@ -108,9 +133,25 @@ public class HospitalController {
 		try {
 			var hospital = hospitalDB.findById((long) id);
 			
+			hospital.get().getPessoa().getUsuario().setSenha("");
+			
 			return ResponseEntity.ok(hospital.get());
 		} catch (NoSuchElementException e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);
 		}
 	}
+	 
+	 @GetMapping(path = "usuario/{id}")
+	 @PreAuthorize("hasRole('USER')")
+	 public ResponseEntity<Object> getHospitalFromUsuarioId(@PathVariable("id") Integer id) {
+		 var hospital = hospitalDB.findByPessoaUsuarioId(id.longValue());
+		 
+		 if (hospital != null) {
+			 hospital.getPessoa().getUsuario().setSenha("");
+			
+			 return ResponseEntity.ok(hospital);
+		 } else {
+			 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(HOSPITAL_INEXISTENTE);
+		 }
+	 }
 }

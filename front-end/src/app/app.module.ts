@@ -58,6 +58,11 @@ import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
 
 
+import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
+import { PainelComponent } from './acessos/painel/painel.component';
+import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
+import { MenuModule } from 'primeng/menu';
+import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
 
 
 @NgModule({
@@ -82,7 +87,10 @@ import { CardModule } from 'primeng/card';
     AgendarConsultaComponent,
     EstatisticaComponent,
     AgendamentoComponent,
-    
+    AutorizacaoComponent,
+    PainelComponent,
+    VerificacaoEmailComponent,
+    ListConsultasComponent
   ],
   imports: [
     BrowserModule,
@@ -120,8 +128,9 @@ import { CardModule } from 'primeng/card';
     InputNumberModule,
     FullCalendarModule,
     ChartModule,
-    CardModule
+    CardModule,
     
+    MenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

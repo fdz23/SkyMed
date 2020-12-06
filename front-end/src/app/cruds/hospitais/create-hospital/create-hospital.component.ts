@@ -34,19 +34,11 @@ export class CreateHospitalComponent implements OnInit {
   cpf: string;
   ehMedico: boolean;
   ehAdmin: boolean;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
-  }
-
-  criaUsuario(paciente: Pessoas): void{
-
-    paciente.usuario.ehAdmin = false;
-    paciente.usuario.ehMedico = false;
-    paciente.usuario.email = this.email;
-    paciente.usuario.senha = "1234";
   }
 
   insereHospital(hospital: Hospitais): void {
@@ -57,7 +49,6 @@ export class CreateHospitalComponent implements OnInit {
           endereco.numero = this.numero;
 
           hospital.pessoa.endereco = endereco;
-          this.criaUsuario(hospital.pessoa);
 
           this.hospitalService.insereHospital(hospital)
             .subscribe(
@@ -67,14 +58,14 @@ export class CreateHospitalComponent implements OnInit {
               },
               error => {
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.message}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.error}` });
                 return;
               }
             );
         },
         error => {
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error}` });
+          this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
       );
   }
@@ -92,17 +83,17 @@ export class CreateHospitalComponent implements OnInit {
      || this.rg == null || this.rg === ''
      || this.email == null || this.email === '')
      {
-      this.msgs = [];
-      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
-     const usuarios = {
 
-      ehAdmin: true,
-      ehMedico:false,
+    const usuarios = {
+      ehAdmin: false,
+      ehHospital: true,
+      ehMedico: false,
+      ehPaciente: false,
+      ehAutenticado: false,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
 
     const pessoaHospital = {
@@ -114,15 +105,12 @@ export class CreateHospitalComponent implements OnInit {
      } as Pessoas;
 
     const hospital = {
-      razao_social: this.razaoSocial,
+      razaoSocial: this.razaoSocial,
       cnpj: this.cnpj,
       pessoa: pessoaHospital
     } as Hospitais;
 
     this.insereHospital(hospital);
-
-    this.msgs = [];
-    this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
   }
 
 }

@@ -7,6 +7,9 @@ import { Usuarios } from '../../../../assets/usuarios';
 import { CepService } from 'src/app/servicos/cep.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/servicos/usuario.service';
+import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
   selector: 'app-create-paciente',
@@ -16,8 +19,8 @@ import { Enderecos } from 'src/assets/enderecos';
 export class CreatePacienteComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
-    private http: HttpClient, private cepService: CepService,
-    private pessoaService: PessoaService) { }
+              private http: HttpClient, private cepService: CepService,
+              private pessoaService: PessoaService, private router: Router, private usuarioService: UsuarioService) { }
 
   msgs: Message[] = [];
   estadosArray: string[];
@@ -40,9 +43,9 @@ export class CreatePacienteComponent implements OnInit {
   ehPaciente: boolean;
   ehMedico: false;
   ehAdmin: false;
-  senha : string;
+  senha: string;
   usuario: Usuarios;
-
+  token: string;
 
 
   ngOnInit(): void {
@@ -62,8 +65,6 @@ export class CreatePacienteComponent implements OnInit {
       });
   }
 
-   
-
   inserePaciente(paciente: Pessoas): void {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
@@ -71,13 +72,19 @@ export class CreatePacienteComponent implements OnInit {
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
           paciente.endereco = endereco;
-        
 
-           this.pessoaService.inserePaciente(paciente)
+
+          this.pessoaService.inserePaciente(paciente)
             .subscribe(
               () => {
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
+
+                if (localStorage.getItem('currentUser') == null) {
+
+                  this.router.navigateByUrl('/autenticacao-conta/'.concat(paciente.usuario.email));
+
+                }
               },
               error => {
                 this.msgs = [];
@@ -94,44 +101,38 @@ export class CreatePacienteComponent implements OnInit {
   }
   salvar(): void {
 
-    if (this.nome == null || this.nome == ''
-      || this.cpf == null || this.cpf == ''
-      || this.rg == null || this.rg == ''
-      || this.rg == null || this.rg == ''
-      || this.complemento == null || this.complemento == ''
+    if (this.nome == null || this.nome === ''
+      || this.cpf == null || this.cpf === ''
+      || this.rg == null || this.rg === ''
+      || this.rg == null || this.rg === ''
+      || this.complemento == null || this.complemento === ''
       || this.numero == null
-      || this.cep == null || this.cep == ''
-      || this.telefone == null || this.telefone == ''
-      || this.email == null || this.email == '') {
+      || this.cep == null || this.cep === ''
+      || this.telefone == null || this.telefone === ''
+      || this.email == null || this.email === '') {
       this.msgs = [];
       this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
     }
-    const usuarios = {
 
+    const usuarios = {
+      ehPaciente: true,
       ehAdmin: false,
-      ehMedico:false,
+      ehHospital: false,
+      ehMedico: false,
+      ehAutenticado: false,
       email: this.email,
       senha: this.senha
-
     } as Usuarios;
-     
 
     const paciente = {
       nome: this.nome,
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
-      telefone: this.telefone,
-      ehPaciente: true
-     
+      telefone: this.telefone
     } as Pessoas;
 
-    
-
     this.inserePaciente(paciente);
-
-
   }
-
 }

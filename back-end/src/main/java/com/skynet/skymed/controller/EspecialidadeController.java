@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.NestedRuntimeException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,8 +31,8 @@ public class EspecialidadeController {
 	@Autowired
 	private EspecialidadeRepository especialidadeDB;
 	
-	@ExceptionHandler({ HttpMessageNotReadableException.class })
-    public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex) {
+	@ExceptionHandler({ NestedRuntimeException.class })
+    public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
     }
 
@@ -46,6 +48,7 @@ public class EspecialidadeController {
 	}
 
 	@PostMapping
+	@PreAuthorize("hasRole('HOSPITAL')")
 	public ResponseEntity<Especialidade> postEspecialidade(@RequestBody Especialidade object) {
 		if (object.getId() != null) {
 			var especialidade = getById(object.getId().intValue());
@@ -61,6 +64,7 @@ public class EspecialidadeController {
 	}
 
 	@PutMapping
+	@PreAuthorize("hasRole('HOSPITAL')")
 	public ResponseEntity<Especialidade> putEspecialidade(@RequestBody Especialidade object) {
 		if (object.getId() == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
@@ -78,6 +82,7 @@ public class EspecialidadeController {
 	}
 
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<Especialidade> deleteEspecialidade(@PathVariable("id") Integer id) {
 		var especialidade = getById(id);
 

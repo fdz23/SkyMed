@@ -1,0 +1,72 @@
+<p-messages [(value)]="msgs"></p-messages>
+<div class="card">
+    <p-table #dt [value]="horarios" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
+        currentPageReportTemplate="Mostrando {first} ao {last} a {totalRecords} de registros" [filterDelay]="0"
+        [globalFilterFields]="['medico.pessoa.nome','medico.especialidade.nome','medico.especialidade.preco']">
+        <ng-template pTemplate="caption">
+            <div class="table-header">
+                Lista de consultas
+                <span class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (input)="dt.filterGlobal($event.target.value, 'contains')"
+                        placeholder="Pesquisa Global" />
+                </span>
+            </div>
+        </ng-template>
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="medico">Médico<p-sortIcon field="medico"></p-sortIcon>
+                </th>
+                <th>Especialidade</th>
+                <th pSortableColumn="preco">Preço<p-sortIcon field="preco"></p-sortIcon>
+                </th>
+                <th>Data</th>
+                <th>Horário</th>
+                <th></th>
+            </tr>
+            <tr>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'medico.pessoa.nome', 'contains')"
+                        placeholder="Pesquisa por Médico" class="p-column-filter">
+                </th>
+                <th>
+                    <input pInputText type="text" (input)="dt.filter($event.target.value, 'medico.especialidade.nome', 'contains')"
+                        placeholder="Pesquisa por Especialidade" class="p-column-filter">
+                </th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-horario>
+            <tr class="p-selectable-row">
+                <td>
+                    {{horario.medico.pessoa.nome}}
+                </td>
+                <td>
+                    {{horario.medico.especialidade.nome}}
+                </td>
+                <td>
+                    R$ {{horario.medico.especialidade.preco}}
+                </td>
+                <td>
+                    {{horario.data}}
+                </td>
+                <td>
+                    {{horario.periodo}}
+                </td>
+                <td>
+                    <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
+                    <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar"
+                        icon="pi pi-ban" (click)="deleteConsulta(horario.id)"></button>
+                </td>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+            <tr>
+                <td colspan="6">Nenhuma consulta encontrada.</td>
+            </tr>
+        </ng-template>
