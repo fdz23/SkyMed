@@ -9,6 +9,7 @@ import { PessoaService } from 'src/app/servicos/pessoa.service';
 import { Enderecos } from 'src/assets/enderecos';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/servicos/usuario.service';
+import { NgxSpinnerService } from "ngx-spinner";
 import { VirtualTimeScheduler } from 'rxjs';
 
 @Component({
@@ -19,8 +20,12 @@ import { VirtualTimeScheduler } from 'rxjs';
 export class CreatePacienteComponent implements OnInit {
 
   constructor(private primengConfig: PrimeNGConfig,
-              private http: HttpClient, private cepService: CepService,
-              private pessoaService: PessoaService, private router: Router, private usuarioService: UsuarioService) { }
+    private http: HttpClient,
+    private cepService: CepService,
+    private pessoaService: PessoaService,
+    private router: Router,
+    private usuarioService: UsuarioService,
+    private spinner: NgxSpinnerService) { }
 
   msgs: Message[] = [];
   estadosArray: string[];
@@ -49,6 +54,7 @@ export class CreatePacienteComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.spinner.show();
     this.primengConfig.ripple = true;
     this.http.get<any>('assets/estados-cidades.json')
       .toPromise()
@@ -63,9 +69,15 @@ export class CreatePacienteComponent implements OnInit {
           estado => estado.nome
         );
       });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+
+
   }
 
   inserePaciente(paciente: Pessoas): void {
+    this.spinner.show();
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -77,6 +89,10 @@ export class CreatePacienteComponent implements OnInit {
           this.pessoaService.inserePaciente(paciente)
             .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
+
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
 
@@ -87,6 +103,9 @@ export class CreatePacienteComponent implements OnInit {
                 }
               },
               error => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar Paciente : ${error.error}` });
                 return;
@@ -94,6 +113,9 @@ export class CreatePacienteComponent implements OnInit {
             );
         },
         error => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }

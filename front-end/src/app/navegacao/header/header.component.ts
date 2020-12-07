@@ -13,7 +13,7 @@ export class HeaderComponent implements OnInit {
   items: MenuItem[];
 
   constructor(private autenticacaoService: AutenticacaoService,
-              private router: Router) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     this.items = [
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
       ]
     };
     const dashBoard = {
-      label: 'Painel Administrativo', icon: 'pi pi-fw pi-th-large' ,
+      label: 'Painel Administrativo', icon: 'pi pi-fw pi-th-large',
       items: [
         { label: 'Estatísticas', icon: 'pi pi-fw pi-chart-line', routerLink: 'charts' }
       ]
@@ -69,7 +69,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public verificaLogado(): boolean {
-    return localStorage.length > 0;
+
+    return localStorage.currentUser;
+
   }
 
 }

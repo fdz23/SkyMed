@@ -22,9 +22,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 
 import com.skynet.skymed.model.Pessoa;
 import com.skynet.skymed.repository.PessoaRepository;
-import com.skynet.skymed.service.EmailDePacienteService;
+import com.skynet.skymed.service.EmailService;
 import com.skynet.skymed.service.ValidacaoPessoaService;
 import com.skynet.skymed.util.GeradorDeSenha;
+import com.skynet.skymed.util.GeradorDeToken;
 
 @RestController
 //@RequestMapping("skymed")
@@ -34,7 +35,9 @@ public class PessoaController {
 	@Autowired
 	private PessoaRepository pessoaDB;
 
-	private EmailDePacienteService servicoDeEmailPaciente = new EmailDePacienteService();
+	private GeradorDeToken getToken = new GeradorDeToken();
+
+	private EmailService servicoDeEmailPaciente = new EmailService();
 	private final String PACIENTE_INEXISTENTE = "Paciente inexistente.";
 	
 	@ExceptionHandler({ NestedRuntimeException.class })
@@ -58,19 +61,23 @@ public class PessoaController {
 			return validacao;
 		}
 
-		servicoDeEmailPaciente.enviaEmail(object);
-		
 		UUID uuid = UUID.randomUUID();
-		String senhaAleatoria = uuid.toString();
-		
+		String senhaAleatoria = uuid.toString().substring(0, 8);
+
 		var usuario = object.getUsuario();
-		
+
 		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(senhaAleatoria, usuario.getEmail()));
-		
+		usuario.setTokenAutenticacaoEmail(getToken.geraToken());
+
 		pessoaDB.save(object);
-		
+
+		servicoDeEmailPaciente.enviaEmail(object.getNome(), 
+				usuario.getEmail(),
+				senhaAleatoria,
+				usuario.getTokenAutenticacaoEmail());
+
 		object.getUsuario().setSenha("");
-		
+
 		return ResponseEntity.ok(object);
 
 	}
@@ -97,9 +104,9 @@ public class PessoaController {
 		}
 
 		pessoaDB.save(object);
-		
+
 		object.getUsuario().setSenha("");
-		
+
 		return ResponseEntity.ok(object);
 	}
 
@@ -122,7 +129,7 @@ public class PessoaController {
 	public ResponseEntity<Object> getById(@PathVariable("id") Integer id) {
 		try {
 			var pessoa = pessoaDB.findById((long) id);
-			
+
 			pessoa.get().getUsuario().setSenha("");
 
 			return ResponseEntity.ok(pessoa.get());
@@ -145,7 +152,7 @@ public class PessoaController {
 		if (pacientes.equals(null)) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Nenhum paciente retornado");
 		}
-		
+
 		for (var paciente : pacientes) {
 			paciente.getUsuario().setSenha("");
 		}

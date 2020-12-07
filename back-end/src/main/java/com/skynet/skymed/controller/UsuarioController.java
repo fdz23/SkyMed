@@ -20,19 +20,15 @@ import org.springframework.web.bind.annotation.RestController;
 import com.skynet.skymed.model.Usuario;
 
 import com.skynet.skymed.repository.UsuarioRepository;
-import com.skynet.skymed.service.EmailDePacienteService;
 import com.skynet.skymed.util.GeradorDeSenha;
 
 @RestController
-
 @RequestMapping("/usuario")
 public class UsuarioController {
 
 	@Autowired
 	private UsuarioRepository usuarioDB;
-
-	private EmailDePacienteService emailService = new EmailDePacienteService();
-	
+  
 	@ExceptionHandler({ NestedRuntimeException.class })
     public ResponseEntity<Object> handleException(NestedRuntimeException ex) {
 		return ResponseEntity.badRequest().body(ex.getMostSpecificCause().getMessage());
@@ -71,13 +67,13 @@ public class UsuarioController {
 		}
 
 		usuario.setSenha(object.getSenha());
-		
+
 		if (!GeradorDeSenha.verificaSenha(usuario.getSenha(), object.getSenha(), object.getEmail())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
 		}
-		
+
 		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(object.getSenha(), object.getEmail()));
-		
+
 		usuarioDB.save(usuario);
 
 		usuario.setSenha("");
@@ -139,6 +135,8 @@ public class UsuarioController {
 	public ResponseEntity<Object> getByEmail(@PathVariable("email") String email) {
 		try {
 			var pessoa = usuarioDB.findByEmail(email);
+
+			pessoa.setSenha("");
 
 			return ResponseEntity.ok(pessoa);
 
