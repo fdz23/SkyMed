@@ -79,8 +79,7 @@ public class MedicoController {
 			}
 		}
 
-		var validacao = new ValidacaoPessoaService(
-    ).valideInsercao(object.getPessoa());
+		var validacao = new ValidacaoPessoaService(pessoaDB).valideInsercao(object.getPessoa());
 
 		if (validacao != null) {
 			return validacao;

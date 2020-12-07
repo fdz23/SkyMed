@@ -1,6 +1,44 @@
 <p-messages [(value)]="msgs"></p-messages>
 <p-fieldset legend="Gráficos estatísticos">
-    <p-chart type="line" [data]="dataLine" [options] = "optionsLine"></p-chart>
-    
-    <p-chart type="pie" [data]="dataPie" [options] = "optionsPie"></p-chart>
+    <!-- <div class="container"></div>
+        <div class="row">
+            <div class="col col-md-3">
+                <div class="card h-100" style="width: 50rem;">
+                   
+                    <p-chart type="line" [data]="dataLine" [options]="optionsLine"></p-chart>
+                </div>
+            </div>
+            <div class="col col-md-6">
+                <div class="card" style="width: 50rem;">
+                    
+                    <p-chart type="pie" [data]="dataPie" [options]="optionsPie"></p-chart>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-2 p-lg-1">
+            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
+                [routerLink]="['/home']"></button>
+        </div>
+    </div> -->
+    <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-6">
+            <p-card [style]="{width: '800px', 'margin-bottom': '2em'}" styleClass="p-card-shadow">
+                <p-chart type="line" [data]="dataLine" [options]="optionsLine"></p-chart>
+            </p-card>
+        </div>
+        <div class="p-col-12 p-md-6 p-lg-6">
+            <p-card [style]="{width: '800px'}" styleClass="p-card-shadow">
+                <p-chart type="pie" [data]="dataPie" [options]="optionsPie"></p-chart>
+            </p-card>
+        </div>
+    </div>
+    <div class="p-grid">
+        <div class="p-col-12 p-md-2 p-lg-1">
+            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
+                [routerLink]="['/home']"></button>
+        </div>
+    </div>
+
 </p-fieldset>

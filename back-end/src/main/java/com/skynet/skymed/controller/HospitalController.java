@@ -41,7 +41,7 @@ public class HospitalController {
 	private EmailService servicoDeEmailHospital = new EmailService();
 
 	@Autowired
-	private HospitalRepository hospitalDB
+	private HospitalRepository hospitalDB;
 	
 	@ExceptionHandler({ NestedRuntimeException.class })
     public ResponseEntity<Object> handleException(NestedRuntimeException ex) {

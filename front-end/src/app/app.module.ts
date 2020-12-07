@@ -55,6 +55,9 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
 import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agendamento/list-medico-agendamento.component';
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 import { ChartModule } from 'primeng/chart';
+import { CardModule } from 'primeng/card';
+
+
 import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
 import { PainelComponent } from './acessos/painel/painel.component';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
@@ -125,6 +128,8 @@ import { ListConsultasComponent } from './agendamento/list-consultas/list-consul
     InputNumberModule,
     FullCalendarModule,
     ChartModule,
+    CardModule,
+    
     NgxSpinnerModule,
     MenuModule
   ],

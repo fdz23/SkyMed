@@ -27,6 +27,7 @@ import { AutenticacaoLogado } from './autenticacao/autenticacao.logado';
 import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-email/verificacao-email.component';
 import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
