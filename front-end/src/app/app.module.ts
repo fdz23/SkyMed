@@ -56,6 +56,7 @@ import { ListMedicoAgendamentoComponent } from './cruds/medicos/list-medico-agen
 import { AgendarConsultaComponent } from './agendamento/agendar-consulta/agendar-consulta.component';
 import { ChartModule } from 'primeng/chart';
 import { CardModule } from 'primeng/card';
+import {CarouselModule} from 'primeng/carousel';
 
 
 import { AutorizacaoComponent } from './navegacao/autorizacao/erro-autorizacao/autorizacao.component';
@@ -131,7 +132,8 @@ import { ListConsultasComponent } from './agendamento/list-consultas/list-consul
     CardModule,
     
     NgxSpinnerModule,
-    MenuModule
+    MenuModule,
+    CarouselModule
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -71,6 +71,10 @@ export class CreateMedicoComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
 
     this.especialidadeService.obtenhaEspecialidades().subscribe(
       especialidades => {

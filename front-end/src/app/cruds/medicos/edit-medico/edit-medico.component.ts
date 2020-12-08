@@ -10,6 +10,7 @@ import { Pessoas } from 'src/assets/Pessoas';
 import { Usuarios } from '../../../../assets/usuarios';
 import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-edit-medico',
@@ -51,12 +52,15 @@ export class EditMedicoComponent implements OnInit {
     private medicoService: MedicoService,
     private route: ActivatedRoute,
     private confirmationService: ConfirmationService,
-    private especialidadeService: EspecialidadeService) {
-    this.route.params.subscribe(params => this.medicoid = params.id);
+    private especialidadeService: EspecialidadeService,
+    private spinner: NgxSpinnerService) {
+    this.route.params.subscribe(params => this.medicoid = params.id,
+    );
 
   }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.obtenhaMedicoPorId(this.medicoid);
 
     this.especialidadeService.obtenhaEspecialidades().subscribe(
@@ -64,11 +68,17 @@ export class EditMedicoComponent implements OnInit {
         this.especialidades = especialidades;
       },
       erro => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.msgs = [];
         this.msgs.push({severity: 'error', detail: `Erro ao encontrar especialidades disponíveis: ${erro.error}`});
       }
     );
-  }
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+   }
 
   public obtenhaMedicoPorId(id: any): void {
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
@@ -89,9 +99,13 @@ export class EditMedicoComponent implements OnInit {
       this.registro = medico.registro;
       this.especialidade = medico.especialidade;
     }, () => { });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   atualizaMedico(medico: Medicos): void {
+    this.spinner.show();
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -101,12 +115,18 @@ export class EditMedicoComponent implements OnInit {
           medico.pessoa.endereco = endereco;
 
           this.medicoService.atualizaMedico(medico)
-            .subscribe(
+           .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Médico Atualizado com sucesso' });
               },
               error => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao atualizar Médico : ${error.error}` });
                 return;
@@ -114,6 +134,9 @@ export class EditMedicoComponent implements OnInit {
             );
         },
         error => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-painel',
@@ -9,11 +10,17 @@ import { PessoaService } from 'src/app/servicos/pessoa.service';
 })
 export class PainelComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+    private spinner: NgxSpinnerService) { }
 
   items: MenuItem[];
 
   ngOnInit(): void {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+
     const pacienteItem = { label: 'Visualizar consultas', icon: 'pi pi-fw pi-search-plus', routerLink: '/consultas-listar' };
 
     this.items = [

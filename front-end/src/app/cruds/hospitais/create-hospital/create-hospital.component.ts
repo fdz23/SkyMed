@@ -6,6 +6,7 @@ import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { MedicoService } from 'src/app/servicos/medico.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-create-hospital',
@@ -17,7 +18,8 @@ export class CreateHospitalComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
     private cepService: CepService,
     private hospitalService: HospitalService,
-    private medicoService: MedicoService)
+    private medicoService: MedicoService,
+    private spinner: NgxSpinnerService )
     { }
 
   msgs: Message[] = [];
@@ -39,9 +41,14 @@ export class CreateHospitalComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.spinner.show();
+     setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   insereHospital(hospital: Hospitais): void {
+    this.spinner.show();
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -53,10 +60,16 @@ export class CreateHospitalComponent implements OnInit {
           this.hospitalService.insereHospital(hospital)
             .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
               },
               error => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.error}` });
                 return;
@@ -64,6 +77,9 @@ export class CreateHospitalComponent implements OnInit {
             );
         },
         error => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
