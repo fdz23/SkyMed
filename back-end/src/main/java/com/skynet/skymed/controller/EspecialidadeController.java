@@ -49,13 +49,17 @@ public class EspecialidadeController {
 
 	@PostMapping
 	@PreAuthorize("hasRole('HOSPITAL')")
-	public ResponseEntity<Especialidade> postEspecialidade(@RequestBody Especialidade object) {
+	public ResponseEntity<Object> postEspecialidade(@RequestBody Especialidade object) {
 		if (object.getId() != null) {
 			var especialidade = getById(object.getId().intValue());
 
 			if (especialidade.hasBody()) {
 				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 			}
+						
+		}
+		if(especialidadeDB.findByNome(object.getNome()) != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome existente");
 		}
 
 		especialidadeDB.save(object);
@@ -65,15 +69,15 @@ public class EspecialidadeController {
 
 	@PutMapping
 	@PreAuthorize("hasRole('HOSPITAL')")
-	public ResponseEntity<Especialidade> putEspecialidade(@RequestBody Especialidade object) {
+	public ResponseEntity<Object> putEspecialidade(@RequestBody Especialidade object) {
 		if (object.getId() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro 1");
 		}
 
 		var especialidade = getById(object.getId().intValue());
 
 		if (!especialidade.hasBody()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro 2");
 		}
 
 		especialidadeDB.save(object);

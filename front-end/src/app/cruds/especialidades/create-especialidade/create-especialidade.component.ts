@@ -37,7 +37,7 @@ this.especialidadeService.insereEspecialidade(especialidade)
     },
     error => {
       this.msgs = [];
-      this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar especialidade : ${error}` });
+      this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar especialidade : ${error.error}` });
       return;
     }
   );
