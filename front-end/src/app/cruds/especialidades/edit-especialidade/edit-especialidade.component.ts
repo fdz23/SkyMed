@@ -75,7 +75,7 @@ export class EditEspecialidadeComponent implements OnInit {
                   this.spinner.hide();
                 }, 500);
                 this.msgs = [];
-                this.msgs.push({ severity: 'error', detail: `Erro ao atualizar especialidade : ${error}` });
+                this.msgs.push({ severity: 'error', detail: `Erro ao atualizar especialidade : ${error.error}` });
                 return;
               }
             );

@@ -48,7 +48,7 @@ this.especialidadeService.insereEspecialidade(especialidade)
         this.spinner.hide();
       }, 500);
       this.msgs = [];
-      this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar especialidade : ${error}` });
+      this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar especialidade : ${error.error}` });
       return;
     }
   );

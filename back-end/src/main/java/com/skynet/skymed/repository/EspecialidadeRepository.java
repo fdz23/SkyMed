@@ -8,5 +8,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface EspecialidadeRepository extends JpaRepository<Especialidade, Long> {
+	
+	Especialidade findByNome(String nome);
+	
+	
 
 }
