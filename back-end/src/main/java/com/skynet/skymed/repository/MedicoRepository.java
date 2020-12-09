@@ -8,5 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 @Repository
 public interface MedicoRepository extends JpaRepository<Medico, Long> {
-
+	public Medico findByPessoaUsuarioId(Long id);
 }

@@ -12,4 +12,5 @@ export interface Usuarios {
     tokenAutenticacao: string;
     tokenAutenticacaoEmail: string;
     tokenRedefinicaoSenha: string;
+    novaSenha: string;
 }

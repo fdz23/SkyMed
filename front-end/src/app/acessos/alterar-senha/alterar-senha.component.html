@@ -1,0 +1,47 @@
+<p-messages [(value)]="msgs"></p-messages>
+<div class="p-grid">
+    <div class="p-lg-5 p-sm-1 p-md-4"></div>
+    <div class="p-lg-2 p-sm-11 p-md-4" style="padding-top: 10%">
+        <p-fieldset legend="Troca de senha">
+            <div class="p-field p-col-12 p-md-12 p-lg-12">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-key"></i>
+                    <input id="senhaAtual" [feedback]="feedback" [(ngModel)]="senhaAtual" type="password"
+                        placeholder="Senha atual" pPassword>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-12 p-lg-12">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-key"></i>
+                    <input id="novaSenha" [feedback]="feedback" [(ngModel)]="novaSenha" type="password"
+                        placeholder="Nova senha" pPassword>
+                </span>
+            </div>
+            <div class="p-field p-col-12 p-md-12 p-lg-12">
+                <span class="p-input-icon-left">
+                    <i class="pi pi-key"></i>
+                    <input id="novaSenha2" [feedback]="feedback" [(ngModel)]="novaSenha2" type="password"
+                        placeholder="Repita nova senha" pPassword>
+                </span>
+            </div>
+
+            <div class="p-grid">
+                <div class="p-col-6 p-md-6 p-lg-6">
+                    <button pButton type="button" class="p-button-raised p-button-success" label="Alterar"
+                        (click)="altereSenha()"></button>
+                </div>
+                <div class="p-col-6 p-md-6 p-lg-6">
+                    <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar"
+                        [routerLink]="['/painel-usuario']"></button>
+                </div>
+            </div>
+        </p-fieldset>
+    </div>
+    <div class="p-lg-5 p-sm-1 p-md-4"></div>
+</div>
+
+<style>
+    .p-button-raised {
+        width: 100%;
+    }
+</style>

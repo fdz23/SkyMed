@@ -42,4 +42,9 @@ export class MedicoService {
     const url = `${environment.urlSkyMed}medico/horarios/paciente/`;
     return this.http.get(url.concat(id));
   }
+
+  obtenhaMedicoLogado(id: any): Observable<any> {
+    const url = `${environment.urlSkyMed}medico/usuario/`;
+    return this.http.get(url.concat(id));
+  }
 }
