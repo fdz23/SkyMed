@@ -6,6 +6,8 @@ import { Pessoas } from 'src/assets/Pessoas';
 import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { MedicoService } from 'src/app/servicos/medico.service';
+import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-hospital',
@@ -17,7 +19,9 @@ export class CreateHospitalComponent implements OnInit {
     private primengConfig: PrimeNGConfig,
     private cepService: CepService,
     private hospitalService: HospitalService,
-    private medicoService: MedicoService)
+    private medicoService: MedicoService,
+    private spinner: NgxSpinnerService,
+    private router: Router )
     { }
 
   msgs: Message[] = [];
@@ -39,9 +43,14 @@ export class CreateHospitalComponent implements OnInit {
 
   ngOnInit(): void {
     this.primengConfig.ripple = true;
+    this.spinner.show();
+     setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
   }
 
   insereHospital(hospital: Hospitais): void {
+    this.spinner.show();
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
@@ -53,10 +62,24 @@ export class CreateHospitalComponent implements OnInit {
           this.hospitalService.insereHospital(hospital)
             .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
+                if (localStorage.getItem('currentUser') == null) {
+                  setTimeout(() => {
+                    
+                  }, 3000);
+
+                  this.router.navigateByUrl('/autenticacao-conta/'.concat(hospital.pessoa.usuario.email));
+
+                }
               },
               error => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao cadastrar hospital : ${error.error}` });
                 return;
@@ -64,6 +87,9 @@ export class CreateHospitalComponent implements OnInit {
             );
         },
         error => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
           this.msgs.push({ severity: 'error', detail: `Erro ao buscar endereço : ${error.error}` });
         }
@@ -83,6 +109,8 @@ export class CreateHospitalComponent implements OnInit {
      || this.rg == null || this.rg === ''
      || this.email == null || this.email === '')
      {
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
 

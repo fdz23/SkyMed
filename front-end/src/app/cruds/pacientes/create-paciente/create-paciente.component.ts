@@ -97,8 +97,11 @@ export class CreatePacienteComponent implements OnInit {
                 this.msgs.push({ severity: 'success', detail: 'Paciente cadastrado com sucesso!' });
 
                 if (localStorage.getItem('currentUser') == null) {
+                  setTimeout(() => {
+                    
+                  }, 3000);
 
-                  this.router.navigateByUrl('/autenticacao-conta/'.concat(paciente.usuario.email));
+                    this.router.navigateByUrl('/autenticacao-conta/'.concat(paciente.usuario.email));
 
                 }
               },

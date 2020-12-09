@@ -1,3 +1,11 @@
+      <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="medium"
+        color="#000000"
+        type="ball-climbing-dot">
+        <p style="font-size: 20px; color: black">Carregando..</p>
+      </ngx-spinner>
+        
 <div class="card ">
     <p-table #dt [value]="especialidades" dataKey="id" [rowHover]="true" [rows]="10" [showCurrentPageReport]="true"
         [rowsPerPageOptions]="[10,25,50]" [paginator]="true"
@@ -62,3 +70,4 @@
                 <td colspan="5">Nenhuma especialidade encontrada.</td>
             </tr>
         </ng-template>
+     
