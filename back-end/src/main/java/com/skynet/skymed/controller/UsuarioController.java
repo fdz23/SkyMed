@@ -56,23 +56,17 @@ public class UsuarioController {
 	@PreAuthorize("hasRole('USUARIO')")
 	public ResponseEntity<Object> trocarSenha(@RequestBody Usuario object) {
 		var usuario = usuarioDB.findByEmail(object.getEmail());
-		var mensagemErro = "E-mail ou senha incorreta.";
+		var mensagemErro = "Senha incorreta.";
 
 		if (usuario == null) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(mensagemErro);
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não existe. Re-efetue login.");
 		}
 
-		if (!usuario.getSenha().equals(object.getSenha())) {
+		if (!GeradorDeSenha.verificaSenha(object.getSenha(), usuario.getSenha(), object.getEmail())) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
 		}
 
-		usuario.setSenha(object.getSenha());
-
-		if (!GeradorDeSenha.verificaSenha(usuario.getSenha(), object.getSenha(), object.getEmail())) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(mensagemErro);
-		}
-
-		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(object.getSenha(), object.getEmail()));
+		usuario.setSenha(GeradorDeSenha.geraSenhaSegura(object.getNovaSenha(), object.getEmail()));
 
 		usuarioDB.save(usuario);
 
