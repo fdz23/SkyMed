@@ -61,7 +61,7 @@ export class ListMedicoComponent implements OnInit {
   }
 
   deleteMedico(id): void {
-    this.spinner.show();
+    
 
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir o médico?',

@@ -43,7 +43,7 @@ export class ListEspecialidadeComponent implements OnInit {
   }
 
   deleteEspecialidade(id) {
-    this.spinner.show();
+   
 
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir a especialidade?',
@@ -51,10 +51,9 @@ export class ListEspecialidadeComponent implements OnInit {
       icon: 'pi pi-info-circle',
 
       accept: () => {
-        setTimeout(() => {
-          this.spinner.hide();
-        }, 500);
+        
         this.especialidadeService.deletaEspecialidade(id).subscribe(especialidade => {
+           
           this.msgs = [];
           this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Especialidade Excluida' }];
           window.location.reload;
