@@ -226,4 +226,18 @@ public class MedicoController {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não foi encontrado nenhum horário desse paciente.");
 		}
 	}
+
+	@GetMapping(path = "usuario/{id}")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<Object> getMedicoFromUsuarioId(@PathVariable("id") Integer id) {
+		var medico = medicoDB.findByPessoaUsuarioId(id.longValue());
+
+		if (medico != null) {
+			medico.getPessoa().getUsuario().setSenha("");
+
+			return ResponseEntity.ok(medico);
+		} else {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(MEDICO_INEXISTENTE);
+		}
+	}
 }
