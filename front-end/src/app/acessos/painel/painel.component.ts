@@ -24,7 +24,7 @@ export class PainelComponent implements OnInit {
 
     this.items = [
         { label: 'Mudar senha', icon: 'pi pi-fw pi-lock', routerLink: '/alterar-senha' },
-        { label: 'Ajustar dados', icon: 'pi pi-fw pi-user', command: this.redirecioneEdicao }
+        { label: 'Ajustar dados', icon: 'pi pi-fw pi-user', command: () => this.redirecioneEdicao() }
     ];
 
     if (this.verificaLogado()) {
