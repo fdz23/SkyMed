@@ -45,6 +45,8 @@ public class Usuario {
 
 	@Column(name = "usu_eh_autenticado")
 	private boolean ehAutenticado;
+	
+	private String novaSenha;
 
 	public boolean getEhAutenticado() {
 		return ehAutenticado;
@@ -134,4 +136,11 @@ public class Usuario {
 		return ehPaciente;
 	}
 
+	public String getNovaSenha() {
+		return novaSenha;
+	}
+
+	public void setNovaSenha(String novaSenha) {
+		this.novaSenha = novaSenha;
+	}
 }
