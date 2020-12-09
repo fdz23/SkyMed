@@ -23,9 +23,12 @@ export class UsuarioService {
   }
 
   autenticaUsuario(usuario: Usuarios): Observable<Usuarios>{
-
     const url = `${environment.urlSkyMed}usuario/autenticaConta`;
     return this.http.put<Usuarios>(url, usuario);
+  }
 
+  altereSenha(usuario: Usuarios): Observable<Usuarios> {
+    const url = `${environment.urlSkyMed}usuario/trocarSenha`;
+    return this.http.put<Usuarios>(url, usuario);
   }
 }
