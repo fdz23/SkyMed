@@ -5,6 +5,7 @@ import { AutenticacaoService } from 'src/app/autenticacao/autenticacao.service';
 import { HeaderComponent } from 'src/app/navegacao/header/header.component';
 import { UsuarioService } from 'src/app/servicos/usuario.service';
 import { Usuarios } from '../../../assets/usuarios';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(private autenticacaoService: AutenticacaoService,
               private usuarioService: UsuarioService,
-              private router: Router) { }
+              private router: Router,
+              private spinner: NgxSpinnerService) { }
 
   senha: string;
   email: string;
@@ -25,6 +27,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { }
 
   login(): void {
+    this.spinner.show();
 
     if (this.usuarioEhAutenticado()) {
       const usuario = { email: this.email, senha: this.senha } as Usuarios;
@@ -32,6 +35,9 @@ export class LoginComponent implements OnInit {
         resposta => {
           this.usuarioService.obtemUsuario(usuario).subscribe(
             user => {
+              setTimeout(() => {
+                this.spinner.hide();
+              }, 500);
               user.tokenAutenticacao = resposta.token;
               localStorage.setItem('currentUser', JSON.stringify(user));
               this.autenticacaoService.currentUserSubject.next(user);
@@ -39,14 +45,20 @@ export class LoginComponent implements OnInit {
               this.msgs = [];
             },
             erro => {
+              setTimeout(() => {
+                this.spinner.hide();
+              }, 500);
               this.msgs = [];
               this.msgs.push({ severity: 'error', detail: `${erro.error}` });
             }
           );
         },
         erro => {
+          setTimeout(() => {
+            this.spinner.hide();
+          }, 500);
           this.msgs = [];
-          this.msgs.push({ severity: 'error', detail: `${erro.error}` });
+          this.msgs.push({ severity: 'error', detail: 'Email/Senha estão incorretos'});
         }
       );
     }

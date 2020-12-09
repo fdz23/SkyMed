@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/api';
 import { Message } from 'primeng/api';
 import { PrimeNGConfig } from 'primeng/api';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-especialidade-listar',
@@ -22,9 +23,11 @@ export class ListEspecialidadeComponent implements OnInit {
   constructor(
     private especialidadeService: EspecialidadeService,
     private router: Router,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.obtenhaEspecialidades();
   }
   
@@ -34,9 +37,13 @@ export class ListEspecialidadeComponent implements OnInit {
       especialidades => {
         this.especialidades = especialidades;
       });
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 500);
   }
 
   deleteEspecialidade(id) {
+    this.spinner.show();
 
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir a especialidade?',
@@ -44,6 +51,9 @@ export class ListEspecialidadeComponent implements OnInit {
       icon: 'pi pi-info-circle',
 
       accept: () => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.especialidadeService.deletaEspecialidade(id).subscribe(especialidade => {
           this.msgs = [];
           this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Especialidade Excluida' }];
@@ -52,6 +62,9 @@ export class ListEspecialidadeComponent implements OnInit {
         },
 
           error => {
+            setTimeout(() => {
+              this.spinner.hide();
+            }, 500);
             this.msgs = [];
             this.msgs.push({ severity: 'error', detail: `Erro ao deletar Especialidade : ${error.error}` });
           }
@@ -61,6 +74,9 @@ export class ListEspecialidadeComponent implements OnInit {
         this.confirmationService.close();
       },
       reject: () => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.msgs = [];
         this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
         this.confirmationService.close();

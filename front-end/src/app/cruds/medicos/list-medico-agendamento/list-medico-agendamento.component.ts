@@ -7,6 +7,7 @@ import { ConfirmationService } from 'primeng/api';
 import { Message } from 'primeng/api';
 import { Especialidades } from 'src/assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-list-medico-agendamento',
@@ -23,9 +24,11 @@ export class ListMedicoAgendamentoComponent implements OnInit {
 
   constructor(
     private medicoService: MedicoService,
-    private especialidadeService: EspecialidadeService) { }
+    private especialidadeService: EspecialidadeService,
+    private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.obtenhaMedicos();
     this.obtenhaEspecialidades();
   }
@@ -34,6 +37,9 @@ export class ListMedicoAgendamentoComponent implements OnInit {
     this.medicoService.obtenhaMedicos()
     .subscribe(
       medicos => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.medicos = medicos;
       });
   }
@@ -42,6 +48,9 @@ export class ListMedicoAgendamentoComponent implements OnInit {
     this.especialidadeService.obtenhaEspecialidades()
     .subscribe(
       especialidades => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.especialidades = especialidades;
       });
   }

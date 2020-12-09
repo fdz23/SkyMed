@@ -1,8 +1,155 @@
-<ngx-spinner
-bdColor="rgba(51,51,51,0.8)"
-size="medium"
-color="#000000"
-type="ball-climbing-dot"
->
-<p style="font-size: 20px; color: black">Carregando..</p>
+ <style>
+
+#cards{
+
+    padding-top: 30px;
+}
+#background{
+    height: 500px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}
+#logo{
+
+    padding-top: 70px;
+    padding-left: 270px;
+
+}
+#txt {
+    padding-left: 200px;
+}
+ 
+  .imgArray-item-content{
+        border: 1px solid var(--surface-d);
+        border-radius: 3px;
+        margin: .3rem;
+        text-align: center;
+        padding: 2rem 0;
+
+    }
+    .imgArray-image {
+        width: 100%;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23)
+    }
+ 
+
+ </style>
+ 
+<div class="p-grid" >
+    <div id="background" class="p-xl-12 " [ngStyle]="{'background-image': 'url(' + photo + ')'}" >
+    <div>
+       <img id="logo" src="assets/logo/skymed-logo.png">
+
+       <div>
+           <h1 id="txt">A solução para suas consultas</h1>
+       </div>
+ 
+    </div>
+    </div>
+      
+</div>
+
+<div class="p-grid">
+ 
+    <div class="p-xl-12">  
+  <p-carousel [value]="imgArray" [numVisible]="1" [autoplayInterval]="3000" [circular]="true"  [responsiveOptions]="responsiveOptions" >
+        <ng-template let-imgArray pTemplate="item">
+            <div class="imgArray-item">
+                <div class="imgArray-item-content">
+              <div class="p-mb-3" >
+                 <img src="assets/slideshow/{{imgArray.image}} " class="img-fluid d-block" >
+               </div>
+               </div>
+           </div>
+         </ng-template>
+         </p-carousel>
+    </div>
+
+</div> 
+
+<div id="cards" class="p-grid">
+
+ <div  class="p-xl-3"></div>
+     
+    <div id="divEsquerda" class="p-xl-3">
+        <p-card header="Agendamentos de Consultas" subheader="Skymed" [style]="{width: '360px'}"
+            styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <img alt="Card" src="assets/card/secretaria-card.jpg">
+            </ng-template>
+            <p>Agendamentos de consultas online, onde estará disponíveis Médicos, Hospitais/Clínicas de sua escolha tudo
+                isso atráves de nossa plataforma.</p>
+            <ng-template pTemplate="footer">
+                <p-button class="botao acessar" label="Acessar" icon="pi pi-check"
+                    [routerLink]="['/medico-listar-agendamento']"></p-button>
+            </ng-template>
+
+        </p-card>
+    </div>
+    <div id="divEsquerda" class="p-xl-3">
+        <p-card header="Paciente faça seu cadastro" subheader="Skymed" [style]="{width: '360px'}"
+            styleClass="p-card-shadow">
+            <ng-template pTemplate="header">
+                <img alt="Card" src="assets/card/cliente-card.jpg">
+            </ng-template>
+            <p>Realize seu cadastro para aproveitar nossos serviços, agendar consultas tudo isso reunido em nossa plataforma, aproveite nossos 
+                serviços.</p>
+            <ng-template pTemplate="footer">
+                <p-button class="botao acessar" label="Acessar" icon="pi pi-check"
+                    [routerLink]="['/paciente-criar']"></p-button>
+            </ng-template>
+
+        </p-card>
+    </div>
+    <div class="p-xl-12"></div>
+</div>
+<div id="cards" class="p-grid">
+
+    <div class="p-xl-3"></div>
+        
+       <div id="divEsquerda" class="p-xl-3">
+           <p-card header="Empresa se cadastre" subheader="Skymed" [style]="{width: '360px'}"
+               styleClass="p-card-shadow">
+               <ng-template pTemplate="header">
+                   <img alt="Card" src="assets/card/medico-card.jpg">
+               </ng-template>
+               <p>Você tem sua empresa ou tem um escritório e deseja realizar serviços em nossa plataforma? Se cadastre por aqui.</p>
+               <ng-template pTemplate="footer">
+                   <p-button class="botao acessar" label="Acessar" icon="pi pi-check"
+                       [routerLink]="['/hospital-criar']"></p-button>
+               </ng-template>
+   
+           </p-card>
+       </div>
+       <div id="divEsquerda" class="p-xl-3">
+           <p-card header="Facilidades" subheader="Skymed" [style]="{width: '360px'}"
+               styleClass="p-card-shadow">
+               <ng-template pTemplate="header">
+                   <img alt="Card" src="assets/card/medicos-card.jpg">
+               </ng-template>
+               <p>Aqui temos o prazer de fornecer todo o tipo de consultas, médicos , hospitais e clínicas para você.</p>
+               <ng-template pTemplate="footer">
+                   <p-button class="botao acessar" label="Acessar" icon="pi pi-check"
+                       [routerLink]="['/medico-listar-agendamento']"></p-button>
+               </ng-template>
+   
+           </p-card>
+       </div>
+       <div class="p-xl-12"></div>
+   </div>
+   
+
+
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: black">Carregando..</p>
 </ngx-spinner>
+
+<!-- Quando só o nome 
+Nome - Tag
+ponto antes - Classe
+# antes - Quando é ID
+-->

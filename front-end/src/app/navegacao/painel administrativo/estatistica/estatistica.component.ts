@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PrimeNGConfig, Message } from 'primeng/api';
 import { ChartModule } from 'primeng/chart';
+import { NgxSpinnerService } from "ngx-spinner";
 
 import {CardModule} from 'primeng/card';
 
@@ -20,7 +21,8 @@ export class EstatisticaComponent implements OnInit {
   optionsPie: any;
 
   constructor(
-    private primengConfig: PrimeNGConfig
+    private primengConfig: PrimeNGConfig,
+    private spinner: NgxSpinnerService
   ) {
     this.dataLine = {
       labels: ['jan.', ' fev.', ' mar.', ' abr.', ' maio', ' jun.', ' jul.', ' ago.', ' set.', ' out.', ' nov.', ' dez.'],
@@ -99,6 +101,12 @@ export class EstatisticaComponent implements OnInit {
   msgs: Message[] = [];
 
   ngOnInit(): void {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+
+
   }
 
   selectDataLine(event) {

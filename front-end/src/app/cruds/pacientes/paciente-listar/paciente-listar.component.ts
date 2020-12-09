@@ -27,14 +27,14 @@ export class PacienteListarComponent implements OnInit {
     private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    
     this.obtenhaPacientes();
 
   }
 
   obtenhaPacientes() {
     this.spinner.show();
-
-    this.pessoaService.obtenhaPacientes().subscribe(
+   this.pessoaService.obtenhaPacientes().subscribe(
       pacientes =>
         this.pacientes = pacientes);
     setTimeout(() => {

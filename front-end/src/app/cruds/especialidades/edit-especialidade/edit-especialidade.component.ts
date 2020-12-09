@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Especialidades } from '../../../../assets/especialidades';
 import { EspecialidadeService } from 'src/app/servicos/especialidade.service';
 import { Router } from "@angular/router";
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-especialidade-editar',
@@ -22,14 +23,19 @@ export class EditEspecialidadeComponent implements OnInit {
   duracaoConsulta: Date;
 
 
-  constructor(private router: Router, private primengConfig: PrimeNGConfig,
+  constructor(private router: Router,
+     private primengConfig: PrimeNGConfig,
     private http: HttpClient,
-    private especialidadeService: EspecialidadeService, private route: ActivatedRoute, private confirmationService: ConfirmationService) {
+    private especialidadeService: EspecialidadeService,
+     private route: ActivatedRoute,
+     private confirmationService: ConfirmationService,
+     private spinner: NgxSpinnerService) {
     this.route.params.subscribe(params => this.especialidadeid = params['id']);
 
   }
 
   ngOnInit(): void {
+    this.spinner.show();
 
     this.obtenhaEspecialidadePorId(this.especialidadeid);
 
@@ -46,18 +52,28 @@ export class EditEspecialidadeComponent implements OnInit {
       this.duracaoConsulta = especialidade.duracaoConsulta;
 
     }, () => { });
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
 
 
   }
   atualizaEspecialidade(especialidade: Especialidades): void {
+    this.spinner.show();
 
           this.especialidadeService.atualizaEspecialidade(especialidade)
             .subscribe(
               () => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'especialidade Atualizada com sucesso' });
               },
               error => {
+                setTimeout(() => {
+                  this.spinner.hide();
+                }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'error', detail: `Erro ao atualizar especialidade : ${error}` });
                 return;
@@ -70,16 +86,24 @@ export class EditEspecialidadeComponent implements OnInit {
   }
 
   deletaEspecialidade() {
+    this.spinner.show();
 
     this.confirmationService.confirm({
       message: 'Deseja realmente excluir o cadastro?',
       header: 'Exclusão de cadastro',
       icon: 'pi pi-info-circle',
       accept: () => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.especialidadeService.deletaEspecialidade(this.especialidade.id).subscribe(especialidade => { }, err => { console.log('Erro ao deletar especialidade') });
         this.msgs = [{ severity: 'info', summary: 'Concluído', detail: 'Registro Excluido' }];
+        window.location.reload();
       },
       reject: () => {
+        setTimeout(() => {
+          this.spinner.hide();
+        }, 500);
         this.msgs = [{ severity: 'info', summary: 'Cancelado', detail: 'Operação Cancelada' }];
       }
     });

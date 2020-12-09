@@ -4,6 +4,7 @@ import { MenuItem, Message } from 'primeng/api';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { MedicoService } from 'src/app/servicos/medico.service';
 import { PessoaService } from 'src/app/servicos/pessoa.service';
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-painel',
@@ -14,12 +15,18 @@ export class PainelComponent implements OnInit {
   constructor(private router: Router,
               private pacienteService: PessoaService,
               private medicoService: MedicoService,
-              private hospitalService: HospitalService) { }
+              private hospitalService: HospitalService,
+              private spinner: NgxSpinnerService) { }
 
   items: MenuItem[];
   msgs: Message[] = [];
 
   ngOnInit(): void {
+    this.spinner.show();
+    setTimeout(() => {
+      this.spinner.hide();
+    }, 500);
+
     const pacienteItem = { label: 'Visualizar consultas', icon: 'pi pi-fw pi-search-plus', routerLink: '/consultas-listar' };
 
     this.items = [
