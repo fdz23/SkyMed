@@ -64,6 +64,8 @@ import { VerificacaoEmailComponent } from './navegacao/autorizacao/verificacao-e
 import { NgxSpinnerModule } from "ngx-spinner";
 import { MenuModule } from 'primeng/menu';
 import { ListConsultasComponent } from './agendamento/list-consultas/list-consultas.component';
+import { AlterarSenhaComponent } from './acessos/alterar-senha/alterar-senha.component';
+import { EntreEmContatoComponent } from './acessos/painel/entre-em-contato/entre-em-contato.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { ListConsultasComponent } from './agendamento/list-consultas/list-consul
     AutorizacaoComponent,
     PainelComponent,
     VerificacaoEmailComponent,
-    ListConsultasComponent
+    ListConsultasComponent,
+    AlterarSenhaComponent,
+    EntreEmContatoComponent
   ],
   imports: [
     BrowserModule,
