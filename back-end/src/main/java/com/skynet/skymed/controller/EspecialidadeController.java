@@ -71,13 +71,16 @@ public class EspecialidadeController {
 	@PreAuthorize("hasRole('HOSPITAL')")
 	public ResponseEntity<Object> putEspecialidade(@RequestBody Especialidade object) {
 		if (object.getId() == null) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro 1");
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Id Invalido");
 		}
 
 		var especialidade = getById(object.getId().intValue());
 
 		if (!especialidade.hasBody()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Erro 2");
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
+		if(especialidadeDB.findByNome(object.getNome()) != null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Nome existente");
 		}
 
 		especialidadeDB.save(object);
