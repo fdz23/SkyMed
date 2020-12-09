@@ -49,8 +49,13 @@ export class HeaderComponent implements OnInit {
 
       const usuario = JSON.parse(localStorage.currentUser);
 
-      if (usuario.ehAdmin || usuario.ehHospital) {
-        this.items.push(listaConsulta);
+      if (usuario.ehAdmin) {
+        this.items.push(pesquisas);
+        this.items[1].items.push(cadastroMedico, cadastroEspecialidade);
+        this.items.push(dashBoard);
+      }
+
+      if (usuario.ehHospital) {
         this.items.push(pesquisas);
         this.items[1].items.push(cadastroMedico, cadastroEspecialidade);
         this.items.push(dashBoard);

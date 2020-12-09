@@ -44,7 +44,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent, canActivate: [AutenticacaoDeslogado] },
   { path: 'charts', component: EstatisticaComponent, canActivate: [AutenticacaoHospital] },
   { path: 'medico-listar', component: ListMedicoComponent, canActivate: [AutenticacaoHospital] },
-  { path: 'medico-editar/:id', component: EditMedicoComponent, canActivate: [AutenticacaoMedico, AutenticacaoHospital] },
+  { path: 'medico-editar/:id', component: EditMedicoComponent, canActivate: [AutenticacaoMedico] },
   { path: 'medico-listar-agendamento', component: ListMedicoAgendamentoComponent, canActivate: [AutenticacaoPaciente] },
   { path: 'agendar-consulta', component: AgendarConsultaComponent, canActivate: [AutenticacaoPaciente] },
   { path: 'estatistica', component: EstatisticaComponent, canActivate: [AutenticacaoHospital] },
