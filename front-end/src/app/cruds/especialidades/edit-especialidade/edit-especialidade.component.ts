@@ -44,7 +44,7 @@ export class EditEspecialidadeComponent implements OnInit {
   public obtenhaEspecialidadePorId(id: any): void {
 
     this.especialidadeService.obtenhaEspecialidadePorId(this.especialidadeid).subscribe((especialidade: Especialidades) => {
-
+      
       this.especialidade = especialidade;
 
       this.nome = especialidade.nome;
@@ -68,7 +68,7 @@ export class EditEspecialidadeComponent implements OnInit {
                   this.spinner.hide();
                 }, 500);
                 this.msgs = [];
-                this.msgs.push({ severity: 'success', detail: 'especialidade Atualizada com sucesso' });
+                this.msgs.push({ severity: 'success', detail: 'Especialidade Atualizada com sucesso' });
               },
               error => {
                 setTimeout(() => {
@@ -121,6 +121,7 @@ export class EditEspecialidadeComponent implements OnInit {
     }
 
     const especialidade = {
+      id: this.especialidade.id,
       nome: this.nome,
       preco: this.preco,
       duracaoConsulta: this.duracaoConsulta
