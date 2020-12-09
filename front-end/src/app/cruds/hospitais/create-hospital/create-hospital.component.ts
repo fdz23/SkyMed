@@ -7,6 +7,7 @@ import { CepService } from 'src/app/servicos/cep.service';
 import { HospitalService } from 'src/app/servicos/hospital.service';
 import { MedicoService } from 'src/app/servicos/medico.service';
 import { NgxSpinnerService } from "ngx-spinner";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-hospital',
@@ -19,7 +20,8 @@ export class CreateHospitalComponent implements OnInit {
     private cepService: CepService,
     private hospitalService: HospitalService,
     private medicoService: MedicoService,
-    private spinner: NgxSpinnerService )
+    private spinner: NgxSpinnerService,
+    private router: Router )
     { }
 
   msgs: Message[] = [];
@@ -65,6 +67,14 @@ export class CreateHospitalComponent implements OnInit {
                 }, 500);
                 this.msgs = [];
                 this.msgs.push({ severity: 'success', detail: 'Hospital cadastrado com sucesso!' });
+                if (localStorage.getItem('currentUser') == null) {
+                  setTimeout(() => {
+                    
+                  }, 3000);
+
+                  this.router.navigateByUrl('/autenticacao-conta/'.concat(hospital.pessoa.usuario.email));
+
+                }
               },
               error => {
                 setTimeout(() => {
@@ -99,6 +109,8 @@ export class CreateHospitalComponent implements OnInit {
      || this.rg == null || this.rg === ''
      || this.email == null || this.email === '')
      {
+      this.msgs = [];
+      this.msgs.push({ severity: 'error', detail: 'Precisa preencher todos os campos!' });
       return;
      }
 
