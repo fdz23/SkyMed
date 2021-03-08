@@ -56,25 +56,22 @@
             <input id="email" [(ngModel)]="email" type="text" placeholder="{{email}}" pInputText required>
         </div>
     </div>
+</p-fieldset>
+
+<div class="card-botoes">
     <div class="p-grid">
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
-                (click)="salvar()"></button>
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-success botoes-skymed" label="Salvar" icon="pi pi-check"
+            (click)="salvar()"></button>
         </div>
         <p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000"></p-confirmDialog>
-
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"
-                [routerLink]="['/paciente-listar']"></button>
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-primary botoes-skymed" label="Cancelar" icon="pi pi-times"
+            [routerLink]="['/paciente-listar']"></button>
         </div>
     </div>
-    <ngx-spinner
-    bdColor="rgba(51,51,51,0.8)"
-    size="medium"
-    color="#000000"
-    type="ball-climbing-dot"
-  >
+</div>
+
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
     <p style="font-size: 20px; color: black">Carregando..</p>
-  </ngx-spinner>
-    
-</p-fieldset>
+</ngx-spinner>
