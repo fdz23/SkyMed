@@ -24,20 +24,14 @@
     </div> -->
     <div class="p-grid">
         <div class="p-col-12 p-md-6 p-lg-6">
-            <p-card [style]="{width: '800px', 'margin-bottom': '2em'}" styleClass="p-card-shadow">
+            <p-card styleClass="p-card-shadow">
                 <p-chart type="line" [data]="dataLine" [options]="optionsLine"></p-chart>
             </p-card>
         </div>
         <div class="p-col-12 p-md-6 p-lg-6">
-            <p-card [style]="{width: '800px'}" styleClass="p-card-shadow">
+            <p-card styleClass="p-card-shadow">
                 <p-chart type="pie" [data]="dataPie" [options]="optionsPie"></p-chart>
             </p-card>
-        </div>
-    </div>
-    <div class="p-grid">
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
-                [routerLink]="['/home']"></button>
         </div>
     </div>
 

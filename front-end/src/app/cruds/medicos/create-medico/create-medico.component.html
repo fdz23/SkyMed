@@ -19,18 +19,7 @@
             <label for="registro">Registro</label>
             <input id="registro" [(ngModel)]="registro" type="text" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-1">
-            <label for="tipoDeRegistro">Tipo de Registro</label>
-            <p-autoComplete [(ngModel)]="tipoDeRegistro" [suggestions]="filteredTipoDeRegistros"
-                (completeMethod)="searchTipoDeRegistros($event)" [dropdown]="true" required>
-                <ng-template let-tipoDeRegistro pTemplate="item">
-                    <div class="tipoDeRegistro-item">
-                        <div>{{tipoDeRegistro}}</div>
-                    </div>
-                </ng-template>
-            </p-autoComplete>
-        </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="especialidade">Especialidade</label>
             <p-dropdown [options]="especialidades" [(ngModel)]="especialidadeSelecionada" [filter]="true"
                 optionLabel="nome" required>
@@ -74,18 +63,22 @@
                 required>
         </div>
     </div>
+    
+</p-fieldset>
+
+<div class="card-botoes">
     <div class="p-grid">
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-success botoes-skymed" label="Salvar" icon="pi pi-check"
                 (click)="salvar()"></button>
         </div>
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-danger" label="Cancelar" icon="pi pi-times"
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-danger botoes-skymed" label="Cancelar" icon="pi pi-times"
                 [routerLink]="['/home']"></button>
         </div>
     </div>
-    <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
-        <p style="font-size: 20px; color: white">Carregando..</p>
-    </ngx-spinner>
+</div>
 
-</p-fieldset>
+<ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
+    <p style="font-size: 20px; color: white">Carregando..</p>
+</ngx-spinner>

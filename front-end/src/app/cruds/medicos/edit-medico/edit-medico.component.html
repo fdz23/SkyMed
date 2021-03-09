@@ -7,11 +7,11 @@
         </div>
     </div>
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="cpfcnpj">CPF</label>
             <input id="cpf" [(ngModel)]="cpf" type="text" placeholder="{{cpf}}" [disabled]="true" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-2">
+        <div class="p-field p-col-12 p-md-6 p-lg-3">
             <label for="rg">RG</label>
             <input id="rg" [(ngModel)]="rg" [disabled]="true" type="text" placeholder="{{rg}}" pInputText required>
         </div>
@@ -19,11 +19,7 @@
             <label for="registro">Registro</label>
             <input id="registro" [(ngModel)]="registro" type="text" placeholder="{{registro}}" [disabled]="true" pInputText required>
         </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
-            <label for="tipoDeRegistro">Tipo de registro</label>
-            <input id="tipoDeRegistro" [(ngModel)]="tipoDeRegistro" type="text" placeholder="{{tipoDeRegistro}}" [disabled]="true" pInputText required>
-        </div>
-        <div class="p-field p-col-12 p-md-6 p-lg-3">
+        <div class="p-field p-col-12 p-md-6 p-lg-4">
             <label for="especialidade">Especialidade</label>
             <p-dropdown [options]="especialidades" [(ngModel)]="especialidade" [filter]="true" optionLabel="nome" [disabled]="true" required>
             </p-dropdown>
@@ -69,18 +65,21 @@
             <input id="email" [(ngModel)]="email" type="text" placeholder="{{email}}" pInputText required>
         </div>
     </div>
+</p-fieldset>
+
+<div class="card-botoes">
     <div class="p-grid">
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-success" label="Salvar" icon="pi pi-check"
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-success botoes-skymed" label="Salvar" icon="pi pi-check"
                 (click)="salvar()"></button>
         </div>
-        <div class="p-col-12 p-md-2 p-lg-1">
-            <button pButton type="button" class="p-button-raised p-button-primary" label="Cancelar" icon="pi pi-times"
+        <div class="p-xl-6">
+            <button pButton type="button" class="p-button-raised p-button-primary botoes-skymed" label="Cancelar" icon="pi pi-times"
                 [routerLink]="['/medico-listar']"></button>
         </div>
-  </div>
+    </div>
+</div>
 
-</p-fieldset>
 <ngx-spinner bdColor="rgba(51,51,51,0.8)" size="medium" color="#000000" type="ball-climbing-dot">
     <p style="font-size: 20px; color: black">Carregando..</p>
 </ngx-spinner>

@@ -10,8 +10,40 @@ body {
 
 #bottom-footer {
   position: absolute;
-  left: 0;
-  bottom: 0;
+  left: 0px;
+  bottom: 0px;
   height: 100px;
-  width: 100%;
+  width: 85%;
+  margin-left: 7.5%;
+}
+
+fieldset {
+  margin-top: 7%;
+}
+
+.card {
+  margin-top: 7%;
+  border: solid 1px lightgray;
+}
+
+.card-botoes {
+  padding-left: 79%;
+  padding-right: 1%;
+  padding-top: 1%;
+  padding-bottom: 10px;
+  margin-top: 2%;
+  border: solid 1px lightgray;
+  border-radius: 3px;
+}
+
+  .card-botoes .p-grid {
+    padding-top: 5px;
+  }
+
+  .card-botoes .botoes-skymed {
+    width: 100%;
+  }
+
+.nenhum-resultado {
+  min-height: 500px;
 }
