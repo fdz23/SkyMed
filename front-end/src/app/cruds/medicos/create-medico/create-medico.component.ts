@@ -100,6 +100,7 @@ export class CreateMedicoComponent implements OnInit {
     this.cepService.getEnderecoPeloCep(this.cep)
       .subscribe(
         endereco => {
+          debugger;
           endereco.complemento = this.complemento;
           endereco.numero = this.numero;
 
@@ -155,7 +156,6 @@ export class CreateMedicoComponent implements OnInit {
     if (this.nome == null || this.nome === ''
       || this.cpf == null || this.cpf === ''
       || this.rg == null || this.rg === ''
-      || this.tipoDeRegistro == null || this.tipoDeRegistro === ''
       || this.registro == null || this.rg === ''
       || this.complemento == null || this.complemento === ''
       || this.numero == null

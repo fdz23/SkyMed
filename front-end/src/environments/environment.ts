@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlSkyMed: 'http://127.0.0.1:8080/',
+  urlSkyMed: 'https://skymed-api.herokuapp.com/',
   logado: false
 };
 
