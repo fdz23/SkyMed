@@ -75,6 +75,7 @@ export class AgendamentoComponent implements OnInit {
 
   public obtenhaMedicoPorId(): void {
     this.medicoService.obtenhaMedicoPorId(this.medicoid).subscribe((medico: Medicos) => {
+      debugger;
       this.medico = medico;
       this.events = [];
       const todosDias: any[] = [0, 1, 2, 3, 4, 5, 6];
@@ -92,12 +93,12 @@ export class AgendamentoComponent implements OnInit {
       this.options = {
         plugins: [timeGridPlugin, dayGridPlugin, interactionPlugin],
         initialView: 'timeGridDay',
-        slotMinTime: new Date(medico.horariosTrabalho[0].inicio).toLocaleTimeString(),
-        slotMaxTime: new Date(medico.horariosTrabalho[0].fim).toLocaleTimeString(),
+        slotMinTime: new Date(medico.horariosTrabalho[0].inicio).toLocaleTimeString('pt-BR'),
+        slotMaxTime: new Date(medico.horariosTrabalho[0].fim).toLocaleTimeString('pt-BR'),
         slotEventOverlap: false,
         allDaySlot: false,
         slotDuration: '00:30',
-        slotLabelInterval: new Date(this.medico.especialidade.duracaoConsulta).toLocaleTimeString(),
+        slotLabelInterval: new Date(this.medico.especialidade.duracaoConsulta).toLocaleTimeString('pt-BR'),
         expandRows: true,
         contentHeight: 575,
         headerToolbar: {
@@ -129,8 +130,9 @@ export class AgendamentoComponent implements OnInit {
   }
 
   handleDateClick(arg): void {
+    debugger;
     this.confirmationService.confirm({
-      message: `Tem certeza que deseja criar um agendamento às ${arg.date.toLocaleTimeString()}?`,
+      message: `Tem certeza que deseja criar um agendamento às ${arg.date.toLocaleTimeString('pt-BR')}?`,
       header: 'Confirmação',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
