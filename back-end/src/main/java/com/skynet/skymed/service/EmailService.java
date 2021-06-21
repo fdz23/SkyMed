@@ -42,6 +42,7 @@ public class EmailService implements IEmailService<Pessoa> {
 		personalization.addDynamicTemplateData("Customer_Name", nomeUsuario);
 		personalization.addDynamicTemplateData("Token", tokenUsuario);
 		personalization.addDynamicTemplateData("Senha", senhaUsuario);
+		System.out.print(senhaUsuario + " - " + tokenUsuario);
 
 		mail.addPersonalization(personalization);
 
