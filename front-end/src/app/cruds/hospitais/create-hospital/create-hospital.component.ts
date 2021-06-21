@@ -130,6 +130,7 @@ export class CreateHospitalComponent implements OnInit {
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
+      origemPaciente : "web"
      } as Pessoas;
 
     const hospital = {

@@ -201,8 +201,8 @@ export class AgendamentoComponent implements OnInit {
     return new Date(
       dataClicada.setTime(
         dataClicada.getTime()
-        + this.obtenhaHorasEmMilisegundos(consulta.getHours())
-        + this.obtenhaMinutosEmMilisegundos(consulta.getMinutes())
+        + this.obtenhaHorasEmMilisegundos(consulta.getUTCHours())
+        + this.obtenhaMinutosEmMilisegundos(consulta.getUTCMinutes())
       )
     );
   }

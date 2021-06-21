@@ -181,7 +181,8 @@ export class CreateMedicoComponent implements OnInit {
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
-      telefone: this.celular
+      telefone: this.celular,
+      origemPaciente: "web"
     } as Pessoas;
 
     const horariosTrabalho: HorariosTrabalho[] = [];
