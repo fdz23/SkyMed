@@ -9,4 +9,5 @@ export interface Pessoas {
     endereco: Enderecos;
     telefone: string;
     usuario: Usuarios;
+    origemPaciente : string;
 }

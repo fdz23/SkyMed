@@ -155,7 +155,8 @@ export class CreatePacienteComponent implements OnInit {
       cpf: this.cpf,
       rg: this.rg,
       usuario: usuarios,
-      telefone: this.telefone
+      telefone: this.telefone,
+      origemPaciente: "web"
     } as Pessoas;
 
     this.inserePaciente(paciente);
